@@ -27,7 +27,7 @@ export class CreateUserUseCase {
         dto.name,
         dto.surname,
         dto.email,
-        dto.birthDate,
+        new Date (dto.birthDate),
         dto.password,
     )
 
