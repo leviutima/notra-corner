@@ -7,12 +7,12 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.use(
-    '/api*',
+    '/api',
     basicAuth({
       challenge: true,
       users: {
-        yourUserName: 'levi utima 1808',
-      },
+      'leviutima': 'senhaSegura123',
+    },
     }),
   );
 
