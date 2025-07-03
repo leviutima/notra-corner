@@ -7,6 +7,7 @@ import {
 } from '../repositories/user-repository';
 import { User } from '../domain/user.entity';
 import { randomUUID } from 'crypto';
+import * as bcrypt from 'bcryptjs';
 
 @Injectable()
 export class CreateUserUseCase {
@@ -21,14 +22,16 @@ export class CreateUserUseCase {
     if(verifyUserExist) {
         throw new Error("Usuário já existe com esse email")
     }
-    
+
+    const passwordHashed = await bcrypt.hash(dto.password, 10)
+
     const user = new User(
         randomUUID(),
         dto.name,
         dto.surname,
         dto.email,
         new Date (dto.birthDate),
-        dto.password,
+        passwordHashed
     )
 
     return await this.userRepo.createUser(user)
