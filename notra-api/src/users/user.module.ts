@@ -5,6 +5,7 @@ import { PrismaUserRepository } from './repositories/user-repository-prisma';
 import { USER_REPOSITORY } from './repositories/user-repository';
 import { UserController } from './user.controller';
 import { UpdateUserUseCase } from './use-case/update-user-useCase';
+import { FindAllUseCase } from './use-case/find-all-usecase';
 
 @Module({
   imports: [],
@@ -13,6 +14,7 @@ import { UpdateUserUseCase } from './use-case/update-user-useCase';
     PrismaService,
     CreateUserUseCase,
     UpdateUserUseCase,
+    FindAllUseCase,
     { provide: USER_REPOSITORY, useClass: PrismaUserRepository },
   ],
   exports: [CreateUserUseCase],

@@ -3,10 +3,23 @@ import { User } from '../domain/user.entity';
 import { PrismaService } from 'src/prisma.service';
 import { UserRepository } from './user-repository';
 import { UpdateUserDto } from '../dto/update-user.dto';
+import * as bcrypt from 'bcryptjs';
+
+interface UserResponse {
+  id: string;
+  name: string;
+  surname: string;
+  email: string;
+  birthDate: Date;
+}
 
 @Injectable()
 export class PrismaUserRepository implements UserRepository {
   constructor(private readonly prisma: PrismaService) {}
+
+  async findAll() {
+    return await this.prisma.user.findMany();
+  }
 
   async createUser(user: User): Promise<User> {
     const data = await this.prisma.user.create({
@@ -46,7 +59,7 @@ export class PrismaUserRepository implements UserRepository {
     );
   }
 
-  async updateById(id: string, data: Partial<User>): Promise<User> {
+  async updateById(id: string, data: User): Promise<UserResponse> {
     const updateUser = await this.prisma.user.findUnique({
       where: { id },
     });
@@ -55,18 +68,24 @@ export class PrismaUserRepository implements UserRepository {
       throw new Error('Erro ao buscar usuário');
     }
 
+    let dataToUpdate = { ...data };
+
+    if (data.password) {
+      const hashPasswordUpdate = await bcrypt.hash(data.password, 10);
+      dataToUpdate.password = hashPasswordUpdate;
+    }
+
     const updated = await this.prisma.user.update({
       where: { id },
-      data,
+      data: dataToUpdate,
     });
 
-    return new User(
-      updated.id,
-      updated.name,
-      updated.surname,
-      updated.email,
-      new Date (updated.birthDate),
-      updated.password,
-    );
+    return {
+      id: updated.id,
+      name: updated.name,
+      surname: updated.surname,
+      email: updated.email,
+      birthDate: new Date(updated.birthDate),
+    };
   }
 }
