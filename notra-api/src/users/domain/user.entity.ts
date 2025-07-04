@@ -8,11 +8,11 @@ export class User {
     public password: string,
   ) {}
 
-  updateFullName(newName: string, newSurname: string) {
-    ((this.name = newName), (this.surname = newSurname));
-  }
+  // updateFullName(newName: string, newSurname: string) {
+  //   ((this.name = newName), (this.surname = newSurname));
+  // }
 
-  updateEmail(newEmail: string) {
-    this.email = newEmail;
-  }
+  // updateEmail(newEmail: string) {
+  //   this.email = newEmail;
+  // }
 }
