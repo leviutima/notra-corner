@@ -4,6 +4,7 @@ import { PrismaService } from 'src/prisma.service';
 import { UserRepository } from './user-repository';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import * as bcrypt from 'bcryptjs';
+import { GetUserResponseDto } from '../dto/get-use-response.dto';
 
 interface UserResponse {
   id: string;
@@ -19,6 +20,25 @@ export class PrismaUserRepository implements UserRepository {
 
   async findAll() {
     return await this.prisma.user.findMany();
+  }
+
+  async findUnique(id: string): Promise<User> {
+    const user = await this.prisma.user.findUnique({
+      where: { id },
+    });
+
+    if (!user) {
+      throw new Error('Usuário não encontrado');
+    }
+
+    return new User(
+      user.id,
+      user.name,
+      user.surname,
+      user.email,
+      user.birthDate,
+      user.password,
+    );
   }
 
   async createUser(user: User): Promise<User> {
