@@ -1,6 +1,6 @@
 // user-response.dto.ts
 import { ApiProperty } from '@nestjs/swagger';
-import { User } from 'generated/prisma';
+import { User } from '../domain/user.entity';
 
 export class GetUserResponseDto {
   @ApiProperty()
