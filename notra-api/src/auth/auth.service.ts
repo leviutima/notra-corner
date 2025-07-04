@@ -1,9 +1,13 @@
-import { UserRepository } from 'src/users/repositories/user-repository';
+import { USER_REPOSITORY, UserRepository } from 'src/users/repositories/user-repository';
 import * as bcrypt from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
+import { FindByEmailUseCase } from 'src/users/use-case/find-by-email-usecase';
+import { Inject, Injectable } from '@nestjs/common';
 
+@Injectable()
 export class AuthService {
   constructor(
+    @Inject(USER_REPOSITORY)
     private userRepo: UserRepository,
     private jwtService: JwtService,
   ) {}

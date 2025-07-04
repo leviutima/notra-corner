@@ -7,6 +7,7 @@ import { UserController } from './user.controller';
 import { UpdateUserUseCase } from './use-case/update-user-useCase';
 import { FindAllUseCase } from './use-case/find-all-usecase';
 import { FindUniqueUserUseCase } from './use-case/find-unique-user-usecase';
+import { FindByEmailUseCase } from './use-case/find-by-email-usecase';
 
 @Module({
   imports: [],
@@ -17,8 +18,9 @@ import { FindUniqueUserUseCase } from './use-case/find-unique-user-usecase';
     UpdateUserUseCase,
     FindAllUseCase,
     FindUniqueUserUseCase,
+    FindByEmailUseCase,
     { provide: USER_REPOSITORY, useClass: PrismaUserRepository },
   ],
-  exports: [CreateUserUseCase],
+  exports: [CreateUserUseCase, USER_REPOSITORY, FindByEmailUseCase],
 })
 export class UserModule {}
