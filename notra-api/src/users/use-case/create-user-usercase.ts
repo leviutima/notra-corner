@@ -17,12 +17,6 @@ export class CreateUserUseCase {
   ) {}
 
   async execute(dto: CreateUserDto): Promise<User> {
-    const verifyUserExist = await this.userRepo.findByEmail(dto.email);
-
-    if(verifyUserExist) {
-        throw new Error("Usuário já existe com esse email")
-    }
-
     const passwordHashed = await bcrypt.hash(dto.password, 10)
 
     const user = new User(

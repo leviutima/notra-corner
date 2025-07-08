@@ -1,5 +1,5 @@
 import {
-    BadRequestException,
+  BadRequestException,
   Body,
   Controller,
   Get,
@@ -25,7 +25,7 @@ export class UserController {
     private readonly useCase: CreateUserUseCase,
     private readonly useCaseUpdate: UpdateUserUseCase,
     private readonly useCaseFindAll: FindAllUseCase,
-    private readonly useCaseFindUniqe: FindUniqueUserUseCase
+    private readonly useCaseFindUniqe: FindUniqueUserUseCase,
   ) {}
 
   @Post()
@@ -39,16 +39,16 @@ export class UserController {
   }
 
   @Get(':id')
-@ApiParam({ name: 'id', description: 'ID do usuário' })
-async getUniqueUser(@Param('id') id: string) {
-  if (!id) {
-    throw new BadRequestException('ID do usuário é obrigatório.');
+  @ApiParam({ name: 'id', description: 'ID do usuário' })
+  async getUniqueUser(@Param('id') id: string) {
+    if (!id) {
+      throw new BadRequestException('ID do usuário é obrigatório.');
+    }
+
+    return this.useCaseFindUniqe.execute(id);
   }
 
-  return this.useCaseFindUniqe.execute(id);
-}
-
-//   @UseGuards(JwtAuthGuard)
+  //   @UseGuards(JwtAuthGuard)
   @Put(':id')
   @ApiParam({ name: 'id', description: 'ID do usuário' })
   @ApiBody({ type: UpdateUserDto })

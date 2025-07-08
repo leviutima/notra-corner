@@ -41,7 +41,21 @@ export class PrismaUserRepository implements UserRepository {
     );
   }
 
-  async createUser(user: User): Promise<User> {
+  async createUser(user: User) {
+    if(!user.email) {
+      throw new Error("Email não fornecido")
+    }
+
+    const userExist = await this.prisma.user.findUnique({
+      where: {
+        email: user.email
+      }
+    })
+
+    if(userExist) {
+      throw new Error("Usuário já existe com esse email")
+    }
+
     const data = await this.prisma.user.create({
       data: {
         id: user.id,
@@ -64,7 +78,9 @@ export class PrismaUserRepository implements UserRepository {
 
   async findByEmail(email: string): Promise<User> {
     const findUser = await this.prisma.user.findUnique({
-      where: { email },
+      where: {
+        email: email
+      },
     });
 
     if (!findUser) {

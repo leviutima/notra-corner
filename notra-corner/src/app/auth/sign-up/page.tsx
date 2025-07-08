@@ -39,6 +39,8 @@ export default function SignUp() {
   });
 
   const onSubmit = (data: SignUpFormSchema) => {
+    console.log(data);
+    
     mutate(data);
   };
 

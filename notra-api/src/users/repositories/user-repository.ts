@@ -4,7 +4,7 @@ import { UpdateUserDto } from '../dto/update-user.dto';
 
 export const USER_REPOSITORY = 'USER_REPOSITORY';
 export abstract class UserRepository {
-  abstract createUser(user: User): Promise<User>;
+  abstract createUser(user: User);
   abstract findByEmail(email: string): Promise<User>;
   abstract updateById(id: string, data: Partial<User>);
   abstract findAll();
