@@ -16,6 +16,12 @@ async function bootstrap() {
     }),
   );
 
+  app.enableCors({
+    origin: ['http://localhost:3000'],
+    methods: 'GET, POST, PUT, DELETE',
+    credentials: true
+  })
+
   const config = new DocumentBuilder()
     .setTitle('notra-corner-api')
     .setDescription('Api endpoints')
