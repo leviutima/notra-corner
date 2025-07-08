@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { createUser } from "@/service/user/create-user";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
+import { redirect, useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import z from "zod";
 
@@ -25,6 +26,8 @@ const signUpFormSchema = z.object({
 
 type SignUpFormSchema = z.infer<typeof signUpFormSchema>;
 export default function SignUp() {
+  const router = useRouter()
+
   const {
     register,
     handleSubmit,
@@ -36,6 +39,9 @@ export default function SignUp() {
   const { mutate, isPending } = useMutation({
     mutationKey: ["user"],
     mutationFn: async (data: SignUpFormSchema) => createUser(data),
+    onSuccess: () => {
+      router.push("/auth/sign-in")
+    }
   });
 
   const onSubmit = (data: SignUpFormSchema) => {
