@@ -32,6 +32,8 @@ export default function SignIn() {
     mutationKey: ["login"],
     mutationFn: async (data: LoginFormSchema) => login(data),
     onSuccess: () => {
+        console.log("sucesso");
+        
       toast.success("Sucesso ao logar");
     },
   });
