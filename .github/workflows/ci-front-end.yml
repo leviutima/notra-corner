@@ -1,0 +1,34 @@
+name: CI - Frontend (notra-corner)
+
+on:
+  push:
+    paths:
+      - 'notra-corner/**'
+    branches: [main]
+
+  pull_request:
+    paths:
+      - 'notra-corner/**'
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./notra-corner
+
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Instalar dependências
+        run: npm install
+
+      - name: Build do Next.js
+        run: npm run build
