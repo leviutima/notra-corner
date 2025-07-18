@@ -9,7 +9,7 @@ export default function AuthLayout({
         <h1 className="font-medium text-[40px]">Seja Bem Vindo</h1>
         <span className="text-neutral-400">Crie sua conta para começar</span>
       </div>
-      <main className="w-full max-w-md p-6 bg-white rounded shadow">
+      <main className="w-full max-w-md p-6 bg-white rounded shadow border border-neutral-300">
         {children}
       </main>
     </div>

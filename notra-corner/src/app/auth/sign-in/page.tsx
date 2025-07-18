@@ -4,9 +4,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { login } from "@/service/auth/login";
+import { loginRequest } from "@/store/auth/actions/action";
+import { AppDispatch, RootState } from "@/store/store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "sonner";
 import z from "zod";
 
@@ -20,6 +24,10 @@ const loginFormSchema = z.object({
 
 type LoginFormSchema = z.infer<typeof loginFormSchema>;
 export default function SignIn() {
+  const dispatch = useDispatch<AppDispatch>();
+  const router = useRouter()
+  const { loading, error, user } = useSelector((state: RootState) => state.auth);
+
   const {
     register,
     handleSubmit,
@@ -28,23 +36,16 @@ export default function SignIn() {
     resolver: zodResolver(loginFormSchema),
   });
 
-  const { mutate, isPending } = useMutation({
-    mutationKey: ["login"],
-    mutationFn: async (data: LoginFormSchema) => login(data),
-    onSuccess: () => {
-        console.log("sucesso");
-        
-      toast.success("Sucesso ao logar");
-    },
-  });
 
-  const onSubmit = (data: LoginFormSchema) => {
-    mutate(data);
-  };
+  const handleLogin = async(data: LoginFormSchema) => {
+    console.log(`[Login] handleLogin chamado com: `, data);
+    toast.loading("Carregando...")
+    dispatch(loginRequest(data))
+  }
 
   return (
     <div>
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
+      <form onSubmit={handleSubmit(handleLogin)} className="flex flex-col gap-5">
         <div>
           <Label>Email</Label>
           <Input
@@ -61,9 +62,12 @@ export default function SignIn() {
             placeholder="Digite sua senha"
           />
         </div>
-        <Button disabled={isPending} className="w-full" type="submit">
-          {isPending ? "Carregando..." : "Entrar"}
+        <Button disabled={loading} className="w-full" type="submit">
+          {loading ? "Carregando..." : "Entrar"}
         </Button>
+        {error && (
+          <span>Erro ao realizar login</span>
+        )}
       </form>
     </div>
   );
