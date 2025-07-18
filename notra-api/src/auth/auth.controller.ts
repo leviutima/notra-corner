@@ -1,15 +1,30 @@
-import { Body, Controller, Post, Res } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Request,
+  Res,
+  UnauthorizedException,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
-import { Response } from 'express';
-import { ApiTags } from '@nestjs/swagger';
+import { Response, Request as ExpressRequest } from 'express';
+import {
+  ApiCookieAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+import { JwtAuthGuard } from './jwt.auth.guards';
 
-@ApiTags("Auth")
-@Controller("auth")
+@ApiTags('Auth')
+@Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Post("login")
+  @Post('login')
   async login(
     @Body() dto: LoginDto,
     @Res({ passthrough: true }) res: Response,
@@ -23,5 +38,35 @@ export class AuthController {
       maxAge: 1000 * 60 * 60 * 24,
     });
     return { message: 'Login realizado com sucesso' };
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @ApiCookieAuth()
+  @Get()
+  @ApiOperation({
+    summary: 'Retorna os dados do usuário do usuário autenticado',
+  })
+  @ApiResponse({ status: 401, description: 'Não autorizado' })
+  async meUser(
+    @Request() req: ExpressRequest & { user: { id: string; email: string } },
+  ) {
+
+    const { id } = req.user
+    const user = await this.authService.getUserById(id)
+
+    if(!user) {
+      throw new UnauthorizedException("Usuário não encontrado")
+    }
+
+    const authenticatedUser = await this.authService.getUserById(id)
+
+    return {
+      id: authenticatedUser?.id,
+      name: authenticatedUser?.name,
+      surname: authenticatedUser?.surname,
+      email: authenticatedUser?.email,
+      birthDate: authenticatedUser?.birthDate
+    }
+
   }
 }

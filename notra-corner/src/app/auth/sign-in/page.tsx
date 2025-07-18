@@ -45,14 +45,16 @@ export default function SignIn() {
     console.log(`[Login] handleLogin chamado com: `, data);
     toast.loading("Carregando...");
     dispatch(loginRequest(data));
+    console.log("usuario:", user);
+    
   };
 
-  useEffect(() => {
-    if (!user?.id) {
-      toast.dismiss();
-      router.push(`/home/${user?.id}`);
-    }
-  }, [user, router]);
+useEffect(() => {
+  if (user?.id) {
+    toast.dismiss();
+    router.push(`/home/${user.id}`);
+  }
+}, [user, router]);
 
   return (
     <div>

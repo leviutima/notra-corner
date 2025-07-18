@@ -29,4 +29,8 @@ export class AuthService {
 
     return { access_token };
   }
+
+  async getUserById(id: string) {
+    return this.userRepo.findUnique(id)
+  }
 }
