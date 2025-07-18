@@ -1,13 +1,10 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { login } from "@/service/auth/login";
 import { loginRequest } from "@/store/auth/actions/action";
 import { AppDispatch, RootState } from "@/store/store";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
 import { Eye, EyeClosed } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -42,19 +39,15 @@ export default function SignIn() {
   });
 
   const handleLogin = async (data: LoginFormSchema) => {
-    console.log(`[Login] handleLogin chamado com: `, data);
-    toast.loading("Carregando...");
     dispatch(loginRequest(data));
-    console.log("usuario:", user);
-    
+    console.log(user);
   };
 
-useEffect(() => {
-  if (user?.id) {
-    toast.dismiss();
-    router.push(`/home/${user.id}`);
-  }
-}, [user, router]);
+  useEffect(() => {
+    if (user && user.id) {
+      router.push(`/home/${user.id}`);
+    }
+  }, [user?.id]);
 
   return (
     <div>
@@ -108,7 +101,9 @@ useEffect(() => {
         >
           {loading ? "Carregando..." : "Entrar"}
         </Button>
-        {error && <span>Erro ao realizar login</span>}
+        {error && (
+          <span className="text-red-600">Email ou senha incorretos</span>
+        )}
       </form>
     </div>
   );

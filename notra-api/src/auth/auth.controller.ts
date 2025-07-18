@@ -42,7 +42,7 @@ export class AuthController {
 
   @UseGuards(JwtAuthGuard)
   @ApiCookieAuth()
-  @Get()
+  @Get("me")
   @ApiOperation({
     summary: 'Retorna os dados do usuário do usuário autenticado',
   })
