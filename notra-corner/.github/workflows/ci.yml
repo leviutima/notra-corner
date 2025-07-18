@@ -27,3 +27,8 @@ jobs:
 
       - name: Instalar dependências
         run: npm install
+
+      - name: Rodar testes
+        run: |
+          echo "Iniciando testes..."
+          npm test
