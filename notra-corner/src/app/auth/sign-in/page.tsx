@@ -2,46 +2,21 @@
 
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { loginRequest } from "@/store/auth/actions/action";
-import { AppDispatch, RootState } from "@/store/store";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useLoginForm } from "@/hooks/form-login";
+import { RootState } from "@/store/store";
 import { Eye, EyeClosed } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-import { toast } from "sonner";
-import z from "zod";
+import { useSelector } from "react-redux";
 
-const loginFormSchema = z.object({
-  email: z
-    .string()
-    .email("Insira um email válido")
-    .nonempty("Email é obrigatório"),
-  password: z.string().nonempty("Senha é obrigatória"),
-});
-
-type LoginFormSchema = z.infer<typeof loginFormSchema>;
 export default function SignIn() {
-  const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
   const { loading, error, user } = useSelector(
     (state: RootState) => state.auth
   );
   const [showPassword, setShowPassword] = useState(false);
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<LoginFormSchema>({
-    resolver: zodResolver(loginFormSchema),
-  });
-
-  const handleLogin = async (data: LoginFormSchema) => {
-    dispatch(loginRequest(data));
-    console.log(user);
-  };
+  const {form, onSubmit} = useLoginForm()
+  const {register, handleSubmit, formState} = form
 
   useEffect(() => {
     if (user && user.id) {
@@ -52,7 +27,7 @@ export default function SignIn() {
   return (
     <div>
       <form
-        onSubmit={handleSubmit(handleLogin)}
+        onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col gap-5"
       >
         <div className=" flex-col gap-1 flex">
