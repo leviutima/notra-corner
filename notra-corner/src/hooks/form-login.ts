@@ -16,7 +16,7 @@ const loginFormSchema = z.object({
 type LoginFormSchema = z.infer<typeof loginFormSchema>;
 export function useLoginForm() {
   const dispacth = useDispatch<AppDispatch>();
-  const form = useForm<LoginFormSchema>({
+  const formLogin = useForm<LoginFormSchema>({
     resolver: zodResolver(loginFormSchema),
   });
 
@@ -24,5 +24,5 @@ export function useLoginForm() {
     dispacth(loginRequest(data));
   };
 
-  return { form, onSubmit };
+  return { formLogin, onSubmit };
 }

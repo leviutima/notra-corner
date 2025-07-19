@@ -15,8 +15,8 @@ export default function SignIn() {
     (state: RootState) => state.auth
   );
   const [showPassword, setShowPassword] = useState(false);
-  const {form, onSubmit} = useLoginForm()
-  const {register, handleSubmit, formState} = form
+  const {formLogin, onSubmit} = useLoginForm()
+  const {register, handleSubmit, formState} = formLogin
 
   useEffect(() => {
     if (user && user.id) {
