@@ -8,6 +8,10 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator erd {
+  provider = "prisma-erd-generator"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -21,4 +25,36 @@ model User {
   password  String
   birthDate DateTime @db.Date
   createdAt DateTime @default(now())
+
+  column Column[]
+}
+
+model Column {
+  id    String @id
+  title String
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  activities Activitie[]
+}
+
+model Activitie {
+  id          String @id @default(uuid())
+  title       String
+  description String
+
+  column   Column @relation(fields: [columnId], references: [id])
+  columnId String
+
+  checkListId CheckList[]
+}
+
+model CheckList {
+  id String @id 
+  title String
+  finished Boolean
+  
+  activitie Activitie @relation(fields: [activitieId], references: [id])
+  activitieId String
 }

@@ -1,0 +1,19 @@
+name: CI - Backend (notra-api)
+
+on:
+  push:
+    paths:
+      - "notra-api/**"
+    branches: [main]
+
+  pull_request:
+    paths:
+      - "notra-api/**"
+
+jobs:
+  test: 
+    runs-on: runs-on ubuntu-latest
+    defaults: 
+      run: 
+        working-directory: ./notra-api
+
