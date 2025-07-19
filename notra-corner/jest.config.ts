@@ -10,11 +10,6 @@ const config: Config = {
    transformIgnorePatterns: [
     '/node_modules/(?!(synckit|@pkgr)/)', 
   ],
-  // Opcional, caso use ts-jest:
-  // preset: 'ts-jest',
-  // transform: {
-  //   '^.+\\.(ts|tsx)$': 'ts-jest',
-  // },
 }
 
 export default createJestConfig(config)

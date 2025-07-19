@@ -29,6 +29,9 @@ jobs:
 
       - name: Instalar dependências
         run: npm install
+        
+      - name: "Testes integrados"
+        run: npm run test:coverage
 
       - name: Build do Next.js
         run: npm run build
