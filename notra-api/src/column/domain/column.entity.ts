@@ -1,6 +1,6 @@
 export class Column {
   constructor(
-    public readonly id: string,
+    public readonly id: number,
     public title: string
   ) {}
 }

@@ -21,20 +21,20 @@ const signUpFormSchema = z.object({
 
 type SignUpFormSchema = z.infer<typeof signUpFormSchema>;
 export function useSignUp() {
-    const router = useRouter()
+  const router = useRouter();
   const formSignUp = useForm<SignUpFormSchema>({
     resolver: zodResolver(signUpFormSchema),
   });
 
-  const {mutate, isPending} = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: async (data: SignUpFormSchema) => createUser(data),
-    mutationKey: ['user']
+    mutationKey: ["user"],
   });
 
-  const onSubmit = async(data: SignUpFormSchema) => {
-    mutate(data)
-    router.push("/auth/sign-in")
-  }
+  const onSubmit = async (data: SignUpFormSchema) => {
+    mutate(data);
+    router.push("/auth/sign-in");
+  };
 
-  return{formSignUp, isPending, onSubmit}
+  return { formSignUp, isPending, onSubmit };
 }

@@ -4,9 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useSignUp } from "@/hooks/form-sign-up";
-import { createUser } from "@/service/user/create-user";
-import { useMutation } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
 
 export default function SignUp() {
   const {formSignUp, isPending, onSubmit} = useSignUp()
