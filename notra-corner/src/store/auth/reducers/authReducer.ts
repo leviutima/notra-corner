@@ -1,4 +1,7 @@
 import {
+  CHECK_AUTH_FAILURE,
+  CHECK_AUTH_REQUEST,
+  CHECK_AUTH_SUCCESS,
   LOGIN_FAILURE,
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
@@ -34,7 +37,12 @@ export const authReducer = (state = initialState, action: any): AuthState => {
         error: null,
         loading: false,
       };
-
+    case CHECK_AUTH_REQUEST:
+      return { ...state, loading: true };
+    case CHECK_AUTH_SUCCESS:
+      return { ...state, loading: false, user: action.payload };
+    case CHECK_AUTH_FAILURE:
+      return { ...state, loading: false, user: null };
     default:
       return state;
   }
