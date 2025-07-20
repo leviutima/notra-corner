@@ -2,7 +2,6 @@ import { api } from "../api";
 
 interface columnProps {
   title: string,
-  userId: string
 }
 
 export const createColumn = async(data: columnProps) => {

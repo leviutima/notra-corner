@@ -35,6 +35,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
           dark: "dark",
         }}
       >
+        <Toaster richColors closeButton expand={false} className="w-[20vw]"/> 
         <QueryClientProvider client={queryClient}>
           <Toaster richColors closeButton expand={false} className="w-[20vw]" />
           <AuthChecker>{children}</AuthChecker>
