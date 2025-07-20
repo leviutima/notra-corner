@@ -17,4 +17,14 @@ export class PrismaColumnRepository implements ColumnRepository {
 
     return new Column(data.id, data.title, data.userId);
   }
+
+  async getColumnsByUserId(userId: string): Promise<Column[]> {
+    const columns = await this.prisma.column.findMany({
+      where: { userId }
+    })
+
+    return columns.map(
+      (column) => new Column(column.id, column.title, column.userId)
+    )
+  }
 }

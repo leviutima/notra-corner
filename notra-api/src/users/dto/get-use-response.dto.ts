@@ -1,4 +1,3 @@
-// user-response.dto.ts
 import { ApiProperty } from '@nestjs/swagger';
 import { User } from '../domain/user.entity';
 
