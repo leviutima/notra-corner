@@ -10,8 +10,8 @@ import { CreateColumnUseCase } from './use-case/create-column-usecase';
 import { CreateColumnDto } from './dto/create-column.dto';
 import { GetColumnByUserUseCase } from './use-case/get-column-by-user-usecase';
 
-@ApiTags('Column')
-@Controller('Column')
+@ApiTags('column')
+@Controller('column')
 export class ColumnController {
   constructor(
     private readonly useCaseCreate: CreateColumnUseCase,
