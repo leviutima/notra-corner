@@ -8,7 +8,7 @@ export function MenuItem({ title, active = false }: MenuItemProps) {
     <div
       className={
         active
-          ? "bg-neutral-700 p-1 rounded-md flex items-start justify-cstart w-[12vw]"
+          ? "bg-neutral-700 py-1 px-2 rounded-md flex items-start justify-cstart w-[12vw]"
           : "text-white"
       }
     >

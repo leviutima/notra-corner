@@ -18,7 +18,7 @@ export function CardActivitie({ columnId }: cardActivitieProps) {
 
   const {
     data: activities,
-    isLoading,
+    // isLoading,
     error,
   } = useQuery({
     queryKey: ["activities", columnId],
@@ -26,7 +26,6 @@ export function CardActivitie({ columnId }: cardActivitieProps) {
     staleTime: 1000 * 60 * 5,
   });
 
-  if (isLoading) return <div className="p-2">Carregando...</div>;
   if (error) return <div className="p-2 text-red-500">Erro ao carregar</div>;
   if (!activities || activities.length === 0) return null;
 
