@@ -13,28 +13,29 @@ const createColumnFormSchema = z.object({
 
 type CreateColumnFormSchema = z.infer<typeof createColumnFormSchema>;
 export function useColumn() {
-  const {user }= useSelector((state: RootState) => state.auth)
+  const { user } = useSelector((state: RootState) => state.auth);
   const form = useForm<CreateColumnFormSchema>({
     resolver: zodResolver(createColumnFormSchema),
   });
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
 
   const { mutate, isPending } = useMutation({
-    mutationFn: async (data: CreateColumnFormSchema) => createColumn(data),
-    mutationKey: ['column'],
+    mutationFn: async (payload: CreateColumnFormSchema & { userId: string }) =>
+      createColumn(payload),
+    mutationKey: ["column"],
     onSuccess: () => {
-      toast.success("Sucesso ao criar coluna")
-      queryClient.invalidateQueries({queryKey: ['column']})
-    }
+      toast.success("Sucesso ao criar coluna");
+      queryClient.invalidateQueries({ queryKey: ["column"] });
+    },
   });
 
   const onSubmit = (data: CreateColumnFormSchema) => {
     const payload = {
       ...data,
-      userId: user.id
-    }
-    mutate(payload)
-  }
+      userId: user.id,
+    };
+    mutate(payload);
+  };
 
-  return{onSubmit, form, isPending}
+  return { onSubmit, form, isPending };
 }

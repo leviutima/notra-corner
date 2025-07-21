@@ -1,13 +1,14 @@
 import { getColumnByUser } from "@/service/column/get-column";
 import { RootState } from "@/store/store";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Ellipsis, Plus } from "lucide-react";
 import { useSelector } from "react-redux";
 import { ModalCreateActivitie } from "./modal-create-activitie";
+import { useEffect } from "react";
 
 export function Columns() {
   const { user } = useSelector((state: RootState) => state.auth);
-
+  const queryClient = useQueryClient();
   const {
     data: columns,
     isLoading,
@@ -18,8 +19,9 @@ export function Columns() {
     enabled: !!user?.id,
   });
 
-  console.log(columns);
-  
+  useEffect(() => {
+    queryClient.invalidateQueries({ queryKey: ["column"] });
+  }, []);
 
   if (isLoading) return <p>Carregando colunas...</p>;
 
@@ -34,11 +36,11 @@ export function Columns() {
           key={column.id}
           className="bg-neutral-800 w-[15vw] flex flex-col gap-2 p-3 rounded-md"
         >
-          <div className="flex  justify-between" >
+          <div className="flex  justify-between">
             <h1>{column.title}</h1>
             <Ellipsis size={20} />
           </div>
-          <ModalCreateActivitie columnId={column.id}/>
+          <ModalCreateActivitie columnId={column.id} />
         </div>
       ))}
     </div>

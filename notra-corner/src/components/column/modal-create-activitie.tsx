@@ -25,7 +25,7 @@ export function ModalCreateActivitie({ columnId }: ModalCreateActivitieProps) {
           </div>
         </div>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="bg-neutral-800">
         <DialogTitle>Criar atividade</DialogTitle>
         <FormCreateActivite columnId={columnId}/>
       </DialogContent>

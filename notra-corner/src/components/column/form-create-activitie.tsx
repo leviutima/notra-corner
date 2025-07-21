@@ -26,7 +26,7 @@ export function FormCreateActivite({ columnId }: FormCreateActiviteProps) {
         <Label>Descrição</Label>
         <Input {...register("description")} />
       </div>
-      <Button>{isPending ? "Carregando..." : "Criar atividade"}</Button>
+      <Button className="cursor-pointer">{isPending ? "Carregando..." : "Criar atividade"}</Button>
     </form>
   );
 }
