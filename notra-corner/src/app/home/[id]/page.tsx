@@ -1,7 +1,7 @@
 "use client";
 
 import { Columns } from "@/components/column/__columns";
-import { CreateColumn } from "@/components/column/__modal-create-column";
+import { CreateColumn } from "@/components/column/modal-create-column";
 
 export default function Home() {
   return (

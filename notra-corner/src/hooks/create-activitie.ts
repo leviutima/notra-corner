@@ -18,10 +18,11 @@ export function useCreateActivitie(columnId: number) {
   });
 
   const { mutate, isPending } = useMutation({
+    mutationKey: ["activities"],
     mutationFn: async (data: CreateActivieFormSchema) => createActivitie(data),
     onSuccess: () => {
       toast.success("Sucesso ao criar atividade")
-      queryClient.invalidateQueries({queryKey: ["activitie"]})
+      queryClient.invalidateQueries({queryKey:["activities", columnId]})
     },
     onError: () => {
       toast.error("erro")

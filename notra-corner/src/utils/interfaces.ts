@@ -7,3 +7,17 @@ export interface UserProps {
   birthDate: Date;
   createdAt: Date;
 }
+
+export interface ColumnProps {
+  id: number,
+  title: string,
+  userId: string
+  activities: ActivitieProps[]
+}
+
+export interface ActivitieProps {
+  id: string,
+  title: string,
+  description: string,
+  columnId: number
+}

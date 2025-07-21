@@ -10,11 +10,11 @@ export class GetColumnByUserUseCase {
 
   async execute(userId: string) {
     const columns = await this.columnRepo.getColumnsByUserId(userId);
-
     return columns.map((column) => ({
       id: column.getId(),
       title: column.getTitle(),
       userId: column.getUserId(),
+      activities: column.getActivities()
     }));
   }
 }

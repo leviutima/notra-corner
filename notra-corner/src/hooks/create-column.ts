@@ -24,8 +24,8 @@ export function useColumn() {
       createColumn(payload),
     mutationKey: ["column"],
     onSuccess: () => {
-      toast.success("Sucesso ao criar coluna");
       queryClient.invalidateQueries({ queryKey: ["column"] });
+      toast.success("Sucesso ao criar coluna");
     },
   });
 

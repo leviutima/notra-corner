@@ -5,6 +5,8 @@ import { Ellipsis, Plus } from "lucide-react";
 import { useSelector } from "react-redux";
 import { ModalCreateActivitie } from "./modal-create-activitie";
 import { useEffect } from "react";
+import { CardActivitie } from "./__card-activitie";
+import { ColumnProps } from "@/utils/interfaces";
 
 export function Columns() {
   const { user } = useSelector((state: RootState) => state.auth);
@@ -19,9 +21,6 @@ export function Columns() {
     enabled: !!user?.id,
   });
 
-  useEffect(() => {
-    queryClient.invalidateQueries({ queryKey: ["column"] });
-  }, []);
 
   if (isLoading) return <p>Carregando colunas...</p>;
 
@@ -30,8 +29,8 @@ export function Columns() {
   if (!columns || columns.length === 0) return null;
 
   return (
-    <div className="flex gap-5">
-      {columns.map((column: any) => (
+    <div className="flex gap-5 items-start">
+      {columns.map((column: ColumnProps) => (
         <div
           key={column.id}
           className="bg-neutral-800 w-[15vw] flex flex-col gap-2 p-3 rounded-md"
@@ -40,6 +39,7 @@ export function Columns() {
             <h1>{column.title}</h1>
             <Ellipsis size={20} />
           </div>
+            <CardActivitie columnId={column.id} />
           <ModalCreateActivitie columnId={column.id} />
         </div>
       ))}

@@ -2,6 +2,7 @@ import { PrismaService } from 'src/prisma.service';
 import { ColumnRepository } from './column-respository';
 import { Injectable } from '@nestjs/common';
 import { Column } from '../domain/column.entity';
+import { Activitie } from 'src/activitie/domain/activitie.entity';
 
 @Injectable()
 export class PrismaColumnRepository implements ColumnRepository {
@@ -20,11 +21,18 @@ export class PrismaColumnRepository implements ColumnRepository {
 
   async getColumnsByUserId(userId: string): Promise<Column[]> {
     const columns = await this.prisma.column.findMany({
-      where: { userId }
-    })
+      where: { userId },
+      include: {
+        activities: true,
+      },
+    });
 
-    return columns.map(
-      (column) => new Column(column.id, column.title, column.userId)
-    )
+    return columns.map((column) => {
+      const activities = column.activities.map(
+        (a) => new Activitie(a.id, a.title, a.description, a.columnId),
+      );
+
+      return new Column(column.id, column.title, column.userId, activities);
+    });
   }
 }

@@ -1,9 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Column } from '@prisma/client';
+import { IsArray } from 'class-validator';
+import { Activitie } from 'src/activitie/domain/activitie.entity';
+import { Column } from '../domain/column.entity';
 
 export class GetColumnResponseDto {
   @ApiProperty()
-  id: number;
+  id: number | null;
 
   @ApiProperty()
   title: string;
@@ -11,9 +13,14 @@ export class GetColumnResponseDto {
   @ApiProperty()
   userId: string;
 
+  @ApiProperty()
+  @IsArray()
+  activities: Activitie[]
+
   constructor(column: Column) {
-    this.id = column.id;
-    this.title = column.title;
-    this.userId = column.userId
+    this.id = column.getId();
+    this.title = column.getTitle();
+    this.userId = column.getUserId()
+    this.activities = column.getActivities()
   }
 }

@@ -1,12 +1,8 @@
 import { api } from "../api";
 
-interface columnProps {
-  title: string,
-}
-
-export const createColumn = async(data: columnProps) => {
+export const getActivitieByColumn = async(columnId: number) => {
   try{
-    const res = await api.post(`/column`, data)
+    const res = await api.get(`/activitie/${columnId}`)
     return res.data
   }catch(err: any) {
     console.log(err);
