@@ -10,8 +10,8 @@ export class PrismaColumnRepository implements ColumnRepository {
   async createColumn(column: Column) {
     const data = await this.prisma.column.create({
       data: {
-        title: column.title,
-        userId: column.userId,
+        title: column.getTitle(),
+        userId: column.getUserId(),
       },
     });
 

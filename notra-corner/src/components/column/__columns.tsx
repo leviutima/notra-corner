@@ -18,6 +18,9 @@ export function Columns() {
     enabled: !!user?.id,
   });
 
+  console.log(columns);
+  
+
   if (isLoading) return <p>Carregando colunas...</p>;
 
   if (error) return <p className="text-red-600">Erro ao buscar colunas.</p>;
@@ -31,11 +34,11 @@ export function Columns() {
           key={column.id}
           className="bg-neutral-800 w-[15vw] flex flex-col gap-2 p-3 rounded-md"
         >
-          <div className="flex  justify-between">
+          <div className="flex  justify-between" >
             <h1>{column.title}</h1>
             <Ellipsis size={20} />
           </div>
-          <ModalCreateActivitie />
+          <ModalCreateActivitie columnId={column.id}/>
         </div>
       ))}
     </div>

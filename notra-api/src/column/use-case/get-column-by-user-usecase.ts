@@ -12,9 +12,9 @@ export class GetColumnByUserUseCase {
     const columns = await this.columnRepo.getColumnsByUserId(userId);
 
     return columns.map((column) => ({
-      id: column.id,
-      title: column.title,
-      userId: column.userId,
+      id: column.getId(),
+      title: column.getTitle(),
+      userId: column.getUserId(),
     }));
   }
 }

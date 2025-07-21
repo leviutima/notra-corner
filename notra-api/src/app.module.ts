@@ -4,6 +4,7 @@ import { UserModule } from './users/user.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { ColumnModule } from './column/column.module';
+import { ActivitieModule } from './activitie/activitie.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { ColumnModule } from './column/column.module';
     UserModule,
     ColumnModule,
     AuthModule,
+    ActivitieModule
   ],
   controllers: [],
   providers: [PrismaService],

@@ -7,8 +7,13 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Plus } from "lucide-react";
+import { FormCreateActivite } from "./form-create-activitie";
 
-export function ModalCreateActivitie() {
+interface ModalCreateActivitieProps {
+  columnId: number;
+}
+
+export function ModalCreateActivitie({ columnId }: ModalCreateActivitieProps) {
   return (
     <Dialog>
       <DialogTrigger>
@@ -21,13 +26,8 @@ export function ModalCreateActivitie() {
         </div>
       </DialogTrigger>
       <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Are you absolutely sure?</DialogTitle>
-          <DialogDescription>
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
-          </DialogDescription>
-        </DialogHeader>
+        <DialogTitle>Criar atividade</DialogTitle>
+        <FormCreateActivite columnId={columnId}/>
       </DialogContent>
     </Dialog>
   );
