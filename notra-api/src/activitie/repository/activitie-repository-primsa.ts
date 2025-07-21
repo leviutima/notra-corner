@@ -18,6 +18,16 @@ export class PrismaActivitieRepository implements ActivitieRepository {
         column: true, 
       },
     });
-    return new Activitie( data.title, data.description, data.columnId);
+    return new Activitie( data.id ,data.title, data.description, data.columnId);
+  }
+
+  async getActivitie(columnId: number) {
+    const activities = await this.prisma.activitie.findMany({
+    where: {
+      columnId
+    },
+  });
+
+    return activities
   }
 }

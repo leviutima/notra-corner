@@ -2,11 +2,16 @@ import { CheckList } from "src/checklits/domain/checklits.entity";
 
 export class Activitie {
   constructor(
+    private readonly id: string,
     private title: string,
     private description: string,
     private columnId: number,
     private checkLists?: CheckList[]
   ) {}
+
+    public getId(): string {
+    return this.id;
+  }
 
   public getTitle(): string {
     return this.title;

@@ -12,6 +12,7 @@ export class CreateActivitieUseCase {
 
   async execute(dto: CreateActivitieDto) {
     const activitie = new Activitie(
+      dto.id,
       dto.title,
       dto.description,
       Number(dto.columnId),

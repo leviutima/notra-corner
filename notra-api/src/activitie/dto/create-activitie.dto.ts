@@ -3,6 +3,10 @@ import { IsArray, IsString, IsUUID } from 'class-validator';
 import { CheckList } from 'src/checklits/domain/checklits.entity';
 
 export class CreateActivitieDto {
+  @ApiProperty({description: 'Id da atividade'})
+  @IsUUID()
+  id: string
+
   @ApiProperty({ description: 'Titulo da atividade' })
   @IsString()
   title: string;
