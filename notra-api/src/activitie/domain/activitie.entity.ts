@@ -4,12 +4,13 @@ export class Activitie {
   constructor(
     private readonly id: string,
     private title: string,
-    private description: string,
+    private description: string | null,
     private columnId: number,
-    private checkLists?: CheckList[]
+    private checkLists?: CheckList[],
+    private finished?: boolean
   ) {}
 
-    public getId(): string {
+  public getId(): string {
     return this.id;
   }
 
@@ -17,7 +18,7 @@ export class Activitie {
     return this.title;
   }
 
-  public getDescription(): string {
+  public getDescription(): string | null {
     return this.description;
   }
 
@@ -27,6 +28,10 @@ export class Activitie {
 
   public getCheckLists(): CheckList[] | undefined {
     return this.checkLists;
+  }
+
+  public getFinished(): boolean | undefined{
+    return this.finished;
   }
 
   public setTitle(title: string): void {
@@ -43,5 +48,9 @@ export class Activitie {
 
   public setCheckLists(checkLists: CheckList[]): void {
     this.checkLists = checkLists;
+  }
+
+  public setFinished(finished: boolean): void {
+    this.finished = finished;
   }
 }

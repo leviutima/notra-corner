@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+  Put,
+} from '@nestjs/common';
 import {
   ApiBody,
   ApiOperation,
@@ -9,6 +17,8 @@ import {
 import { CreateColumnUseCase } from './use-case/create-column-usecase';
 import { CreateColumnDto } from './dto/create-column.dto';
 import { GetColumnByUserUseCase } from './use-case/get-column-by-user-usecase';
+import { UpdateColumnDto } from './dto/update-column.dto';
+import { UpdateColumnUseCase } from './use-case/update-column-usecase.dto';
 
 @ApiTags('column')
 @Controller('column')
@@ -16,6 +26,7 @@ export class ColumnController {
   constructor(
     private readonly useCaseCreate: CreateColumnUseCase,
     private readonly useCaseGetColumnByUser: GetColumnByUserUseCase,
+    private readonly useCaseUpdateColumn: UpdateColumnUseCase,
   ) {}
 
   @ApiOperation({ summary: 'Criar nova coluna' })
@@ -32,5 +43,14 @@ export class ColumnController {
   @Get('/user/:id')
   async getColumnByUser(@Param('id') userId: string) {
     return await this.useCaseGetColumnByUser.execute(userId);
+  }
+
+  @Put('/:id')
+  @ApiParam({ name: 'id', type: String, description: 'ID da coluna' })
+  async updateColumn(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() dto: UpdateColumnDto,
+  ) {
+    return await this.useCaseUpdateColumn.execute(id, dto);
   }
 }

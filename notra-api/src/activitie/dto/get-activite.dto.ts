@@ -14,7 +14,7 @@ export class GetActivitieDto {
 
   @ApiProperty()
   @IsString()
-  description: string;
+  description: string | null;
 
   @ApiProperty()
   @IsInt()

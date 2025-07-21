@@ -3,6 +3,7 @@ import { ColumnRepository } from './column-respository';
 import { Injectable } from '@nestjs/common';
 import { Column } from '../domain/column.entity';
 import { Activitie } from 'src/activitie/domain/activitie.entity';
+import { UpdateColumnDto } from '../dto/update-column.dto';
 
 @Injectable()
 export class PrismaColumnRepository implements ColumnRepository {
@@ -34,5 +35,17 @@ export class PrismaColumnRepository implements ColumnRepository {
 
       return new Column(column.id, column.title, column.userId, activities);
     });
+  }
+
+  async updateColumn(id: number , column: UpdateColumnDto) {
+    const updatedColumn = await this.prisma.column.update({
+      where: {
+        id: id
+      },
+      data: {
+        title: column.title
+      }
+    })
+    return new Column(updatedColumn.id, updatedColumn.title, updatedColumn.userId);
   }
 }

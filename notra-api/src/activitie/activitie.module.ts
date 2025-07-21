@@ -5,6 +5,7 @@ import { ActivitieController } from "./activite.controller";
 import { PrismaActivitieRepository } from "./repository/activitie-repository-primsa";
 import { ACTIVITIE_REPOSITORY } from "./repository/activitie-repository";
 import { GetActivitieUseCase } from "./use-case/get-activitie-usecase";
+import { UpdateColumnUseCase } from "src/column/use-case/update-column-usecase.dto";
 
 
 @Module({

@@ -13,6 +13,7 @@ export class PrismaActivitieRepository implements ActivitieRepository {
         title: activitie.getTitle(),
         description: activitie.getDescription(),
         columnId: activitie.getColumnId(),
+        finished: activitie.getFinished() ?? false,
       },
       include: {
         column: true, 

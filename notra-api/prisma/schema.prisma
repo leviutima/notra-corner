@@ -42,7 +42,8 @@ model Column {
 model Activitie {
   id          String @id @default(uuid())
   title       String
-  description String
+  description String?
+  finished    Boolean
 
   column   Column @relation(fields: [columnId], references: [id])
   columnId Int
