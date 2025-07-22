@@ -1,7 +1,7 @@
 "use client";
 
 import { Columns } from "@/components/column/__columns";
-import { CreateColumn } from "@/components/column/modal-create-column";
+import { CreateColumn } from "@/components/column/modal/modal-create-column";
 import { DragScrollWrapper } from "@/components/drag-scroll/drag-scroll-wrapper";
 
 export default function Home() {

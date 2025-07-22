@@ -6,7 +6,7 @@ import {
   DialogHeader,
   DialogDescription,
 } from "@/components/ui/dialog";
-import { CardActivitie } from "./__card-activitie";
+import { CardActivitie } from "../__card-activitie";
 import { useQuery } from "@tanstack/react-query";
 import { getActivitieByColumn } from "@/service/activitie/get-activitie-by-column";
 import { ActivitieProps } from "@/utils/interfaces";
@@ -34,12 +34,15 @@ export function ModalActivitie({ columnId }: modalActivitieProps) {
       </DialogTrigger>
       {Array.isArray(activities) &&
         activities.map((activitie: ActivitieProps) => (
-          <DialogContent key={activitie.id}>
+          <DialogContent className="bg-neutral-800" key={activitie.id}>
             <DialogHeader>
-              <DialogTitle>{activitie.title}</DialogTitle>
+              <DialogTitle className="text-[30px]">{activitie.title}</DialogTitle>
             </DialogHeader> 
-            <div>
-              <AlignLeft size={15} />
+            <div className="flex flex-col  gap-2">
+              <div className="flex items-center gap-2">
+              <AlignLeft size={20} />
+              <h2 className="font-semibold">Descrição</h2>
+              </div>
               <p>{activitie.description}</p>
             </div>
           </DialogContent>

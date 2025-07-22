@@ -1,7 +1,7 @@
 import { useColumn } from "@/hooks/create-column";
-import { Input } from "../ui/input";
-import { Label } from "../ui/label";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 export function FormCreateColumn() {
   const { form, isPending, onSubmit } = useColumn();
@@ -20,7 +20,9 @@ export function FormCreateColumn() {
       <div className="flex flex-col gap-2">
         <Label>Titulo</Label>
         <Input placeholder="Digite o título da coluna" {...register("title")} />
-        {errors.title && <span className="text-red-600">{errors.title.message}</span>}
+        {errors.title && (
+          <span className="text-red-600">{errors.title.message}</span>
+        )}
       </div>
       <Button className="cursor-pointer">
         {isPending ? "Carregando" : "Criar"}

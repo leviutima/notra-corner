@@ -5,7 +5,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { FormCreateColumn } from "./form-create-column";
+import { FormCreateColumn } from "../form/form-create-column";
+
 
 export function CreateColumn() {
   return (

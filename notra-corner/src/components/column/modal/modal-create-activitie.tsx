@@ -7,7 +7,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Plus } from "lucide-react";
-import { FormCreateActivite } from "./form-create-activitie";
+import { FormCreateActivite } from "../form/form-create-activitie";
 
 interface ModalCreateActivitieProps {
   columnId: number;
@@ -25,7 +25,7 @@ export function ModalCreateActivitie({ columnId }: ModalCreateActivitieProps) {
           </div>
         </div>
       </DialogTrigger>
-      <DialogContent className="bg-neutral-800">
+      <DialogContent className="bg-neutral-800 ">
         <DialogTitle>Criar atividade</DialogTitle>
         <FormCreateActivite columnId={columnId}/>
       </DialogContent>
