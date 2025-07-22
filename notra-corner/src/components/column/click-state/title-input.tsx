@@ -2,6 +2,7 @@ import { Ellipsis } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useUpdateColumn } from "@/hooks/update-column";
 import { Button } from "@/components/ui/button";
+import { DeleteColumnEllipsis } from "../form/delete-column";
 
 interface titleInputProps {
   columnId: number;
@@ -14,7 +15,7 @@ export function TitleInput({ columnTitle, columnId }: titleInputProps) {
     useUpdateColumn({ columnId });
   const { register, handleSubmit, watch, setValue } = formUpdate;
   const titleValue = watch("title");
-  const ref = useRef<HTMLFormElement | null>(null); 
+  const ref = useRef<HTMLFormElement | null>(null);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -40,22 +41,21 @@ export function TitleInput({ columnTitle, columnId }: titleInputProps) {
   return (
     <div>
       {isEditing === "text" && (
-        <div
-          className="flex  justify-between"
-          onClick={() => {
-            setIsEditing("input");
-            setValue("title", columnTitle);
-          }}
-        >
-          <h1>{columnTitle}</h1>
-          <Ellipsis size={20} />
+        <div className="flex  justify-between">
+          <div
+          className="cursor-pointer"
+            onClick={() => {
+              setIsEditing("input");
+              setValue("title", columnTitle);
+            }}
+          >
+            <h1>{columnTitle}</h1>
+          </div>
+          <DeleteColumnEllipsis columnId={columnId}/>
         </div>
       )}
       {isEditing === "input" && (
-        <form ref={ref} 
-          className="flex "
-          onSubmit={handleSubmit(onSubmit)}
-        >
+        <form ref={ref} className="flex " onSubmit={handleSubmit(onSubmit)}>
           <input className="outline-none" {...register("title")} />
           {titleValue === "" ? (
             <Button
