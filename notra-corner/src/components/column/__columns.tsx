@@ -29,7 +29,7 @@ export function Columns() {
         columns.map((column: ColumnProps) => (
           <div
             key={column.id}
-            className="bg-neutral-800 w-[15vw] flex flex-col gap-2 p-3 rounded-md"
+            className="bg-neutral-800 flex w-[15vw] flex-col gap-2 p-3 rounded-md"
           >
             <TitleInput columnTitle={column.title} columnId={column.id}/>
             <CardActivitie columnId={column.id} />

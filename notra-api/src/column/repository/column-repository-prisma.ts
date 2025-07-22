@@ -26,8 +26,10 @@ export class PrismaColumnRepository implements ColumnRepository {
       include: {
         activities: true,
       },
+      orderBy: {
+        id: 'asc'
+      }
     });
-
     return columns.map((column) => {
       const activities = column.activities.map(
         (a) => new Activitie(a.id, a.title, a.description, a.columnId),

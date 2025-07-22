@@ -23,7 +23,7 @@ export function useUpdateColumn({ columnId }: updateColumnProps) {
   const { mutate, isPending, isSuccess, isError } = useMutation({
     mutationFn: async (data: UpdateColumnFormSchema) =>
       updateColumn(columnId, data),
-    mutationKey: ["column"],
+    mutationKey: ["column" ],
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["column"] });
       setHasSuccess(true);
