@@ -12,6 +12,7 @@ import { getActivitieByColumn } from "@/service/activitie/get-activitie-by-colum
 import { ActivitieProps } from "@/utils/interfaces";
 import { AlignLeft } from "lucide-react";
 import { DescriptionInputActivitie } from "../click-state/description-input-activitie";
+import { ModalCreateActivitie } from "./modal-create-activitie";
 
 interface modalActivitieProps {
   columnId: number;
@@ -41,7 +42,7 @@ export function ModalActivitie({ columnId }: modalActivitieProps) {
                 {activitie.title}
               </DialogTitle>
             </DialogHeader>
-            <div className="flex flex-col  gap-2">
+            <div className="flex flex-col  gap-5">
               <div className="flex items-center gap-2">
                 <AlignLeft size={20} />
                 <h2 className="font-semibold">Descrição</h2>

@@ -21,7 +21,6 @@ export function Columns() {
   });
 
   console.log(columns);
-  
 
   return (
     <div className="flex gap-5 items-start">
@@ -31,9 +30,11 @@ export function Columns() {
             key={column.id}
             className="bg-neutral-800 flex w-[15vw] flex-col gap-2 p-3 rounded-md"
           >
-            <TitleInput columnTitle={column.title} columnId={column.id}/>
-            <ModalActivitie columnId={column.id}/>
-            <ModalCreateActivitie columnId={column.id} />
+            <TitleInput columnTitle={column.title} columnId={column.id} />
+            <ModalActivitie columnId={column.id} />
+            <ModalCreateActivitie columnId={column.id}>
+              Adcionar cartão
+            </ModalCreateActivitie>
           </div>
         ))}
     </div>

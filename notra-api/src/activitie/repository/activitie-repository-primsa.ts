@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { ActivitieRepository } from './activitie-repository';
 import { PrismaService } from 'src/prisma.service';
 import { Activitie } from '../domain/activitie.entity';
+import { UpdateActivitieDto } from '../dto/update-activitie.dto';
 
 @Injectable()
 export class PrismaActivitieRepository implements ActivitieRepository {
@@ -16,19 +17,31 @@ export class PrismaActivitieRepository implements ActivitieRepository {
         finished: activitie.getFinished() ?? false,
       },
       include: {
-        column: true, 
+        column: true,
       },
     });
-    return new Activitie( data.id ,data.title, data.description, data.columnId);
+    return new Activitie(data.id, data.title, data.description, data.columnId);
   }
 
   async getActivitie(columnId: number) {
     const activities = await this.prisma.activitie.findMany({
-    where: {
-      columnId
-    },
-  });
+      where: {
+        columnId,
+      },
+    });
 
-    return activities
+    return activities;
+  }
+
+  async updateActivitie(id: string, activitie: UpdateActivitieDto) {
+    const updatedActivitie = await this.prisma.activitie.update({
+      where: { id },
+      data: {
+        title: activitie.title,
+        description: activitie.description,
+      },
+    });
+
+    return updatedActivitie
   }
 }

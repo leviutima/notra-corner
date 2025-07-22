@@ -6,6 +6,7 @@ import { PrismaActivitieRepository } from "./repository/activitie-repository-pri
 import { ACTIVITIE_REPOSITORY } from "./repository/activitie-repository";
 import { GetActivitieUseCase } from "./use-case/get-activitie-usecase";
 import { UpdateColumnUseCase } from "src/column/use-case/update-column-usecase.dto";
+import { UpdateActivitieUseCase } from "./use-case/update-activitie-usecase";
 
 
 @Module({
@@ -15,6 +16,7 @@ import { UpdateColumnUseCase } from "src/column/use-case/update-column-usecase.d
     PrismaService,
     CreateActivitieUseCase,
     GetActivitieUseCase,
+    UpdateActivitieUseCase,
     { provide: ACTIVITIE_REPOSITORY, useClass: PrismaActivitieRepository },
   ],
   exports: [CreateActivitieUseCase, ACTIVITIE_REPOSITORY],
