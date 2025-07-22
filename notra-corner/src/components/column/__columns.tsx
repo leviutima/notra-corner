@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { ModalCreateActivitie } from "./modal/modal-create-activitie";
 import { ColumnProps } from "@/utils/interfaces";
 import { ModalActivitie } from "./modal/modal-activitie";
-import { TitleInput } from "./click-state/title-input";
+import { TitleInput } from "./click-state/title-input-column";
 
 export function Columns() {
   const { user } = useSelector((state: RootState) => state.auth);

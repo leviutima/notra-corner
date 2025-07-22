@@ -11,6 +11,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getActivitieByColumn } from "@/service/activitie/get-activitie-by-column";
 import { ActivitieProps } from "@/utils/interfaces";
 import { AlignLeft } from "lucide-react";
+import { DescriptionInputActivitie } from "../click-state/description-input-activitie";
 
 interface modalActivitieProps {
   columnId: number;
@@ -36,14 +37,18 @@ export function ModalActivitie({ columnId }: modalActivitieProps) {
         activities.map((activitie: ActivitieProps) => (
           <DialogContent className="bg-neutral-800" key={activitie.id}>
             <DialogHeader>
-              <DialogTitle className="text-[30px]">{activitie.title}</DialogTitle>
-            </DialogHeader> 
+              <DialogTitle className="text-[30px]">
+                {activitie.title}
+              </DialogTitle>
+            </DialogHeader>
             <div className="flex flex-col  gap-2">
               <div className="flex items-center gap-2">
-              <AlignLeft size={20} />
-              <h2 className="font-semibold">Descrição</h2>
+                <AlignLeft size={20} />
+                <h2 className="font-semibold">Descrição</h2>
               </div>
-              <p>{activitie.description}</p>
+              <DescriptionInputActivitie
+                activitieDescription={activitie.description}
+              />
             </div>
           </DialogContent>
         ))}
