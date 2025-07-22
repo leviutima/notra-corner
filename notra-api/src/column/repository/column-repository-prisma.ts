@@ -27,8 +27,8 @@ export class PrismaColumnRepository implements ColumnRepository {
         activities: true,
       },
       orderBy: {
-        id: 'asc'
-      }
+        id: 'asc',
+      },
     });
     return columns.map((column) => {
       const activities = column.activities.map(
@@ -39,15 +39,31 @@ export class PrismaColumnRepository implements ColumnRepository {
     });
   }
 
-  async updateColumn(id: number , column: UpdateColumnDto) {
+  async updateColumn(id: number, column: UpdateColumnDto) {
     const updatedColumn = await this.prisma.column.update({
       where: {
-        id: id
+        id: id,
       },
       data: {
-        title: column.title
-      }
-    })
-    return new Column(updatedColumn.id, updatedColumn.title, updatedColumn.userId);
+        title: column.title,
+      },
+    });
+    return new Column(
+      updatedColumn.id,
+      updatedColumn.title,
+      updatedColumn.userId,
+    );
+  }
+
+  async deleteColumn(id: number) {
+    await this.prisma.activitie.deleteMany({
+      where: {
+        columnId: id,
+      },
+    });
+    const deletedColumn = await this.prisma.column.delete({
+      where: { id },
+    });
+    return deletedColumn
   }
 }

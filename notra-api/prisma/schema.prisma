@@ -45,7 +45,7 @@ model Activitie {
   description String?
   finished    Boolean
 
-  column   Column @relation(fields: [columnId], references: [id])
+  column   Column @relation(fields: [columnId], references: [id], onDelete: Cascade)
   columnId Int
 
   checkListId CheckList[]

@@ -3,10 +3,9 @@ import { RootState } from "@/store/store";
 import { useQuery } from "@tanstack/react-query";
 import { useSelector } from "react-redux";
 import { ModalCreateActivitie } from "./modal/modal-create-activitie";
-import { CardActivitie } from "./__card-activitie";
 import { ColumnProps } from "@/utils/interfaces";
-import { TitleInput } from "./title-input";
 import { ModalActivitie } from "./modal/modal-activitie";
+import { TitleInput } from "./click-state/title-input";
 
 export function Columns() {
   const { user } = useSelector((state: RootState) => state.auth);

@@ -1,7 +1,7 @@
 import { Ellipsis } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { Button } from "../ui/button";
 import { useUpdateColumn } from "@/hooks/update-column";
+import { Button } from "@/components/ui/button";
 
 interface titleInputProps {
   columnId: number;

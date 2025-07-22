@@ -6,4 +6,5 @@ export abstract class ColumnRepository {
   abstract createColumn(column: Column)
   abstract getColumnsByUserId(userId: string): Promise<Column[]>
   abstract updateColumn(id: number, column: UpdateColumnDto)
+  abstract deleteColumn(id: number)
 }

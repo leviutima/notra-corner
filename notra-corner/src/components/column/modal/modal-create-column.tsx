@@ -7,7 +7,6 @@ import {
 } from "@/components/ui/dialog";
 import { FormCreateColumn } from "../form/form-create-column";
 
-
 export function CreateColumn() {
   return (
     <Dialog>

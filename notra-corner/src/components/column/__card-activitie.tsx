@@ -1,15 +1,6 @@
-import { getActivitieByColumn } from "@/service/activitie/get-activitie-by-column";
 import { ActivitieProps } from "@/utils/interfaces";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { AlignLeft } from "lucide-react";
-import { useEffect, useState } from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-
+import { useState } from "react";
 interface cardActivitieProps {
   activities: ActivitieProps[];
 }

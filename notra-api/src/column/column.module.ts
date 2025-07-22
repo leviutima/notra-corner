@@ -6,6 +6,7 @@ import { COLUMN_REPOSITORY } from "./repository/column-respository";
 import { PrismaColumnRepository } from "./repository/column-repository-prisma";
 import { GetColumnByUserUseCase } from "./use-case/get-column-by-user-usecase";
 import { UpdateColumnUseCase } from "./use-case/update-column-usecase.dto";
+import { DeleteColumnUseCase } from "./use-case/delete-column-usecase";
 
 
 @Module({
@@ -16,6 +17,7 @@ import { UpdateColumnUseCase } from "./use-case/update-column-usecase.dto";
     CreateColumnUseCase,
     GetColumnByUserUseCase,
     UpdateColumnUseCase,
+    DeleteColumnUseCase,
     { provide: COLUMN_REPOSITORY, useClass: PrismaColumnRepository },
   ],
   exports: [CreateColumnUseCase, COLUMN_REPOSITORY],

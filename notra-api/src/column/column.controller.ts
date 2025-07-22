@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   ParseIntPipe,
@@ -19,6 +20,7 @@ import { CreateColumnDto } from './dto/create-column.dto';
 import { GetColumnByUserUseCase } from './use-case/get-column-by-user-usecase';
 import { UpdateColumnDto } from './dto/update-column.dto';
 import { UpdateColumnUseCase } from './use-case/update-column-usecase.dto';
+import { DeleteColumnUseCase } from './use-case/delete-column-usecase';
 
 @ApiTags('column')
 @Controller('column')
@@ -27,6 +29,7 @@ export class ColumnController {
     private readonly useCaseCreate: CreateColumnUseCase,
     private readonly useCaseGetColumnByUser: GetColumnByUserUseCase,
     private readonly useCaseUpdateColumn: UpdateColumnUseCase,
+    private readonly useCaseDeleteColumn: DeleteColumnUseCase
   ) {}
 
   @ApiOperation({ summary: 'Criar nova coluna' })
@@ -52,5 +55,10 @@ export class ColumnController {
     @Body() dto: UpdateColumnDto,
   ) {
     return await this.useCaseUpdateColumn.execute(id, dto);
+  }
+  
+  @Delete('/:id')
+  async DeleteColumnUserCas(@Param('id', ParseIntPipe) id: number,) {
+      return await this.useCaseDeleteColumn.execute(id)
   }
 }
