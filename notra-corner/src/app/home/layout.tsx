@@ -6,9 +6,9 @@ interface layoutHomeProps {
 
 export default function LayoutHomeProps({ children }: layoutHomeProps) {
   return (
-    <div className="flex ">
+    <div className="flex h-screen">
       <AsideHome />
-      <div>{children}</div>
+      <div className="flex-1 overflow-hidden">{children}</div>
     </div>
   );
 }
