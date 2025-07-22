@@ -6,6 +6,7 @@ import { ModalCreateActivitie } from "./modal-create-activitie";
 import { CardActivitie } from "./__card-activitie";
 import { ColumnProps } from "@/utils/interfaces";
 import { TitleInput } from "./title-input";
+import { ModalActivitie } from "./modal-activitie";
 
 export function Columns() {
   const { user } = useSelector((state: RootState) => state.auth);
@@ -32,7 +33,7 @@ export function Columns() {
             className="bg-neutral-800 flex w-[15vw] flex-col gap-2 p-3 rounded-md"
           >
             <TitleInput columnTitle={column.title} columnId={column.id}/>
-            <CardActivitie columnId={column.id} />
+            <ModalActivitie columnId={column.id}/>
             <ModalCreateActivitie columnId={column.id} />
           </div>
         ))}
