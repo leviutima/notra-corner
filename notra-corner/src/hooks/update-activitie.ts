@@ -3,6 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import z, { boolean } from "zod";
 
 interface useUpdateActivitieProps {
@@ -29,6 +30,7 @@ export function useUpdateActivitie({ activitieId }: useUpdateActivitieProps) {
       updateActivitie(activitieId, data),
     mutationKey: ["activitie"],
     onSuccess: () => {
+      toast.success('Sucesso ao atualizar descrição')
       setHasSuccess(true);
       queryClient.invalidateQueries({queryKey: ['activitie']})
     },

@@ -24,7 +24,7 @@ export function ModalActivitie({ columnId }: modalActivitieProps) {
     // isLoading,
     error,
   } = useQuery({
-    queryKey: ["activities", columnId],
+    queryKey: ["activitie", columnId],
     queryFn: () => getActivitieByColumn(columnId),
     staleTime: 1000 * 60 * 5,
   });
