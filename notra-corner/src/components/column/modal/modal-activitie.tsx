@@ -13,6 +13,7 @@ import { ActivitieProps } from "@/utils/interfaces";
 import { AlignLeft } from "lucide-react";
 import { DescriptionInputActivitie } from "../click-state/description-input-activitie";
 import { ModalCreateActivitie } from "./modal-create-activitie";
+import { TitleInputActivitie } from "../click-state/title-input-activitie";
 
 interface modalActivitieProps {
   columnId: number;
@@ -36,10 +37,14 @@ export function ModalActivitie({ columnId }: modalActivitieProps) {
       </DialogTrigger>
       {Array.isArray(activities) &&
         activities.map((activitie: ActivitieProps) => (
-          <DialogContent className="bg-neutral-800" key={activitie.id}>
+          <DialogContent className="bg-neutral-800 p-10" key={activitie.id}>
             <DialogHeader>
               <DialogTitle className="text-[30px]">
-                {activitie.title}
+                <TitleInputActivitie
+                  activitieId={activitie.id}
+                  activitieDescription={activitie.description}
+                  activitieTitle={activitie.title}
+                />
               </DialogTitle>
             </DialogHeader>
             <div className="flex flex-col  gap-5">
