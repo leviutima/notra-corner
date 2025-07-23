@@ -30,11 +30,12 @@ export function useUpdateActivitie({ activitieId }: useUpdateActivitieProps) {
       updateActivitie(activitieId, data),
     mutationKey: ["activitie"],
     onSuccess: () => {
-      toast.success('Sucesso ao atualizar descrição')
+      toast.success("Sucesso ao atualizar atividade");
       setHasSuccess(true);
-      queryClient.invalidateQueries({queryKey: ['activitie']})
+      queryClient.invalidateQueries({ queryKey: ["activitie"] });
     },
     onError: () => {
+      toast.error("Erro ao atualizar atividade, tente novamente");
       setHasSuccess(false);
     },
   });
