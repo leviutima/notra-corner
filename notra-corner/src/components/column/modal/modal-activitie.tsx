@@ -48,6 +48,8 @@ export function ModalActivitie({ columnId }: modalActivitieProps) {
                 <h2 className="font-semibold">Descrição</h2>
               </div>
               <DescriptionInputActivitie
+                activitieId={activitie.id}
+                activitieTitle={activitie.title}
                 activitieDescription={activitie.description}
               />
             </div>

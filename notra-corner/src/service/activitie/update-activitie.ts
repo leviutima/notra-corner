@@ -1,8 +1,8 @@
 import { api } from "../api";
 
 interface updateActivitieProps {
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
 }
 
 export const updateActivitie = async (
