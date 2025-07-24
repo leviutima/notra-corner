@@ -14,6 +14,7 @@ import { AlignLeft } from "lucide-react";
 import { DescriptionInputActivitie } from "../click-state/description-input-activitie";
 import { ModalCreateActivitie } from "./modal-create-activitie";
 import { TitleInputActivitie } from "../click-state/title-input-activitie";
+import { DeleteActivitie } from "../form/delete-activitie";
 
 interface modalActivitieProps {
   columnId: number;
@@ -37,7 +38,7 @@ export function ModalActivitie({ columnId }: modalActivitieProps) {
       </DialogTrigger>
       {Array.isArray(activities) &&
         activities.map((activitie: ActivitieProps) => (
-          <DialogContent className="bg-neutral-800 p-10" key={activitie.id}>
+          <DialogContent className="bg-neutral-800 p-5" key={activitie.id}>
             <DialogHeader>
               <DialogTitle className="text-[30px]">
                 <TitleInputActivitie
@@ -47,6 +48,7 @@ export function ModalActivitie({ columnId }: modalActivitieProps) {
                 />
               </DialogTitle>
             </DialogHeader>
+            <DeleteActivitie activitieId={activitie.id}/>
             <div className="flex flex-col  gap-5">
               <div className="flex items-center gap-2">
                 <AlignLeft size={20} />
