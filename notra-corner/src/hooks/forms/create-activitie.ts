@@ -7,7 +7,7 @@ import z from "zod";
 
 const createActivitieFormSchema = z.object({
   title: z.string().nonempty("Título da atividade é obrigatório"),
-  description: z.string().nonempty("Descrição da atividade é obrigatório"),
+  description: z.string().optional(),
 });
 
 type CreateActivieFormSchema = z.infer<typeof createActivitieFormSchema>;

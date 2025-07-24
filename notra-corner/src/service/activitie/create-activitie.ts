@@ -2,7 +2,7 @@ import { api } from "../api";
 
 interface ActivitieProps {
   title: string;
-  description: string;
+  description?: string;
 }
 
 export const createActivitie = async (data: ActivitieProps) => {
