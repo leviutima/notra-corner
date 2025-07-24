@@ -56,6 +56,6 @@ model CheckList {
   title String
   finished Boolean
   
-  activitie Activitie @relation(fields: [activitieId], references: [id])
+  activitie Activitie @relation(fields: [activitieId], references: [id], onDelete: Cascade)
   activitieId String
 }
