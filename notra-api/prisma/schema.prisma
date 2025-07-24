@@ -48,7 +48,7 @@ model Activitie {
   column   Column @relation(fields: [columnId], references: [id], onDelete: Cascade)
   columnId Int
 
-  checkListId CheckList[]
+  checkList CheckList[]
 }
 
 model CheckList {

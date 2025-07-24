@@ -5,6 +5,7 @@ import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { ColumnModule } from './column/column.module';
 import { ActivitieModule } from './activitie/activitie.module';
+import { ChecklistModule } from './checklits/checklist.module';
 
 @Module({
   imports: [
@@ -14,7 +15,8 @@ import { ActivitieModule } from './activitie/activitie.module';
     UserModule,
     ColumnModule,
     AuthModule,
-    ActivitieModule
+    ActivitieModule,
+    ChecklistModule,
   ],
   controllers: [],
   providers: [PrismaService],

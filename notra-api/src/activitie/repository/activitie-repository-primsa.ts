@@ -3,6 +3,7 @@ import { ActivitieRepository } from './activitie-repository';
 import { PrismaService } from 'src/prisma.service';
 import { Activitie } from '../domain/activitie.entity';
 import { UpdateActivitieDto } from '../dto/update-activitie.dto';
+import { CheckList } from 'src/checklits/domain/checklits.entity';
 
 @Injectable()
 export class PrismaActivitieRepository implements ActivitieRepository {
@@ -23,15 +24,37 @@ export class PrismaActivitieRepository implements ActivitieRepository {
     return new Activitie(data.id, data.title, data.description, data.columnId);
   }
 
-  async getActivitie(columnId: number) {
-    const activities = await this.prisma.activitie.findMany({
-      where: {
-        columnId,
-      },
-    });
+  async getActivitie(columnId: number): Promise<Activitie[]> {
+  const activities = await this.prisma.activitie.findMany({
+    where: {
+      columnId,
+    },
+    include: {
+      checkList: true, 
+    },
+  });
 
-    return activities;
-  }
+  return activities.map((activity) => {
+    const checklists = activity.checkList.map(
+      (checklist) =>
+        new CheckList(
+          checklist.id,
+          checklist.title,
+          checklist.finished,
+          checklist.activitieId
+        )
+    );
+
+    return new Activitie(
+      activity.id,
+      activity.title,
+      activity.description,
+      activity.columnId,
+      checklists,
+      activity.finished
+    );
+  });
+}
 
   async updateActivitie(id: string, activitie: UpdateActivitieDto) {
     const updatedActivitie = await this.prisma.activitie.update({
@@ -40,6 +63,8 @@ export class PrismaActivitieRepository implements ActivitieRepository {
         title: activitie.title,
         description: activitie.description,
       },
+
+      
     });
 
     return updatedActivitie;
