@@ -7,8 +7,13 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { CheckSquare } from "lucide-react";
+import { FormCreateChecklist } from "../form/form-create-checklist";
 
-export function ModalCreateChecklist() {
+interface modalCreateChecklistProps {
+  activitieId: string
+}
+
+export function ModalCreateChecklist({activitieId}: modalCreateChecklistProps) {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -17,14 +22,11 @@ export function ModalCreateChecklist() {
           <h2>Checklist</h2>
         </div>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="bg-neutral-800">
         <DialogHeader>
           <DialogTitle>Nova Checklist</DialogTitle>
-          <DialogDescription>
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
-          </DialogDescription>
         </DialogHeader>
+        <FormCreateChecklist activitieId={activitieId}/>
       </DialogContent>
     </Dialog>
   );

@@ -3,6 +3,7 @@ import { createChecklistFormSchema, CreateChecklistFormSchema } from "../schemas
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createChecklist } from "@/service/checklist/create-checklist";
+import { toast } from "sonner";
 
 interface useCreateActivitieProps {
   activitieId: string
@@ -13,6 +14,7 @@ export function useCreateChecklist({activitieId}: useCreateActivitieProps) {
   const form = useForm<CreateChecklistFormSchema>({
     resolver: zodResolver(createChecklistFormSchema),
     defaultValues: {
+      activitieId: activitieId,
       finished: false
     }
   })
@@ -20,9 +22,13 @@ export function useCreateChecklist({activitieId}: useCreateActivitieProps) {
   const {mutate, isPending} = useMutation({
     mutationFn: (data: CreateChecklistFormSchema) => createChecklist(data),
     mutationKey: ['checklist'],
-    onSuccess: () => [
+    onSuccess: () => {
+      toast.success("Sucesso ao criar checklist")
       queryClient.invalidateQueries({queryKey: ['checklist']})
-    ]
+    },
+    onError: () => {
+      toast.error("Erro ao criar checklist")
+    }
   })
 
   const onSubmit = (data: CreateChecklistFormSchema) => {

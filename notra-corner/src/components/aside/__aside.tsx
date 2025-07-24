@@ -19,7 +19,7 @@ export function AsideHome() {
   }
 
   return (
-    <aside className="bg-neutral-800 flex flex-col items-start w-[13vw] h-[100vh] ">
+    <aside className="dark:bg-neutral-800 dark:border-r-neutral-500 border bg-neutral-300 border-r-neutral-500  flex flex-col items-start w-[13vw] h-[100vh] shadow-md ">
       <div className="flex flex-col gap-5 items-start justfy-start pl-2 py-4">
         <div>
           <ProfileIconUser
@@ -34,7 +34,7 @@ export function AsideHome() {
             return (
               <li key={link.href}>
                 <Link href={link.href}>
-                  <MenuItem title={link.label} active={isActive} />
+                  <MenuItem icon={link.icon} title={link.label} active={isActive} />
                 </Link>
               </li>
             );

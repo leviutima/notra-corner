@@ -19,5 +19,13 @@ export interface ActivitieProps {
   id: string,
   title: string,
   description: string,
-  columnId: number
+  columnId: number,
+  checkLists: []
+}
+
+export interface ChecklistProps {
+  _id: number,
+  _title: string,
+  _finished: boolean,
+  _activitieId: string
 }

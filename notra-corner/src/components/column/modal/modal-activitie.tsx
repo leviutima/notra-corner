@@ -9,13 +9,14 @@ import {
 import { CardActivitie } from "../__card-activitie";
 import { useQuery } from "@tanstack/react-query";
 import { getActivitieByColumn } from "@/service/activitie/get-activitie-by-column";
-import { ActivitieProps } from "@/utils/interfaces";
+import { ActivitieProps, ChecklistProps } from "@/utils/interfaces";
 import { AlignLeft } from "lucide-react";
 import { DescriptionInputActivitie } from "../click-state/description-input-activitie";
-import { ModalCreateActivitie } from "./modal-create-activitie";
 import { TitleInputActivitie } from "../click-state/title-input-activitie";
 import { DeleteActivitie } from "../form/delete-activitie";
-import {  ModalCreateChecklist } from "./modal-create-checklist";
+import { ModalCreateChecklist } from "./modal-create-checklist";
+import { SectionActivitie } from "../sections-activitie/section-buttons";
+import { SectionChecklist } from "../sections-activitie/section-checklist";
 
 interface modalActivitieProps {
   columnId: number;
@@ -31,6 +32,8 @@ export function ModalActivitie({ columnId }: modalActivitieProps) {
     queryFn: () => getActivitieByColumn(columnId),
     staleTime: 1000 * 60 * 5,
   });
+
+  console.log(activities);
 
   return (
     <Dialog>
@@ -49,10 +52,7 @@ export function ModalActivitie({ columnId }: modalActivitieProps) {
                 />
               </DialogTitle>
             </DialogHeader>
-            <div className="flex items-center gap-4">
-              <DeleteActivitie activitieId={activitie.id} />
-              <ModalCreateChecklist />
-            </div>
+            <SectionActivitie activitieId={activitie.id} />
             <div className="flex flex-col  gap-5">
               <div className="flex items-center gap-2">
                 <AlignLeft size={20} />
@@ -64,6 +64,14 @@ export function ModalActivitie({ columnId }: modalActivitieProps) {
                 activitieDescription={activitie.description}
               />
             </div>
+            {activitie.checkLists?.map((checklist: ChecklistProps) => (
+              <SectionChecklist
+                key={checklist._id}
+                checklistId={checklist._id}
+                checklistTitle={checklist._title}
+                // checklistFinished={checklist._finished}
+              />
+            ))}
           </DialogContent>
         ))}
     </Dialog>
