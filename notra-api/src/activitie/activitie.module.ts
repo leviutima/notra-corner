@@ -1,13 +1,12 @@
-import { Module } from "@nestjs/common";
-import { CreateActivitieUseCase } from "./use-case/create-activitie-usecase";
-import { PrismaService } from "src/prisma.service";
-import { ActivitieController } from "./activite.controller";
-import { PrismaActivitieRepository } from "./repository/activitie-repository-primsa";
-import { ACTIVITIE_REPOSITORY } from "./repository/activitie-repository";
-import { GetActivitieUseCase } from "./use-case/get-activitie-usecase";
-import { UpdateColumnUseCase } from "src/column/use-case/update-column-usecase.dto";
-import { UpdateActivitieUseCase } from "./use-case/update-activitie-usecase";
-
+import { Module } from '@nestjs/common';
+import { CreateActivitieUseCase } from './use-case/create-activitie-usecase';
+import { PrismaService } from 'src/prisma.service';
+import { ActivitieController } from './activite.controller';
+import { PrismaActivitieRepository } from './repository/activitie-repository-primsa';
+import { ACTIVITIE_REPOSITORY } from './repository/activitie-repository';
+import { GetActivitieUseCase } from './use-case/get-activitie-usecase';
+import { UpdateActivitieUseCase } from './use-case/update-activitie-usecase';
+import { DeleteActiviteUseCase } from './use-case/delete-activitie';
 
 @Module({
   imports: [],
@@ -17,6 +16,7 @@ import { UpdateActivitieUseCase } from "./use-case/update-activitie-usecase";
     CreateActivitieUseCase,
     GetActivitieUseCase,
     UpdateActivitieUseCase,
+    DeleteActiviteUseCase,
     { provide: ACTIVITIE_REPOSITORY, useClass: PrismaActivitieRepository },
   ],
   exports: [CreateActivitieUseCase, ACTIVITIE_REPOSITORY],

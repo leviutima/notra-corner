@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import z, { boolean } from "zod";
+import z  from "zod";
 
 interface useUpdateActivitieProps {
   activitieId: string;

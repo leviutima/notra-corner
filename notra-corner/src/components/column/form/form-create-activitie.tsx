@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useCreateActivitie } from "@/hooks/create-activitie";
+import { useCreateActivitie } from "@/hooks/forms/create-activitie";
 interface FormCreateActiviteProps {
   columnId: number;
 }

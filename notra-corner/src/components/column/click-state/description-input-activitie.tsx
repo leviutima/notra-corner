@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { useUpdateActivitie } from "@/hooks/update-activitie";
+import { useUpdateActivitie } from "@/hooks/forms/update-activitie";
 import { useEffect, useState } from "react";
 
 interface descriptionInputActivitieProps {

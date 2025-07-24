@@ -42,6 +42,14 @@ export class PrismaActivitieRepository implements ActivitieRepository {
       },
     });
 
-    return updatedActivitie
+    return updatedActivitie;
+  }
+
+  async deleteActivitie(id: string) {
+    const deletedActvitie = await this.prisma.activitie.delete({
+      where: {id}
+    })
+
+    return deletedActvitie
   }
 }

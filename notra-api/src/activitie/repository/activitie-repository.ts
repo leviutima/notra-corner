@@ -6,4 +6,5 @@ export abstract class ActivitieRepository {
   abstract createActivitie(activitie: Activitie)
   abstract getActivitie(columnId: number)
   abstract updateActivitie(id: string ,activitie: UpdateActivitieDto)
+  abstract deleteActivitie(id: string)
 }

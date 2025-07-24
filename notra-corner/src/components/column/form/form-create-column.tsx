@@ -1,4 +1,4 @@
-import { useColumn } from "@/hooks/create-column";
+import { useColumn } from "@/hooks/forms/create-column";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";

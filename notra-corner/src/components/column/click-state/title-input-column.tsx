@@ -1,6 +1,6 @@
 import { Ellipsis } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { useUpdateColumn } from "@/hooks/update-column";
+import { useUpdateColumn } from "@/hooks/forms/update-column";
 import { Button } from "@/components/ui/button";
 import { DeleteColumnEllipsis } from "../form/delete-column";
 

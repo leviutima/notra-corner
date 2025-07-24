@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useSignUp } from "@/hooks/form-sign-up";
+import { useSignUp } from "@/hooks/forms/form-sign-up";
 
 export default function SignUp() {
   const {formSignUp, isPending, onSubmit} = useSignUp()
