@@ -15,6 +15,7 @@ import { DescriptionInputActivitie } from "../click-state/description-input-acti
 import { ModalCreateActivitie } from "./modal-create-activitie";
 import { TitleInputActivitie } from "../click-state/title-input-activitie";
 import { DeleteActivitie } from "../form/delete-activitie";
+import {  ModalCreateChecklist } from "./modal-create-checklist";
 
 interface modalActivitieProps {
   columnId: number;
@@ -48,7 +49,10 @@ export function ModalActivitie({ columnId }: modalActivitieProps) {
                 />
               </DialogTitle>
             </DialogHeader>
-            <DeleteActivitie activitieId={activitie.id}/>
+            <div className="flex items-center gap-4">
+              <DeleteActivitie activitieId={activitie.id} />
+              <ModalCreateChecklist />
+            </div>
             <div className="flex flex-col  gap-5">
               <div className="flex items-center gap-2">
                 <AlignLeft size={20} />
