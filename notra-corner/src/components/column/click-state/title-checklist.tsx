@@ -12,7 +12,7 @@ export function TitleChecklist({
   checklistId,
 }: titleChecklistProps) {
   const [hasEditing, setHasEditing] = useState(false);
-  const { form, onSubmit, isPending } = usePatchTitleChecklist({ checklistId });
+  const { form, onSubmit, isPending ,hasSucces,setHasSuccess} = usePatchTitleChecklist({ checklistId });
   const ref = useRef<HTMLFormElement | null>(null);
 
   useEffect(() => {
@@ -35,6 +35,13 @@ export function TitleChecklist({
     setValue('title', checklistTitle)
   }, [])
 
+  useEffect(() => {
+    if(hasSucces) {
+      setHasEditing(false)
+      setHasSuccess(false)
+    }
+  }, [hasSucces])
+
   return (
     <div>
       {!hasEditing ? (
@@ -52,7 +59,7 @@ export function TitleChecklist({
             className="border border-neutral-400 rounded-md p-1"
             {...register("title")}
           />
-          <Button type="submit">
+          <Button type="submit" className="cursor-pointer">
             {isPending ? "Carregando..." : "Salvar"}
           </Button>
         </form>

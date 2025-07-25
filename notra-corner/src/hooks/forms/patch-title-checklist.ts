@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { patchTitleChecklist } from "@/service/checklist/patch-title-checklist";
 import { toast } from "sonner";
+import { useState } from "react";
 
 interface usePatchTitleChecklistProps {
   checklistId: number,
@@ -11,6 +12,7 @@ interface usePatchTitleChecklistProps {
 
 export function usePatchTitleChecklist({checklistId}: usePatchTitleChecklistProps) {
   const queryClient = useQueryClient()
+  const [hasSucces, setHasSuccess] = useState(false)
   const form = useForm<PatchTitleChecklistFormSchema>({
     resolver: zodResolver(patchTitleChecklistFormSchema)
   })
@@ -19,10 +21,12 @@ export function usePatchTitleChecklist({checklistId}: usePatchTitleChecklistProp
     mutationFn: (data: PatchTitleChecklistFormSchema) => patchTitleChecklist(checklistId, data),
     mutationKey: ['activitie'],
     onSuccess: () => {
+      setHasSuccess(true)
       toast.success('Sucesso ao atualiar checklist')
       queryClient.invalidateQueries({queryKey: ['activitie']})
     },
     onError: () => {
+      setHasSuccess(false)
       toast.error('Erro ao atualizar checklist')
     }
   })
@@ -31,5 +35,5 @@ export function usePatchTitleChecklist({checklistId}: usePatchTitleChecklistProp
     mutate(data)
   }
 
-  return{onSubmit, form, isPending}
+  return{onSubmit, form, isPending, hasSucces, setHasSuccess}
 }
