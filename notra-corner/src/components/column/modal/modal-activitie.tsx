@@ -10,7 +10,7 @@ import { CardActivitie } from "../__card-activitie";
 import { useQuery } from "@tanstack/react-query";
 import { getActivitieByColumn } from "@/service/activitie/get-activitie-by-column";
 import { ActivitieProps, ChecklistProps } from "@/utils/interfaces";
-import { AlignLeft } from "lucide-react";
+import { AlignLeft, Check } from "lucide-react";
 import { DescriptionInputActivitie } from "../click-state/description-input-activitie";
 import { TitleInputActivitie } from "../click-state/title-input-activitie";
 import { DeleteActivitie } from "../form/delete-activitie";
@@ -44,7 +44,7 @@ export function ModalActivitie({ columnId }: modalActivitieProps) {
             <DialogTrigger>
               <CardActivitie activities={[activitie]} />
             </DialogTrigger>
-            <DialogContent className="bg-neutral-800 p-5">
+            <DialogContent className="bg-neutral-800 p-5 flex flex-col gap-10">
               <DialogHeader>
                 <DialogTitle className="text-[30px]">
                   <TitleInputActivitie
@@ -53,9 +53,10 @@ export function ModalActivitie({ columnId }: modalActivitieProps) {
                     activitieTitle={activitie.title}
                   />
                 </DialogTitle>
+                <SectionActivitie activitieId={activitie.id} />
               </DialogHeader>
-              <SectionActivitie activitieId={activitie.id} />
-              <div className="flex flex-col  gap-5">
+
+              <div className="flex flex-col ">
                 <div className="flex items-center gap-2">
                   <AlignLeft size={20} />
                   <h2 className="font-semibold">Descrição</h2>
@@ -74,13 +75,24 @@ export function ModalActivitie({ columnId }: modalActivitieProps) {
                   />
                 )}
               </div>
-              {activitie.checkLists?.map((checklist: ChecklistProps) => (
-                <SectionChecklist
-                  key={checklist._id}
-                  checklistId={checklist._id}
-                  checklistTitle={checklist._title}
-                />
-              ))}
+              {activitie.checkLists.length === 0 ? (
+                <div></div>
+              ) : (
+                <div className="flex flex-col gap-2">
+                  <div className="flex items-center gap-2">
+                    <Check size={30} />
+                    <h1 className="text-[30px]">Sua Checklist</h1>
+                  </div>
+                  {activitie.checkLists?.map((checklist: ChecklistProps) => (
+                    <SectionChecklist
+                      key={checklist._id}
+                      activitieId={checklist._activitieId}
+                      checklistId={checklist._id}
+                      checklistTitle={checklist._title}
+                    />
+                  ))}
+                </div>
+              )}
             </DialogContent>
           </Dialog>
         ))}
