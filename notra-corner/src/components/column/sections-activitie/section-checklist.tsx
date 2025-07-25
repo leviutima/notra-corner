@@ -15,10 +15,9 @@ export function SectionChecklist({
 
   return (
     <div className="flex flex-col ">
-
       <div key={checklistId} className="flex items-center gap-1">
         <input type="checkbox" />
-        <TitleChecklist checklistTitle={checklistTitle}/>
+        <TitleChecklist checklistId={checklistId} checklistTitle={checklistTitle}/>
       </div>
     </div>
   );
