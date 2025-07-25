@@ -21,13 +21,13 @@ export function useCreateChecklist({activitieId}: useCreateActivitieProps) {
 
   const {mutate, isPending} = useMutation({
     mutationFn: (data: CreateChecklistFormSchema) => createChecklist(data),
-    mutationKey: ['checklist'],
+    mutationKey: ['activitie'],
     onSuccess: () => {
-      toast.success("Sucesso ao criar checklist")
-      queryClient.invalidateQueries({queryKey: ['checklist']})
+      toast.success("Sucesso ao criar activitie")
+      queryClient.invalidateQueries({queryKey: ['activitie']})
     },
     onError: () => {
-      toast.error("Erro ao criar checklist")
+      toast.error("Erro ao criar activitie")
     }
   })
 

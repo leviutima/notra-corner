@@ -11,8 +11,6 @@ export function SectionChecklist({
   checklistId,
   checklistTitle,
 }: sectionChecklistProps) {
-  const { form, onSubmit, isPending } = useCreateChecklist({ activitieId });
-  const { register, handleSubmit } = form;
 
   return (
     <div className="flex flex-col ">
