@@ -5,6 +5,8 @@ import { CreateChecklistUseCase } from "./use-case/create-checklist-usecase";
 import { CHECKLIST_REPOSITORY } from "./repository/activitie-repository";
 import { PrismaChecklistRepository } from "./repository/activitie-repository-prisma";
 import { CreateColumnUseCase } from "src/column/use-case/create-column-usecase";
+import { PatchTitleChecklistDto } from "./dto/patch-title-checklits";
+import { PatchTitleChecklistUseCase } from "./use-case/patch-title-checklist-usecase";
 
 
 
@@ -14,6 +16,7 @@ import { CreateColumnUseCase } from "src/column/use-case/create-column-usecase";
   providers: [
     PrismaService,
     CreateChecklistUseCase,
+    PatchTitleChecklistUseCase,
     { provide: CHECKLIST_REPOSITORY, useClass: PrismaChecklistRepository },
   ],
   exports: [],
