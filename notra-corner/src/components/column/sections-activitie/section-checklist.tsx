@@ -1,4 +1,5 @@
 import { useCreateChecklist } from "@/hooks/forms/create-checklist";
+import { TitleChecklist } from "../click-state/title-checklist";
 
 interface sectionChecklistProps {
   activitieId: string;
@@ -17,7 +18,7 @@ export function SectionChecklist({
 
       <div key={checklistId} className="flex items-center gap-1">
         <input type="checkbox" />
-        <h3 className="text-[18px]">{checklistTitle}</h3>
+        <TitleChecklist checklistTitle={checklistTitle}/>
       </div>
     </div>
   );
