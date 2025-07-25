@@ -3,7 +3,7 @@ import { api } from "../api";
 interface createChecklistReqProps {
   title: string;
   finished: boolean;
-  activitieId: string
+  activitieId: string;
 }
 
 export const createChecklist = async (data: createChecklistReqProps) => {
@@ -12,6 +12,6 @@ export const createChecklist = async (data: createChecklistReqProps) => {
     return res.data;
   } catch (err: any) {
     console.log(err);
-    throw Error
+    throw Error;
   }
 };
