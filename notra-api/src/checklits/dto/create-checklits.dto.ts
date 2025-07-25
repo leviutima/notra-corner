@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsBoolean, IsInt, IsString } from "class-validator";
+import { IsBoolean, IsDate, IsInt, IsString } from "class-validator";
 
 export class CreateCheckListDto {
   @ApiProperty({description: 'título do checklist'})
@@ -14,4 +14,7 @@ export class CreateCheckListDto {
   @IsString()
   activitieId: string
 
+  @ApiProperty()
+  @IsDate()
+  createdAt: Date
 }

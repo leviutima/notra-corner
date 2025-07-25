@@ -86,7 +86,7 @@ export function ModalActivitie({ columnId }: modalActivitieProps) {
                   {activitie.checkLists?.map((checklist: ChecklistProps) => (
                     <SectionChecklist
                       key={checklist._id}
-                      activitieId={checklist._activitieId}
+                      isChecked={checklist._finished}
                       checklistId={checklist._id}
                       checklistTitle={checklist._title}
                     />

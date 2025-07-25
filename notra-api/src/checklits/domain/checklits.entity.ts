@@ -1,11 +1,13 @@
 import { Activitie } from 'src/activitie/domain/activitie.entity';
 
 export class CheckList {
+
   constructor(
     private readonly _id: number | undefined,
     private _title: string,
     private _finished: boolean,
     private _activitieId: string,
+    private _createdAt: Date
   ) {}
 
   get id(): number | undefined{
@@ -34,6 +36,13 @@ export class CheckList {
 
   set activitieId(value: string) {
     this._activitieId = value;
+  }
+
+  public get createdAt(): Date {
+    return this._createdAt;
+  }
+  public set createdAt(value: Date) {
+    this._createdAt = value;
   }
 
 }

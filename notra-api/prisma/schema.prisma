@@ -55,6 +55,7 @@ model CheckList {
   id Int @id @default(autoincrement()) 
   title String
   finished Boolean
+  createdAt DateTime @default(now())
   
   activitie Activitie @relation(fields: [activitieId], references: [id], onDelete: Cascade)
   activitieId String

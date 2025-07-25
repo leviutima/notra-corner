@@ -20,7 +20,7 @@ export class PrismaChecklistRepository implements ChecklistRepository {
       },
     });
 
-    return new CheckList(data.id, data.title, data.finished, data.activitieId);
+    return new CheckList(data.id, data.title, data.finished, data.activitieId, data.createdAt);
   }
 
  async patchFinished(id: number, checklist: PatchFinishedChecklistDto) {

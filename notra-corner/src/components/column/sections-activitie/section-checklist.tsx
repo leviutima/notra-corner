@@ -4,21 +4,22 @@ import { usePatchFinishedTitle } from "@/hooks/forms/patch-finished-checklist";
 import { useState } from "react";
 
 interface sectionChecklistProps {
-  activitieId: string;
   checklistId: number;
   checklistTitle: string;
+  isChecked: boolean
 }
 
 export function SectionChecklist({
   checklistId,
   checklistTitle,
+  isChecked
 }: sectionChecklistProps) {
-  const [isChecked, setIsChecked] = useState(false);
+  const [isCheckedBox, setIsCheckedBox] = useState(false);
   const { mutate, isPending } = usePatchFinishedTitle();
 
   const onChangeCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
     const finished = e.target.checked;
-    setIsChecked(finished);
+    setIsCheckedBox(finished);
     mutate({ checklistId, finished });
   };
 
@@ -27,7 +28,7 @@ export function SectionChecklist({
       <div key={checklistId} className="flex items-center gap-1">
         <input
           type="checkbox"
-          checked={isChecked}
+          checked={isChecked || isCheckedBox}
           onChange={onChangeCheckbox}
         />
         <TitleChecklist

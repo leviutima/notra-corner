@@ -30,7 +30,11 @@ export class PrismaActivitieRepository implements ActivitieRepository {
       columnId,
     },
     include: {
-      checkList: true, 
+      checkList: {
+        orderBy: {
+          createdAt: 'asc'
+        }
+      }
     },
   });
 
@@ -41,7 +45,8 @@ export class PrismaActivitieRepository implements ActivitieRepository {
           checklist.id,
           checklist.title,
           checklist.finished,
-          checklist.activitieId
+          checklist.activitieId,
+          checklist.createdAt
         )
     );
 
