@@ -6,7 +6,7 @@ interface props {
 
 export const patchTitleChecklist = async(id: number, data: props) => {
   try{
-    const res = await api.patch(`/checklist/${id}`, data)
+    const res = await api.patch(`/checklist/title/${id}`, data)
     return res.data
   }catch(err: any) {
     console.log(err);

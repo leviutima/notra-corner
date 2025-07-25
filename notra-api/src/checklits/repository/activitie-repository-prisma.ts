@@ -2,9 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { ChecklistRepository } from './activitie-repository';
 import { PrismaService } from 'src/prisma.service';
 import { CheckList } from '../domain/checklits.entity';
-import { PatchFinishedChecklist } from '../dto/patch-finished-checklits';
 import { finished } from 'stream';
 import { PatchTitleChecklistDto } from '../dto/patch-title-checklits';
+import { PatchFinishedChecklistDto } from '../dto/patch-finished-checklits';
 
 @Injectable()
 export class PrismaChecklistRepository implements ChecklistRepository {
@@ -23,7 +23,7 @@ export class PrismaChecklistRepository implements ChecklistRepository {
     return new CheckList(data.id, data.title, data.finished, data.activitieId);
   }
 
- async patchFinished(id: number, checklist: PatchFinishedChecklist) {
+ async patchFinished(id: number, checklist: PatchFinishedChecklistDto) {
     const finishedUpdate = await this.prisma.checkList.update({
       where:{id},
       data: {

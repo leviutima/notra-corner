@@ -1,10 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsBoolean, IsInt } from "class-validator";
 
-export class PatchFinishedChecklist {
-  @IsInt()
-  id: number
-
+export class PatchFinishedChecklistDto {
   @ApiProperty({description: 'finalização da checklist'})
   @IsBoolean()
   finished: boolean
