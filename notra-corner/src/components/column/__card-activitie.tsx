@@ -29,9 +29,13 @@ export function CardActivitie({ activities }: cardActivitieProps) {
               />
               <h1>{activitie.title}</h1>
             </div>
-            <div>
-              <AlignLeft size={15} />
-            </div>
+            {activitie.description ? (
+              <div>
+                <AlignLeft size={15} />
+              </div>
+            ) : (
+              <div></div>
+            )}
           </div>
         ))}
     </div>

@@ -31,7 +31,7 @@ export function Columns() {
             className="bg-neutral-800 flex w-[15vw] flex-col gap-2 p-3 rounded-md"
           >
             <TitleInput columnTitle={column.title} columnId={column.id} />
-            <ModalActivitie columnId={column.id} />
+            <ModalActivitie columnId={column.id} key={column.id}/>
             <ModalCreateActivitie columnId={column.id}>
               Adcionar cartão
             </ModalCreateActivitie>

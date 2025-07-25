@@ -8,7 +8,7 @@ interface descriptionInputActivitieProps {
   activitieDescription: string;
 }
 
-export function DescriptionInputActivitie({
+export function DescriptionInputNull({
   activitieId,
   activitieTitle,
   activitieDescription,
@@ -37,8 +37,8 @@ export function DescriptionInputActivitie({
     <div>
       <div>
         {isEditing === "text" ? (
-          <div className="cursor-pointer" onClick={handleClick}>
-            <p>{activitieDescription}</p>
+          <div className="cursor-pointer border border-neutral-400 h-[8vh] p-2 hover:bg-neutral-700" onClick={handleClick}>
+            <h2 className="text-neutral-500 font-bold text-[15px]">Adicione uma descrição</h2>
           </div>
         ) : (
           <form

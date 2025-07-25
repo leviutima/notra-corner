@@ -4,9 +4,7 @@ interface sectionChecklistProps {
 }
 
 export function SectionChecklist({checklistId, checklistTitle}: sectionChecklistProps) {
-
-  // console.log(checklistId);
-  console.log(checklistTitle);
+  
   
 
   return(
