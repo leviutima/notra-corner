@@ -8,6 +8,7 @@ import { CreateColumnUseCase } from "src/column/use-case/create-column-usecase";
 import { PatchTitleChecklistDto } from "./dto/patch-title-checklits";
 import { PatchTitleChecklistUseCase } from "./use-case/patch-title-checklist-usecase";
 import { PatchFinishedChecklistUseCase } from "./use-case/patch-finished-checklist-usecase";
+import { DeleteChecklistUseCase } from "./use-case/delete-checklist-usecase";
 
 
 
@@ -19,6 +20,7 @@ import { PatchFinishedChecklistUseCase } from "./use-case/patch-finished-checkli
     CreateChecklistUseCase,
     PatchTitleChecklistUseCase,
     PatchFinishedChecklistUseCase,
+    DeleteChecklistUseCase,
     { provide: CHECKLIST_REPOSITORY, useClass: PrismaChecklistRepository },
   ],
   exports: [],

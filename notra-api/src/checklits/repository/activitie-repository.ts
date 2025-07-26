@@ -8,4 +8,5 @@ export abstract class ChecklistRepository {
   abstract createChecklist(checklist: CheckList)
   abstract patchTitle(id: number, checklist: PatchTitleChecklistDto)
   abstract patchFinished(id: number, checklist: PatchFinishedChecklistDto)
+  abstract deleteChecklist(id: number)
 }

@@ -42,4 +42,11 @@ export class PrismaChecklistRepository implements ChecklistRepository {
     })
     return titleUpdated
   }
+
+  async deleteChecklist(id: number) {
+    const onDelete = this.prisma.checkList.delete({
+      where: {id}
+    })
+    return onDelete
+  }
 }

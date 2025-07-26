@@ -1,4 +1,4 @@
-import { Body, Controller, Param, ParseIntPipe, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Param, ParseIntPipe, Patch, Post } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateChecklistUseCase } from './use-case/create-checklist-usecase';
 import { CreateCheckListDto } from './dto/create-checklits.dto';
@@ -6,6 +6,7 @@ import { PatchTitleChecklistUseCase } from './use-case/patch-title-checklist-use
 import { PatchTitleChecklistDto } from './dto/patch-title-checklits';
 import { PatchFinishedChecklistDto } from './dto/patch-finished-checklits';
 import { PatchFinishedChecklistUseCase } from './use-case/patch-finished-checklist-usecase';
+import { DeleteChecklistUseCase } from './use-case/delete-checklist-usecase';
 
 @ApiTags('checklist')
 @Controller('/checklist')
@@ -13,7 +14,8 @@ export class ChecklistController {
   constructor(
     private readonly useCaseCreateChecklist: CreateChecklistUseCase,
     private readonly useCasePatchTitleChecklist: PatchTitleChecklistUseCase,
-    private readonly useCasePatchFinishedChecklist: PatchFinishedChecklistUseCase
+    private readonly useCasePatchFinishedChecklist: PatchFinishedChecklistUseCase,
+    private readonly useCaseDeleteChecklist: DeleteChecklistUseCase
   ) {}
 
   @ApiOperation({ summary: 'Criar checklist em atividade' })
@@ -31,5 +33,10 @@ export class ChecklistController {
   @Patch('/finished/:id') 
   async patchFinished(@Param('id',ParseIntPipe) id: number, @Body() finished: PatchFinishedChecklistDto) {
     return await this.useCasePatchFinishedChecklist.execute(id, finished)
+  }
+
+  @Delete('/:id')
+  async deleteChecklistUseCase(@Param('id', ParseIntPipe) id: number) {
+    return await this.useCaseDeleteChecklist.execute(id)
   }
 }
