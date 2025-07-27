@@ -11,7 +11,7 @@ export function CreateColumn() {
   return (
     <Dialog>
       <DialogTrigger>
-        <div className="flex items-center justify-start bg-neutral-600 p-2 rounded-md w-[12vw] cursor-pointer hover:bg-neutral-700">
+        <div className="flex items-center justify-start bg-neutral-600 p-2 rounded-md w-[200px] cursor-pointer hover:bg-neutral-700">
           <Plus />
           <h2>Adicionar coluna</h2>
         </div>
