@@ -2,17 +2,18 @@ import { useCreateChecklist } from "@/hooks/forms/create-checklist";
 import { TitleChecklist } from "../click-state/title-checklist";
 import { usePatchFinishedTitle } from "@/hooks/forms/patch-finished-checklist";
 import { useState } from "react";
+import { DeleteChecklist } from "../form/delete-checklist";
 
 interface sectionChecklistProps {
   checklistId: number;
   checklistTitle: string;
-  isChecked: boolean
+  isChecked: boolean;
 }
 
 export function SectionChecklist({
   checklistId,
   checklistTitle,
-  isChecked
+  isChecked,
 }: sectionChecklistProps) {
   const [isCheckedBox, setIsCheckedBox] = useState(false);
   const { mutate, isPending } = usePatchFinishedTitle();
@@ -31,10 +32,15 @@ export function SectionChecklist({
           checked={isChecked || isCheckedBox}
           onChange={onChangeCheckbox}
         />
-        <TitleChecklist
-          checklistId={checklistId}
-          checklistTitle={checklistTitle}
-        />
+        <div className="flex items-center  gap-10">
+          <TitleChecklist
+            checklistId={checklistId}
+            checklistTitle={checklistTitle}
+          />
+          <div>
+            <DeleteChecklist checklistId={checklistId}/>
+          </div>
+        </div>
       </div>
     </div>
   );
