@@ -15,8 +15,12 @@ export default function SignIn() {
     (state: RootState) => state.auth
   );
   const [showPassword, setShowPassword] = useState(false);
-  const {formLogin, onSubmit} = useLoginForm()
-  const {register, handleSubmit, formState} = formLogin
+  const { formLogin, onSubmit } = useLoginForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = formLogin;
 
   useEffect(() => {
     if (user && user.id) {
@@ -25,11 +29,8 @@ export default function SignIn() {
   }, [user?.id]);
 
   return (
-    <div>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col gap-5"
-      >
+    <div className="">
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
         <div className=" flex-col gap-1 flex">
           <Label>Email</Label>
           <input
@@ -38,6 +39,9 @@ export default function SignIn() {
             {...register("email")}
             className="border border-neutral-300 p-2 w-full rounded-md"
           />
+          {errors.email && (
+            <span className="text-red-600">{errors.email.message}</span>
+          )}
         </div>
         <div className=" flex-col gap-1 flex">
           <Label>Senha</Label>
@@ -66,8 +70,10 @@ export default function SignIn() {
                 className="cursor-pointer"
                 onClick={() => setShowPassword(false)}
               />
+
             </div>
           )}
+          {errors.password && <span className="text-red-600">{errors.password.message}</span>}
         </div>
         <Button
           disabled={loading}

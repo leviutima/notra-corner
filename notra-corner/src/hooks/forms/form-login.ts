@@ -10,7 +10,7 @@ const loginFormSchema = z.object({
     .string()
     .email("Insira um email válido")
     .nonempty("Email é obrigatório"),
-  password: z.string().nonempty("Senha é obrigatória"),
+  password: z.string().nonempty("Senha é obrigatória").min(6,'Insira no mínimo 6 caractéres'),
 });
 
 type LoginFormSchema = z.infer<typeof loginFormSchema>;
