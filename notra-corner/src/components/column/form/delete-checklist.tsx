@@ -10,7 +10,7 @@ export function DeleteChecklist({checklistId}: deleteChecklistProps) {
 
   return(
     <div>
-      <Trash size={20} onClick={() => mutate()} className="cursor-pointer"/>
+      <Trash size={15} onClick={() => mutate()} className="cursor-pointer"/>
     </div>
   )
 }

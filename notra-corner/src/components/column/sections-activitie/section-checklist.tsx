@@ -26,19 +26,24 @@ export function SectionChecklist({
 
   return (
     <div className="flex flex-col">
-      <div key={checklistId} className="flex items-center gap-1">
-        <input
-          type="checkbox"
-          checked={isChecked || isCheckedBox}
-          onChange={onChangeCheckbox}
-        />
-        <div className="flex items-center  gap-10">
+      <div
+        key={checklistId}
+        className="flex items-center justify-between gap-3 hover:bg-neutral-700 p-1 rounded-md cursor-pointer"
+      >
+        <div className="flex items-center gap-2">
+          <input
+            type="checkbox"
+            checked={isChecked || isCheckedBox}
+            onChange={onChangeCheckbox}
+          />{" "}
           <TitleChecklist
             checklistId={checklistId}
             checklistTitle={checklistTitle}
           />
+        </div>
+        <div className="flex items-center  gap-10">
           <div>
-            <DeleteChecklist checklistId={checklistId}/>
+            <DeleteChecklist checklistId={checklistId} />
           </div>
         </div>
       </div>

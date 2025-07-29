@@ -53,7 +53,7 @@ export default function SignIn() {
                 placeholder="Digite sua senha"
                 className="border-none outline-none w-full"
               />
-              <Eye
+              <EyeClosed
                 className="cursor-pointer"
                 onClick={() => setShowPassword(true)}
               />
@@ -66,7 +66,7 @@ export default function SignIn() {
                 placeholder="Digite sua senha"
                 className="border-none outline-none w-full"
               />
-              <EyeClosed
+              <Eye
                 className="cursor-pointer"
                 onClick={() => setShowPassword(false)}
               />

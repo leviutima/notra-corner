@@ -43,7 +43,7 @@ export function TitleChecklist({
   }, [hasSucces])
 
   return (
-    <div>
+    <div className="">
       {!hasEditing ? (
         <div onClick={() => setHasEditing(true)} className="cursor-pointer">
           <h3>{checklistTitle}</h3>
@@ -56,7 +56,7 @@ export function TitleChecklist({
         >
           <input
             type="text"
-            className="border border-neutral-400 rounded-md p-1"
+            className="border border-neutral-400 rounded-md p-1 "
             {...register("title")}
           />
           <Button type="submit" className="cursor-pointer">
