@@ -6,8 +6,9 @@ export class Activitie {
     private title: string,
     private description: string | null,
     private columnId: number,
+    private order: number,
     private checkLists?: CheckList[],
-    private finished?: boolean
+    private finished?: boolean,
   ) {}
 
   public getId(): string {
@@ -34,6 +35,10 @@ export class Activitie {
     return this.finished;
   }
 
+  public getOrder(): number {
+    return this.order
+  }
+
   public setTitle(title: string): void {
     this.title = title;
   }
@@ -52,5 +57,9 @@ export class Activitie {
 
   public setFinished(finished: boolean): void {
     this.finished = finished;
+  }
+
+  public setOrder(order: number): void {
+    this.order = order
   }
 }

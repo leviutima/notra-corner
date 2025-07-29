@@ -10,19 +10,33 @@ export class PrismaActivitieRepository implements ActivitieRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   async createActivitie(activitie: Activitie) {
-    const data = await this.prisma.activitie.create({
-      data: {
-        title: activitie.getTitle(),
-        description: activitie.getDescription(),
-        columnId: activitie.getColumnId(),
-        finished: activitie.getFinished() ?? false,
-      },
-      include: {
-        column: true,
-      },
-    });
-    return new Activitie(data.id, data.title, data.description, data.columnId);
-  }
+  const lastActivitie = await this.prisma.activitie.findFirst({
+    where: { columnId: activitie.getColumnId() },
+    orderBy: { order: 'desc' },
+  });
+  const nextOrder = lastActivitie ? lastActivitie.order + 1 : 0;
+  const data = await this.prisma.activitie.create({
+    data: {
+      title: activitie.getTitle(),
+      description: activitie.getDescription(),
+      columnId: activitie.getColumnId(),
+      finished: activitie.getFinished() ?? false,
+      order: nextOrder, 
+    },
+    include: {
+      column: true,
+    },
+  });
+
+  return new Activitie(
+    data.id,
+    data.title,
+    data.description,
+    data.columnId,
+    data.order
+  );
+}
+
 
   async getActivitie(columnId: number): Promise<Activitie[]> {
   const activities = await this.prisma.activitie.findMany({
@@ -36,6 +50,9 @@ export class PrismaActivitieRepository implements ActivitieRepository {
         }
       }
     },
+    orderBy: {
+      
+    }
   });
 
   return activities.map((activity) => {
@@ -46,7 +63,7 @@ export class PrismaActivitieRepository implements ActivitieRepository {
           checklist.title,
           checklist.finished,
           checklist.activitieId,
-          checklist.createdAt
+          checklist.createdAt,
         )
     );
 
@@ -55,8 +72,10 @@ export class PrismaActivitieRepository implements ActivitieRepository {
       activity.title,
       activity.description,
       activity.columnId,
+      activity.order,
       checklists,
-      activity.finished
+      activity.finished,
+
     );
   });
 }

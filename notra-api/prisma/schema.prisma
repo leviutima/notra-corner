@@ -44,6 +44,7 @@ model Activitie {
   title       String
   description String?
   finished    Boolean
+  order       Int
 
   column   Column @relation(fields: [columnId], references: [id], onDelete: Cascade)
   columnId Int

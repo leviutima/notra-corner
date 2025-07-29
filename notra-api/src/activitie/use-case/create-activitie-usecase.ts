@@ -16,8 +16,10 @@ export class CreateActivitieUseCase {
       dto.title,
       dto.description,
       Number(dto.columnId),
+      0,                    
       dto.checkLists,
-    )
+      false                 
+    );
 
     const createdActivitie = await this.activitieRepo.createActivitie(activitie);
     return createdActivitie;

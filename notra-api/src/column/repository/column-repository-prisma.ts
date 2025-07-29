@@ -32,7 +32,7 @@ export class PrismaColumnRepository implements ColumnRepository {
     });
     return columns.map((column) => {
       const activities = column.activities.map(
-        (a) => new Activitie(a.id, a.title, a.description, a.columnId),
+        (a) => new Activitie(a.id, a.title, a.description, a.columnId, a.order),
       );
 
       return new Column(column.id, column.title, column.userId, activities);
