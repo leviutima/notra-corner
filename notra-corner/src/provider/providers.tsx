@@ -6,6 +6,7 @@ import {
   checkAuthRequest,
 } from "@/store/auth/actions/action";
 import { store } from "@/store/store";
+import { DndContext } from "@dnd-kit/core";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
@@ -13,7 +14,6 @@ import { Provider, useDispatch } from "react-redux";
 import { Toaster } from "sonner";
 
 export function Providers({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname();
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
@@ -27,24 +27,36 @@ export function Providers({ children }: { children: React.ReactNode }) {
 
   return (
     <Provider store={store}>
-      <QueryClientProvider client={queryClient}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-          themes={["light", "dark"]}
-          value={{
-            light: "light",
-            dark: "dark",
-          }}
-        >
-          <Toaster richColors closeButton expand={false} className="w-[20vw]" />
+      <DndContext>
+        <QueryClientProvider client={queryClient}>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+            themes={["light", "dark"]}
+            value={{
+              light: "light",
+              dark: "dark",
+            }}
+          >
+            <Toaster
+              richColors
+              closeButton
+              expand={false}
+              className="w-[20vw]"
+            />
 
-          <Toaster richColors closeButton expand={false} className="w-[20vw]" />
-          <AuthChecker>{children}</AuthChecker>
-        </ThemeProvider>
-      </QueryClientProvider>
+            <Toaster
+              richColors
+              closeButton
+              expand={false}
+              className="w-[20vw]"
+            />
+            <AuthChecker>{children}</AuthChecker>
+          </ThemeProvider>
+        </QueryClientProvider>
+      </DndContext>
     </Provider>
   );
 }
