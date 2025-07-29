@@ -5,6 +5,7 @@ export class Column {
     private readonly id: number | null,
     private title: string,
     private userId: string,
+    private order: number,
     private activities: Activitie[] = []
   ) {}
 
@@ -14,6 +15,14 @@ export class Column {
 
   public getTitle(): string {
     return this.title;
+  }
+
+  public getOrder(): number {
+    return this.order
+  }
+
+  public setOrder(order: number) {
+    this.order = order
   }
 
   public setTitle(title: string): void {

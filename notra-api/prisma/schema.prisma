@@ -32,6 +32,7 @@ model User {
 model Column {
   id    Int @id @default(autoincrement())
   title String
+  order Int
 
   user   User   @relation(fields: [userId], references: [id])
   userId String
@@ -56,6 +57,7 @@ model CheckList {
   id Int @id @default(autoincrement()) 
   title String
   finished Boolean
+  order Int
   createdAt DateTime @default(now())
   
   activitie Activitie @relation(fields: [activitieId], references: [id], onDelete: Cascade)

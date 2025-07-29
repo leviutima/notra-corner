@@ -10,14 +10,21 @@ export class PrismaColumnRepository implements ColumnRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   async createColumn(column: Column) {
+    const firstColumn = await this.prisma.column.findFirst({
+      where: {userId: column.getUserId()},
+      orderBy: {order: 'desc'}
+    })
+
+    const nextOrder = firstColumn ? firstColumn.order + 1 : 0
     const data = await this.prisma.column.create({
       data: {
         title: column.getTitle(),
         userId: column.getUserId(),
+        order: nextOrder
       },
     });
 
-    return new Column(data.id, data.title, data.userId);
+    return new Column(data.id, data.title, data.userId, data.order);
   }
 
   async getColumnsByUserId(userId: string): Promise<Column[]> {
@@ -27,7 +34,7 @@ export class PrismaColumnRepository implements ColumnRepository {
         activities: true,
       },
       orderBy: {
-        id: 'asc',
+        order: 'asc',
       },
     });
     return columns.map((column) => {
@@ -35,7 +42,7 @@ export class PrismaColumnRepository implements ColumnRepository {
         (a) => new Activitie(a.id, a.title, a.description, a.columnId, a.order),
       );
 
-      return new Column(column.id, column.title, column.userId, activities);
+      return new Column(column.id, column.title, column.userId, column.order, activities);
     });
   }
 
@@ -52,6 +59,7 @@ export class PrismaColumnRepository implements ColumnRepository {
       updatedColumn.id,
       updatedColumn.title,
       updatedColumn.userId,
+      updatedColumn.order
     );
   }
 
