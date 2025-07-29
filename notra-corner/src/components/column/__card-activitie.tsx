@@ -27,7 +27,7 @@ export function CardActivitie({ activities }: cardActivitieProps) {
                 onChange={() => handleClick(activitie.id)}
                 onClick={(e) => e.stopPropagation()}
               />
-              <h1>{activitie.title}</h1>
+              <h1 className="text-start">{activitie.title}</h1>
             </div>
             {activitie.description ? (
               <div>
