@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsArray, IsString, IsUUID } from 'class-validator';
+import { IsArray, IsNumber, IsString, IsUUID } from 'class-validator';
 import { CheckList } from 'src/checklits/domain/checklits.entity';
 
 export class CreateActivitieDto {
@@ -14,6 +14,10 @@ export class CreateActivitieDto {
   @ApiProperty({ description: 'Descrição da atividade' })
   @IsString()
   description: string;
+
+  @ApiProperty()
+  @IsNumber()
+  order: number
 
   @ApiProperty({ description: 'ID da coluna relacionada' })
   @IsUUID()

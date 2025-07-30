@@ -1,16 +1,14 @@
-import { Activitie } from 'src/activitie/domain/activitie.entity';
-
 export class CheckList {
-
   constructor(
     private readonly _id: number | undefined,
     private _title: string,
     private _finished: boolean,
     private _activitieId: string,
-    private _createdAt: Date
+    private _createdAt: Date,
+    private _order: number,
   ) {}
 
-  get id(): number | undefined{
+  get id(): number | undefined {
     return this._id;
   }
 
@@ -24,6 +22,13 @@ export class CheckList {
 
   get activitieId(): string {
     return this._activitieId;
+  }
+
+  public get order(): number {
+    return this._order;
+  }
+  public set order(value: number) {
+    this._order = value;
   }
 
   set title(value: string) {
@@ -44,5 +49,4 @@ export class CheckList {
   public set createdAt(value: Date) {
     this._createdAt = value;
   }
-
 }

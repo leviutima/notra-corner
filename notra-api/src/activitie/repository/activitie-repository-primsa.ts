@@ -64,6 +64,7 @@ export class PrismaActivitieRepository implements ActivitieRepository {
           checklist.finished,
           checklist.activitieId,
           checklist.createdAt,
+          checklist.order
         )
     );
 
