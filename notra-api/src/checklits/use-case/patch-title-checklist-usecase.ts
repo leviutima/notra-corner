@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import {
   CHECKLIST_REPOSITORY,
   ChecklistRepository,
-} from '../repository/activitie-repository';
+} from '../repository/checklist-repository';
 import { PatchTitleChecklistDto } from '../dto/patch-title-checklits';
 
 @Injectable()

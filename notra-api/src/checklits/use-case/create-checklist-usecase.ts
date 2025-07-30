@@ -1,5 +1,5 @@
 import { Body, Inject, Injectable } from "@nestjs/common";
-import { CHECKLIST_REPOSITORY, ChecklistRepository } from "../repository/activitie-repository";
+import { CHECKLIST_REPOSITORY, ChecklistRepository } from "../repository/checklist-repository";
 import { CreateCheckListDto } from "../dto/create-checklits.dto";
 import { CheckList } from "../domain/checklits.entity";
 

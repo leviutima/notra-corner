@@ -1,5 +1,5 @@
 import { Inject, Injectable } from "@nestjs/common";
-import { CHECKLIST_REPOSITORY, ChecklistRepository } from "../repository/activitie-repository";
+import { CHECKLIST_REPOSITORY, ChecklistRepository } from "../repository/checklist-repository";
 
 @Injectable()
 export class DeleteChecklistUseCase {
