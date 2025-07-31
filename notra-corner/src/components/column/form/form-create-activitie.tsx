@@ -19,7 +19,6 @@ export function FormCreateActivite({ form, onSubmit, isPending }: FormCreateActi
     register,
     handleSubmit,
     formState: { errors },
-    reset
   } = form;
 
   return (
