@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsArray } from 'class-validator';
+import { IsArray, IsInt } from 'class-validator';
 import { Activitie } from 'src/activitie/domain/activitie.entity';
 import { Column } from '../domain/column.entity';
 
@@ -17,10 +17,15 @@ export class GetColumnResponseDto {
   @IsArray()
   activities: Activitie[]
 
+  @ApiProperty()
+  @IsInt()
+  order:  number | undefined 
+
   constructor(column: Column) {
     this.id = column.getId();
     this.title = column.getTitle();
     this.userId = column.getUserId()
-    this.activities = column.getActivities()
+    this.activities = column.getActivities();
+    this.order = column.getOrder()
   }
 }

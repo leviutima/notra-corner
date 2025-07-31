@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label";
 import { useLoginForm } from "@/hooks/forms/form-login";
 import { RootState } from "@/store/store";
 import { Eye, EyeClosed } from "lucide-react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -70,18 +71,28 @@ export default function SignIn() {
                 className="cursor-pointer"
                 onClick={() => setShowPassword(false)}
               />
-
             </div>
           )}
-          {errors.password && <span className="text-red-600">{errors.password.message}</span>}
+          {errors.password && (
+            <span className="text-red-600">{errors.password.message}</span>
+          )}
         </div>
-        <Button
-          disabled={loading}
-          className="w-full cursor-pointer"
-          type="submit"
-        >
-          {loading ? "Carregando..." : "Entrar"}
-        </Button>
+        <div className="flex flex-col gap-1">
+          <Button
+            disabled={loading}
+            className="w-full cursor-pointer"
+            type="submit"
+          >
+            {loading ? "Carregando..." : "Entrar"}
+          </Button>
+          <p className="text-[14px]">
+            Não tem uma conta? Clique{" "}
+            <Link href={"/auth/sign-up"} className="underline hover:text-neutral-500">
+              AQUI
+            </Link>{" "}
+            para criar
+          </p>
+        </div>
         {error && (
           <span className="text-red-600">Email ou senha incorretos</span>
         )}

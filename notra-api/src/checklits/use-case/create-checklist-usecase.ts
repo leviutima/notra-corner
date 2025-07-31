@@ -16,7 +16,8 @@ export class CreateChecklistUseCase {
       data.title,
       data.finished,
       data.activitieId,
-      data.createdAt
+      data.createdAt,
+      data.order
     );
     return await this.checklistRepo.createChecklist(checklist);
   }

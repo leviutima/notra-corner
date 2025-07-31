@@ -4,6 +4,7 @@ import { Injectable } from '@nestjs/common';
 import { Column } from '../domain/column.entity';
 import { Activitie } from 'src/activitie/domain/activitie.entity';
 import { UpdateColumnDto } from '../dto/update-column.dto';
+import { PatchOrderColumnDto } from '../dto/patch-order-column.dto';
 
 @Injectable()
 export class PrismaColumnRepository implements ColumnRepository {
@@ -11,16 +12,16 @@ export class PrismaColumnRepository implements ColumnRepository {
 
   async createColumn(column: Column) {
     const firstColumn = await this.prisma.column.findFirst({
-      where: {userId: column.getUserId()},
-      orderBy: {order: 'desc'}
-    })
+      where: { userId: column.getUserId() },
+      orderBy: { order: 'desc' },
+    });
 
-    const nextOrder = firstColumn ? firstColumn.order + 1 : 0
+    const nextOrder = firstColumn ? firstColumn.order + 1 : 0;
     const data = await this.prisma.column.create({
       data: {
         title: column.getTitle(),
         userId: column.getUserId(),
-        order: nextOrder
+        order: nextOrder,
       },
     });
 
@@ -42,7 +43,13 @@ export class PrismaColumnRepository implements ColumnRepository {
         (a) => new Activitie(a.id, a.title, a.description, a.columnId, a.order),
       );
 
-      return new Column(column.id, column.title, column.userId, column.order, activities);
+      return new Column(
+        column.id,
+        column.title,
+        column.userId,
+        column.order,
+        activities,
+      );
     });
   }
 
@@ -59,7 +66,18 @@ export class PrismaColumnRepository implements ColumnRepository {
       updatedColumn.id,
       updatedColumn.title,
       updatedColumn.userId,
-      updatedColumn.order
+      updatedColumn.order,
+    );
+  }
+
+  async patchColumn(columns: PatchOrderColumnDto[]) {
+    return await Promise.all(
+      columns.map((column) =>
+        this.prisma.column.update({
+          where: { id: column.id },
+          data: { order: column.order },
+        }),
+      ),
     );
   }
 
@@ -72,6 +90,6 @@ export class PrismaColumnRepository implements ColumnRepository {
     const deletedColumn = await this.prisma.column.delete({
       where: { id },
     });
-    return deletedColumn
+    return deletedColumn;
   }
 }

@@ -1,15 +1,17 @@
-import { Ellipsis } from "lucide-react";
+import { Ellipsis, GripVertical } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useUpdateColumn } from "@/hooks/forms/update-column";
 import { Button } from "@/components/ui/button";
-import { DeleteColumnEllipsis } from "../form/delete-column";
+import { StateColumnEllipsis } from "../form/delete-column";
+import { SyntheticListenerMap } from "@dnd-kit/core/dist/hooks/utilities";
 
 interface titleInputProps {
   columnId: number;
   columnTitle: string;
+    listeners?:  React.HTMLAttributes<HTMLElement>;
 }
 
-export function TitleInput({ columnTitle, columnId }: titleInputProps) {
+export function TitleInput({ columnTitle, columnId ,listeners}: titleInputProps) {
   const [isEditing, setIsEditing] = useState("text");
   const { formUpdate, isPending, onSubmit, hasSuccess, setHasSuccess } =
     useUpdateColumn({ columnId });
@@ -41,8 +43,9 @@ export function TitleInput({ columnTitle, columnId }: titleInputProps) {
   return (
     <div>
       {isEditing === "text" && (
-        <div className="flex  justify-between">
+        <div className="flex flex-row justify-between">
           <div
+          {...listeners}
           className="cursor-pointer"
             onClick={() => {
               setIsEditing("input");
@@ -51,7 +54,7 @@ export function TitleInput({ columnTitle, columnId }: titleInputProps) {
           >
             <h1>{columnTitle}</h1>
           </div>
-          <DeleteColumnEllipsis columnId={columnId}/>
+          <StateColumnEllipsis columnId={columnId}/>
         </div>
       )}
       {isEditing === "input" && (

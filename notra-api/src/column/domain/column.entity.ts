@@ -5,7 +5,7 @@ export class Column {
     private readonly id: number | null,
     private title: string,
     private userId: string,
-    private order: number,
+    private order?: number,
     private activities: Activitie[] = []
   ) {}
 
@@ -17,7 +17,7 @@ export class Column {
     return this.title;
   }
 
-  public getOrder(): number {
+  public getOrder(): number | undefined {
     return this.order
   }
 

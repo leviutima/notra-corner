@@ -20,17 +20,17 @@ export function DragScrollWrapper({ children }: Props) {
       isDragging.current = true;
       startX.current = e.pageX - container.offsetLeft;
       scrollLeft.current = container.scrollLeft;
-      container.style.cursor = 'grabbing';
+      // container.style.cursor = 'grabbing';
     };
 
     const handleMouseLeave = () => {
       isDragging.current = false;
-      container.style.cursor = 'grab';
+      // container.style.cursor = 'grab';
     };
 
     const handleMouseUp = () => {
       isDragging.current = false;
-      container.style.cursor = 'grab';
+      // container.style.cursor = 'grab';
     };
 
     const handleMouseMove = (e: MouseEvent) => {
@@ -47,7 +47,7 @@ export function DragScrollWrapper({ children }: Props) {
     container.addEventListener('mousemove', handleMouseMove);
 
     // Definir o cursor como "grab" inicialmente
-    container.style.cursor = 'grab';
+    // container.style.cursor = 'grab';
 
     return () => {
       container.removeEventListener('mousedown', handleMouseDown);
@@ -61,7 +61,7 @@ export function DragScrollWrapper({ children }: Props) {
     <div className="w-full h-full overflow-hidden">
       <div
         ref={containerRef}
-        className="w-full h-full overflow-x-auto relative select-none flex items-end cursor-grab"
+        className="w-full h-full overflow-x-auto relative select-none flex items-end"
       >
         {children}
       </div>

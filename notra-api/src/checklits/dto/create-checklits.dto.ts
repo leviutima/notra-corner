@@ -15,6 +15,10 @@ export class CreateCheckListDto {
   activitieId: string
 
   @ApiProperty()
+  @IsInt()
+  order: number
+
+  @ApiProperty()
   @IsDate()
   createdAt: Date
 }

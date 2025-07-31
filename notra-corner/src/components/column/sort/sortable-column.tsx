@@ -1,3 +1,4 @@
+// SortableColumn.tsx
 "use client";
 
 import { useSortable } from "@dnd-kit/sortable";
@@ -6,16 +7,19 @@ import { ReactNode } from "react";
 
 interface Props {
   id: number;
-  children: ReactNode;
+  children: (params: {
+    listeners: ReturnType<typeof useSortable>["listeners"];
+    attributes: ReturnType<typeof useSortable>["attributes"];
+  }) => ReactNode;
 }
 
 export function SortableColumn({ id, children }: Props) {
   const {
-    attributes,
-    listeners,
     setNodeRef,
     transform,
     transition,
+    attributes,
+    listeners,
   } = useSortable({ id });
 
   const style = {
@@ -27,12 +31,10 @@ export function SortableColumn({ id, children }: Props) {
   return (
     <div
       ref={setNodeRef}
-      {...attributes}
-      {...listeners}
       style={style}
       className="bg-neutral-800 flex w-[280px] flex-col gap-2 p-3 rounded-md"
     >
-      {children}
+      {children({ listeners, attributes })}
     </div>
   );
 }

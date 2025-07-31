@@ -3,6 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import z from "zod";
 
 const signUpFormSchema = z.object({
@@ -29,11 +30,16 @@ export function useSignUp() {
   const { mutate, isPending } = useMutation({
     mutationFn: async (data: SignUpFormSchema) => createUser(data),
     mutationKey: ["user"],
+    onSuccess: () => {
+      router.push("/auth/sign-in");
+    },
+    onError: () => {
+      toast.error("Erro ao criar usuário, tente novamente");
+    },
   });
 
   const onSubmit = async (data: SignUpFormSchema) => {
     mutate(data);
-    router.push("/auth/sign-in");
   };
 
   return { formSignUp, isPending, onSubmit };
