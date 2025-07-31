@@ -11,9 +11,6 @@ export function useDeleteActivitie({ activitieId }: useDeleteActivitieProps) {
   const { mutate, isPending } = useMutation({
     mutationFn: () => deleteActivitie(activitieId),
     mutationKey: ["activitie", activitieId],
-    onMutate: () => {
-      toast.loading("Excluindo atividade...");
-    },
     onSuccess: () => {
       toast.success("Sucesso ao excluir atividade");
       queryClient.invalidateQueries({ queryKey: ["activitie"] });

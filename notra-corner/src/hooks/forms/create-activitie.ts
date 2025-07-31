@@ -1,6 +1,7 @@
 import { createActivitie } from "@/service/activitie/create-activitie";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
@@ -12,10 +13,13 @@ const createActivitieFormSchema = z.object({
 
 type CreateActivieFormSchema = z.infer<typeof createActivitieFormSchema>;
 export function useCreateActivitie(columnId: number) {
+  const [open, setIsOpen] = useState(false)
   const queryClient = useQueryClient()
   const formCreateActivitie = useForm<CreateActivieFormSchema>({
     resolver: zodResolver(createActivitieFormSchema),
   });
+
+    const { reset } = formCreateActivitie;
 
   const { mutate, isPending } = useMutation({
     mutationKey: ["activitie"],
@@ -23,8 +27,11 @@ export function useCreateActivitie(columnId: number) {
     onSuccess: () => {
       toast.success("Sucesso ao criar atividade")
       queryClient.invalidateQueries({queryKey:["activitie", columnId]})
+      setIsOpen(false)
+      reset()
     },
     onError: () => {
+      setIsOpen(false)
       toast.error("erro")
     }
   });
@@ -37,5 +44,5 @@ export function useCreateActivitie(columnId: number) {
     mutate(payload);
   };
 
-  return{formCreateActivitie, onSubmit, isPending}
+  return{formCreateActivitie, onSubmit, isPending, open, setIsOpen}
 }
