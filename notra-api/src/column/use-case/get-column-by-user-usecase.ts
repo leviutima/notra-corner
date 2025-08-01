@@ -15,7 +15,7 @@ export class GetColumnByUserUseCase {
       title: column.getTitle(),
       userId: column.getUserId(),
       activities: column.getActivities(),
-      order: column.getOrder()
+      order: column.getOrder(),
     }));
   }
 }

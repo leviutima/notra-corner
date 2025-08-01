@@ -20,7 +20,7 @@ export class PrismaActivitieRepository implements ActivitieRepository {
       title: activitie.getTitle(),
       description: activitie.getDescription(),
       columnId: activitie.getColumnId(),
-      finished: activitie.getFinished() ?? false,
+      finished: false,
       order: nextOrder, 
     },
     include: {
@@ -33,7 +33,9 @@ export class PrismaActivitieRepository implements ActivitieRepository {
     data.title,
     data.description,
     data.columnId,
-    data.order
+    data.order,
+    [],
+    data.finished
   );
 }
 
@@ -64,7 +66,7 @@ export class PrismaActivitieRepository implements ActivitieRepository {
           checklist.finished,
           checklist.activitieId,
           checklist.createdAt,
-          checklist.order
+          checklist.order,
         )
     );
 
@@ -76,7 +78,6 @@ export class PrismaActivitieRepository implements ActivitieRepository {
       activity.order,
       checklists,
       activity.finished,
-
     );
   });
 }

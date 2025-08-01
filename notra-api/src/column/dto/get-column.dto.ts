@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsArray, IsInt } from 'class-validator';
+import { IsArray, IsBoolean, IsInt } from 'class-validator';
 import { Activitie } from 'src/activitie/domain/activitie.entity';
 import { Column } from '../domain/column.entity';
 
@@ -26,6 +26,6 @@ export class GetColumnResponseDto {
     this.title = column.getTitle();
     this.userId = column.getUserId()
     this.activities = column.getActivities();
-    this.order = column.getOrder()
+    this.order = column.getOrder();
   }
 }

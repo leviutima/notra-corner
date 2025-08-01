@@ -6,7 +6,7 @@ export class Column {
     private title: string,
     private userId: string,
     private order?: number,
-    private activities: Activitie[] = []
+    private activities: Activitie[] = [],
   ) {}
 
     public getId(): number | null {

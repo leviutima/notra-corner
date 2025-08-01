@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsArray, IsInt, IsString, IsUUID } from 'class-validator';
+import { IsArray, IsBoolean, IsInt, IsString, IsUUID } from 'class-validator';
 import { CheckList } from 'src/checklits/domain/checklits.entity';
 import { Activitie } from '../domain/activitie.entity';
 
@@ -21,6 +21,10 @@ export class GetActivitieDto {
   columnId: number;
 
   @ApiProperty()
+  @IsBoolean()
+  finished: boolean | undefined;
+
+  @ApiProperty()
   @IsArray()
   checkLists?: CheckList[];
 
@@ -29,6 +33,7 @@ export class GetActivitieDto {
       (this.title = activitie.getTitle()),
       (this.description = activitie.getDescription()),
       (this.columnId = activitie.getColumnId()),
-      (this.checkLists = activitie.getCheckLists()));
+      (this.checkLists = activitie.getCheckLists()),
+      (this.finished = activitie.getFinished()));
   }
 }
