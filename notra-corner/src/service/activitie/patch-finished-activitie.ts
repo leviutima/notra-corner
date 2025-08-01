@@ -5,7 +5,7 @@ interface patchFinishedActivitieProps {
 
 export const patchFinishedActivity = async(id: string, data: patchFinishedActivitieProps) => {
   try{
-    const res = await api.patch(`/activitie/${id}`, data)
+    const res = await api.patch(`/activitie/finished/${id}`, data)
     return res.data
   }catch(err: any) {
     console.log(err);

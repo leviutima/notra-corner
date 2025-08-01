@@ -26,6 +26,7 @@ export function FinishedActivitieInput({
       type="checkbox"
       checked={onChecked || isFinished}
       onChange={handleChange}
+      onClick={(e) => e.stopPropagation()} 
     />
   );
 }
