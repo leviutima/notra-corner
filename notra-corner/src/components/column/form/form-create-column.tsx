@@ -2,9 +2,19 @@ import { useColumn } from "@/hooks/forms/create-column";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { UseFormReturn } from "react-hook-form";
 
-export function FormCreateColumn() {
-  const { form, isPending, onSubmit } = useColumn();
+interface CreateColumnFormSchema {
+  title: string
+}
+
+interface formCreateColumnProps {
+  form: UseFormReturn<CreateColumnFormSchema>;
+  onSubmit: (data: CreateColumnFormSchema) => void;
+  isPending: boolean
+}
+
+export function FormCreateColumn({form,isPending,onSubmit}: formCreateColumnProps) {
   const {
     register,
     handleSubmit,

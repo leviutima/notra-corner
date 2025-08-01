@@ -6,20 +6,30 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { FormCreateColumn } from "../form/form-create-column";
+import { useColumn } from "@/hooks/forms/create-column";
+import { Modal } from "./__modal";
 
 export function CreateColumn() {
+  const { form, onSubmit, isPending, open, setIsOpen } = useColumn();
+
   return (
-    <Dialog>
-      <DialogTrigger>
+    <Modal
+      onOpenChange={setIsOpen}
+      open={open}
+      title="Adicionar coluna"
+      trigger={
         <div className="flex items-center justify-start bg-neutral-600 p-2 rounded-md w-[200px] cursor-pointer hover:bg-neutral-700">
           <Plus />
           <h2>Adicionar coluna</h2>
         </div>
-      </DialogTrigger>
-      <DialogContent className="bg-neutral-800">
-        <DialogTitle>Criar nova coluna</DialogTitle>
-        <FormCreateColumn />
-      </DialogContent>
-    </Dialog>
+      }
+      content={
+        <FormCreateColumn
+          form={form}
+          isPending={isPending}
+          onSubmit={onSubmit}
+        />
+      }
+    />
   );
 }

@@ -25,8 +25,6 @@ export function ModalActivitie({ columnId }: modalActivitieProps) {
     staleTime: 1000 * 60 * 5,
   });
 
-  const [openModalId, setOpenModalId] = useState<number | null>(null);
-
   return (
     <>
       {Array.isArray(activities) &&
