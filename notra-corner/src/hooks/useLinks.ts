@@ -8,7 +8,7 @@ export const useLinks = () => {
 
   return [
     { href: `/home/${user?.id}`, label: "Quadro de tarefas" , icon: Columns3},
-    {href: `/pomodoro/${user?.id}`, label: "Pomodoro", icon: Timer}
+    // {href: `/pomodoro/${user?.id}`, label: "Pomodoro", icon: Timer}
     
   ]
 }

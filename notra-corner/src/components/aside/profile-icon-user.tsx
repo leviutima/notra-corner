@@ -1,7 +1,7 @@
 interface ProfileIconUser {
   firstLetter: string | undefined;
-  userName: string | undefined;
-  surname: string | undefined;
+  userName?: string | undefined;
+  surname?: string | undefined;
 }
 
 export function ProfileIconUser({ firstLetter, userName, surname }: ProfileIconUser) {

@@ -1,21 +1,21 @@
-import { AsideHome } from "@/components/aside/__aside";
 import { AsideResponsive } from "@/components/aside/responsive/__aside-resposive";
+import { FooterHome } from "@/components/footer/footer-home/footer-home";
+import { HeaderHome } from "@/components/header/header-home/__aside";
 
 interface LayoutHomeProps {
   children: React.ReactNode;
 }
 
-export default function LayoutHomeProps({ children }: LayoutHomeProps) {
+export default function LayoutHome({ children }: LayoutHomeProps) {
   return (
-    <div className="flex h-screen flex-col-reverse md:flex-row">
+    <div className="flex h-screen flex-col">
       <div className="hidden md:block">
-        <AsideHome />
+        <HeaderHome />
       </div>
-      <div className="block md:hidden">
-        <AsideResponsive />
-      </div>
-
       <div className="flex-1 overflow-hidden">{children}</div>
+      <div className="flex justify-center">
+        <FooterHome />
+      </div>
     </div>
   );
 }
