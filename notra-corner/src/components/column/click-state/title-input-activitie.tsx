@@ -1,17 +1,20 @@
 import { Button } from "@/components/ui/button";
 import { useUpdateActivitie } from "@/hooks/forms/update-activitie";
 import { useEffect, useState } from "react";
+import { FinishedActivitieInput } from "../form/patch-finished-activitie";
 
 interface titleInputActivitieProps {
   activitieTitle: string;
   activitieId: string;
   activitieDescription: string;
+  isFinished: boolean
 }
 
 export function TitleInputActivitie({
   activitieDescription,
   activitieId,
   activitieTitle,
+  isFinished,
 }: titleInputActivitieProps) {
   const [hasEditing, setHasEditing] = useState("text");
   const { update, updatedActivitie, setHasSuccess, hasSuccess, isPending } =
@@ -34,7 +37,7 @@ export function TitleInputActivitie({
     <div>
       {hasEditing === "text" ? (
         <div className="flex items-center gap-2">
-          <input type="checkbox" />
+          <FinishedActivitieInput activitieId={activitieId} isFinished={isFinished}/>
           <h1 onClick={handleClick} className="cursor-pointer">
             {activitieTitle}
           </h1>

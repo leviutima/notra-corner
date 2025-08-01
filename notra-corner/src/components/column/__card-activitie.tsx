@@ -2,16 +2,12 @@ import { ActivitieProps } from "@/utils/interfaces";
 import { DndContext } from "@dnd-kit/core";
 import { AlignLeft } from "lucide-react";
 import { useState } from "react";
+import { FinishedActivitieInput } from "./form/patch-finished-activitie";
 interface cardActivitieProps {
   activities: ActivitieProps[];
 }
 
 export function CardActivitie({ activities }: cardActivitieProps) {
-  const [selected, setSelected] = useState<string | null>(null);
-  const handleClick = (id: string) => {
-    setSelected((prev) => (prev === id ? null : id));
-  };
-
   return (
     <div className="flex flex-col gap-3">
       <DndContext>
@@ -23,11 +19,9 @@ export function CardActivitie({ activities }: cardActivitieProps) {
               key={activitie.id}
             >
               <div className="flex items-center gap-3">
-                <input
-                  type="checkbox"
-                  checked={selected === activitie.id}
-                  onChange={() => handleClick(activitie.id)}
-                  onClick={(e) => e.stopPropagation()}
+                <FinishedActivitieInput
+                  activitieId={activitie.id}
+                  isFinished={activitie.finished}
                 />
                 <h1 className="text-start">{activitie.title}</h1>
               </div>

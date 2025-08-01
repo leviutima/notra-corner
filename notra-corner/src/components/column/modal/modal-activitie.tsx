@@ -41,6 +41,7 @@ export function ModalActivitie({ columnId }: modalActivitieProps) {
                       activitieId={activitie.id}
                       activitieDescription={activitie.description}
                       activitieTitle={activitie.title}
+                      isFinished={activitie.finished}
                     />
                     <SectionActivitie activitieId={activitie.id} />
                   </div>

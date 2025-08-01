@@ -4,6 +4,7 @@ import { PrismaService } from 'src/prisma.service';
 import { Activitie } from '../domain/activitie.entity';
 import { UpdateActivitieDto } from '../dto/update-activitie.dto';
 import { CheckList } from 'src/checklits/domain/checklits.entity';
+import { PatchFinishedDto } from '../dto/patch-finished.dto';
 
 @Injectable()
 export class PrismaActivitieRepository implements ActivitieRepository {
@@ -102,5 +103,15 @@ export class PrismaActivitieRepository implements ActivitieRepository {
     })
 
     return deletedActvitie
+  }
+
+  async patchFinishedActivitie(id: string, data: PatchFinishedDto) {
+    const patchFinished = await this.prisma.activitie.update({
+      where: {id},
+      data: {
+        finished: data.finished
+      }
+    })
+    return patchFinished
   }
 }

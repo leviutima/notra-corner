@@ -7,6 +7,7 @@ import { ACTIVITIE_REPOSITORY } from './repository/activitie-repository';
 import { GetActivitieUseCase } from './use-case/get-activitie-usecase';
 import { UpdateActivitieUseCase } from './use-case/update-activitie-usecase';
 import { DeleteActiviteUseCase } from './use-case/delete-activitie';
+import { UseCasePatchActivitieFinished } from './use-case/patch-activitie-finished';
 
 @Module({
   imports: [],
@@ -17,6 +18,7 @@ import { DeleteActiviteUseCase } from './use-case/delete-activitie';
     GetActivitieUseCase,
     UpdateActivitieUseCase,
     DeleteActiviteUseCase,
+    UseCasePatchActivitieFinished,
     { provide: ACTIVITIE_REPOSITORY, useClass: PrismaActivitieRepository },
   ],
   exports: [CreateActivitieUseCase, ACTIVITIE_REPOSITORY],

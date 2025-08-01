@@ -20,7 +20,8 @@ export interface ActivitieProps {
   title: string,
   description: string,
   columnId: number,
-  checkLists: []
+  checkLists: [],
+  finished: boolean
 }
 
 export interface ChecklistProps {
