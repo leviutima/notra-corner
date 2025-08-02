@@ -1,6 +1,6 @@
 import { AsideResponsive } from "@/components/aside/responsive/__aside-resposive";
 import { FooterHome } from "@/components/footer/footer-home/footer-home";
-import { HeaderHome } from "@/components/header/header-home/__aside";
+import { HeaderHome } from "@/components/header/header-home/__header";
 
 interface LayoutHomeProps {
   children: React.ReactNode;

@@ -1,15 +1,12 @@
 "use client";
 
-import Link from "next/link";
-import { ModeToggle } from "../../theme/toggle";
-import { MenuItem } from "../../aside/menu-item";
 import { useLinks } from "@/hooks/useLinks";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { ProfileIconUser } from "../../aside/profile-icon-user";
 import { usePathname } from "next/navigation";
-import { Search } from "lucide-react";
 import { SearchBarHome } from "./search-bar-home";
+import { Notes } from "./notes/notes";
 
 export function HeaderHome() {
   const links = useLinks();
@@ -25,7 +22,12 @@ export function HeaderHome() {
       <div className="flex items-center justify-between">
         <div>a</div>
         <SearchBarHome />
-        <div>a</div>
+        <div className="flex items-center gap-5">
+          <div>
+            <Notes />
+          </div>
+          <ProfileIconUser firstLetter={user?.name} />
+        </div>
       </div>
     </header>
   );
