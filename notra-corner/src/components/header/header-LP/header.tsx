@@ -11,7 +11,7 @@ export function Header() {
   return (
     <header className="w-full px-6 md:px-10 py-5 flex items-center justify-between md:justify-around">
       <div className="block dark:hidden">
-        <Image src={darkLogo} alt="Logo notra-corner" width={70} />
+        <Image src={darkLogo} alt="Logo notra-corner" width={30} />
       </div>
       <div className="hidden dark:block">
         <Image src={lightLogo} alt="Logo notra-corner" width={30} />

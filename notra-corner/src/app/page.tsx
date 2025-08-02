@@ -69,6 +69,16 @@ export default function Home() {
           ))}
         </section>
         <section className="w-full py-20 border-t bg-neutral-50 dark:bg-neutral-950 px-6">
+          <div className="max-w-4xl mx-auto text-center mb-16">
+            <h2 className="text-4xl font-bold tracking-tight text-neutral-800 dark:text-neutral-100">
+              O que vem por aí?
+            </h2>
+            <p className="mt-4 text-neutral-600 dark:text-neutral-400 text-lg">
+              Estamos construindo novas funcionalidades para deixar sua
+              organização ainda mais fluida e inteligente.
+            </p>
+          </div>
+
           <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -88,6 +98,7 @@ export default function Home() {
                 </p>
               </div>
             </motion.div>
+
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}

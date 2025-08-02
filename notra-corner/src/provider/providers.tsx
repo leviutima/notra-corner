@@ -32,7 +32,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
         <ChangeSearchProvider>
           <ThemeProvider
             attribute="class"
-            defaultTheme="system"
+            defaultTheme="dark"
             enableSystem
             disableTransitionOnChange
             themes={["light", "dark"]}
