@@ -12,16 +12,13 @@ import { NotebookPen } from "lucide-react";
 export function Notes() {
   return (
     <Sheet>
-      <SheetTrigger asChild>
-        <TooltipComponent label="Bloco de notas" trigger={<NotebookPen />} />
+      <SheetTrigger className="cursor-pointer">
+        <NotebookPen />
       </SheetTrigger>
-      <SheetContent>
+      <SheetContent className="bg-neutral-800">
         <SheetHeader>
-          <SheetTitle>Are you absolutely sure?</SheetTitle>
-          <SheetDescription>
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
-          </SheetDescription>
+          <SheetTitle>Bloco de notas</SheetTitle>
+          <SheetDescription className="text-neutral-400">Spoiler da próxima atualização</SheetDescription>
         </SheetHeader>
       </SheetContent>
     </Sheet>

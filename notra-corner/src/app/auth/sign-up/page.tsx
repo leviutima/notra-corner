@@ -10,8 +10,13 @@ export default function SignUp() {
   const {register, handleSubmit, formState: {errors} } = formSignUp
 
   return (
-    <div>
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+    <div className="flex flex-col gap-5 items-center ">
+      <div className="flex flex-col items-center">
+        <h1 className="font-semibold text-[30px]">Comece sua jornada!</h1>
+        <span>Seja bem vindo</span>
+        <span></span>
+      </div>
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4  max-w-md rounded-md lg:w-[500px] md:w-[600px] w-[300px] lg:bg-transparent bg-neutral-800 p-5" >
         <div className="flex flex-col gap-1">
           <Label>Nome</Label>
           <Input placeholder="Digite seu nome" {...register("name")} />

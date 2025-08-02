@@ -30,8 +30,12 @@ export default function SignIn() {
   }, [user?.id]);
 
   return (
-    <div className="">
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
+    <div className="flex flex-col gap-5 md:mt-0 mt-24">
+      <div className="flex flex-col items-center">
+        <h1 className="font-semibold text-[30px]">Volte para realidade</h1>
+        <span className="text-neutral-400">Entre na sua conta</span>
+      </div>
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col  gap-5 w-[350px] md:w-[500px] lg:bg-transparent p-5 rounded-md">
         <div className=" flex-col gap-1 flex">
           <Label>Email</Label>
           <input

@@ -6,14 +6,14 @@ import {
 import React from "react";
 
 interface toolTipComponentProps {
-  trigger: React.ReactElement;
+  children: React.ReactNode;
   label: string
 }
 
-export function TooltipComponent({trigger, label}: toolTipComponentProps) {
+export function TooltipComponent({children, label}: toolTipComponentProps) {
   return (
     <Tooltip>
-      <TooltipTrigger className="cursor-pointer">{trigger}</TooltipTrigger>
+      <TooltipTrigger className="cursor-pointer" asChild>{children}</TooltipTrigger>
       <TooltipContent>
         <p>{label}</p>
       </TooltipContent>

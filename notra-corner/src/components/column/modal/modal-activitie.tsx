@@ -63,12 +63,11 @@ export function ModalActivitie({ columnId }: modalActivitieProps) {
                       />
                     )}
                   </div>
-
                   {activitie.checkLists.length > 0 && (
                     <div className="flex flex-col gap-2">
                       <div className="flex items-center gap-2">
-                        <Check size={30} />
-                        <h1 className="text-[30px]">Sua Checklist</h1>
+                        <Check size={20} />
+                        <h1 className="text-[20px]">Sua Checklist</h1>
                       </div>
                       {activitie.checkLists.map((checklist: ChecklistProps) => (
                         <SectionChecklist
