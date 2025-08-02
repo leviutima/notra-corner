@@ -9,6 +9,7 @@ import { RootState } from "@/store/store";
 import { ProfileIconUser } from "../../aside/profile-icon-user";
 import { usePathname } from "next/navigation";
 import { Search } from "lucide-react";
+import { SearchBarHome } from "./search-bar-home";
 
 export function HeaderHome() {
   const links = useLinks();
@@ -23,12 +24,7 @@ export function HeaderHome() {
     <header className="dark:bg-neutral-800 bg-neutral-300 w-full shadow-md px-10 py-5">
       <div className="flex items-center justify-between">
         <div>a</div>
-        <div>
-          <div className="border border-neutral-300 flex items-centert rounded-sm p-2 bg-neutral-900 w-[30vw]">
-            <input type="text" className="w-full outline-none"/>
-            <Search />
-          </div>
-        </div>
+        <SearchBarHome />
         <div>a</div>
       </div>
     </header>

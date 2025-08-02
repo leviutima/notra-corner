@@ -14,7 +14,7 @@ export function FooterHome() {
         {links.map((link) => {
           const isActive = pathname === link.href;
           return(
-            <MenuItem icon={link.icon} active={isActive} titleHover={link.label}/>
+            <MenuItem key={link.href} icon={link.icon} active={isActive} titleHover={link.label}/>
           )
         })}
       </div>

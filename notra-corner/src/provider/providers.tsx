@@ -1,6 +1,7 @@
 "use client";
 
 import { ThemeProvider } from "@/components/theme/theme-provider";
+import { ChangeSearchProvider } from "@/context/useChangeSearchContext";
 import {
   CHECK_AUTH_REQUEST,
   checkAuthRequest,
@@ -27,8 +28,8 @@ export function Providers({ children }: { children: React.ReactNode }) {
 
   return (
     <Provider store={store}>
-      <DndContext>
-        <QueryClientProvider client={queryClient}>
+      <QueryClientProvider client={queryClient}>
+        <ChangeSearchProvider>
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
@@ -55,8 +56,8 @@ export function Providers({ children }: { children: React.ReactNode }) {
             />
             <AuthChecker>{children}</AuthChecker>
           </ThemeProvider>
-        </QueryClientProvider>
-      </DndContext>
+        </ChangeSearchProvider>
+      </QueryClientProvider>
     </Provider>
   );
 }
