@@ -1,6 +1,6 @@
 import { Plus } from "lucide-react";
 import { FormCreateActivite } from "../form/form-create-activitie";
-import { Modal } from "./__modal";
+import { Modal } from "../../modal";
 import { useCreateActivitie } from "@/hooks/forms/create-activitie";
 
 interface ModalCreateActivitieProps {

@@ -4,13 +4,11 @@ import { ActivitieProps, ChecklistProps } from "@/utils/interfaces";
 import { AlignLeft, Check } from "lucide-react";
 import { DescriptionInputActivitie } from "../click-state/description-input-activitie";
 import { TitleInputActivitie } from "../click-state/title-input-activitie";
-import { ModalCreateChecklist } from "./modal-create-checklist";
 import { SectionActivitie } from "../sections-activitie/section-buttons";
 import { SectionChecklist } from "../sections-activitie/section-checklist";
 import { DescriptionInputNull } from "../click-state/description-input-null";
 import { CardActivitie } from "../__card-activitie";
-import { useState } from "react";
-import { Modal } from "./__modal";
+import { Modal } from "../../modal";
 
 interface modalActivitieProps {
   columnId: number;

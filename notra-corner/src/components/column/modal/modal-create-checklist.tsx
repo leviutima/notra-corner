@@ -1,15 +1,7 @@
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import { CheckSquare } from "lucide-react";
 import { FormCreateChecklist } from "../form/form-create-checklist";
 import { useCreateChecklist } from "@/hooks/forms/create-checklist";
-import { Modal } from "./__modal";
+import { Modal } from "../../modal";
 
 interface modalCreateChecklistProps {
   activitieId: string;

@@ -1,4 +1,4 @@
-import { TooltipComponent } from "@/components/tooltip/tooltip";
+import { TooltipComponent } from "@/components/tooltip";
 import {
   Sheet,
   SheetContent,
@@ -7,17 +7,12 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { NotebookPen } from "lucide-react";
 
 export function Notes() {
   return (
     <Sheet>
-      <SheetTrigger>
+      <SheetTrigger asChild>
         <TooltipComponent label="Bloco de notas" trigger={<NotebookPen />} />
       </SheetTrigger>
       <SheetContent>

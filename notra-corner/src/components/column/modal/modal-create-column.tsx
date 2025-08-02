@@ -1,13 +1,7 @@
 import { Plus } from "lucide-react";
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import { FormCreateColumn } from "../form/form-create-column";
 import { useColumn } from "@/hooks/forms/create-column";
-import { Modal } from "./__modal";
+import { Modal } from "../../modal";
 
 export function CreateColumn() {
   const { form, onSubmit, isPending, open, setIsOpen } = useColumn();
