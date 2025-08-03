@@ -17,7 +17,7 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            Organize sua vida com
+            Organize sua vida com NOTRA CORNER
           </motion.h1>
           <motion.p
             className="text-lg md:text-xl text-neutral-500 mt-6"
@@ -154,7 +154,7 @@ export default function Home() {
               {
                 icon: "⏳",
                 title: "Tempo com propósito",
-                desc: "Gerencie seu dia com eficiência. Gaste menos energia decidindo e mais fazendo.",
+                desc: "Gerencie seu dia com eficiência. Gaste menos energia decidindo e mais agindo.",
               },
               {
                 icon: "🌱",

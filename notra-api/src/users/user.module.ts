@@ -8,9 +8,10 @@ import { UpdateUserUseCase } from './use-case/update-user-useCase';
 import { FindAllUseCase } from './use-case/find-all-usecase';
 import { FindUniqueUserUseCase } from './use-case/find-unique-user-usecase';
 import { FindByEmailUseCase } from './use-case/find-by-email-usecase';
+import { Mailermodule } from 'src/mail/mailer.module';
 
 @Module({
-  imports: [],
+  imports: [Mailermodule],
   controllers: [UserController],
   providers: [
     PrismaService,
@@ -19,6 +20,7 @@ import { FindByEmailUseCase } from './use-case/find-by-email-usecase';
     FindAllUseCase,
     FindUniqueUserUseCase,
     FindByEmailUseCase,
+
     { provide: USER_REPOSITORY, useClass: PrismaUserRepository },
   ],
   exports: [CreateUserUseCase, USER_REPOSITORY, FindByEmailUseCase],

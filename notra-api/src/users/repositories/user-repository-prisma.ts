@@ -5,6 +5,8 @@ import { UserRepository } from './user-repository';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import * as bcrypt from 'bcryptjs';
 import { GetUserResponseDto } from '../dto/get-use-response.dto';
+import { MailService } from 'src/mail/mail-service';
+import * as nodemailer from 'nodemailer';
 
 interface UserResponse {
   id: string;
@@ -16,7 +18,10 @@ interface UserResponse {
 
 @Injectable()
 export class PrismaUserRepository implements UserRepository {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly mail: MailService,
+  ) {}
 
   async findAll() {
     return await this.prisma.user.findMany();
@@ -31,6 +36,7 @@ export class PrismaUserRepository implements UserRepository {
       throw new Error('Usuário não encontrado');
     }
 
+
     return new User(
       user.id,
       user.name,
@@ -41,19 +47,43 @@ export class PrismaUserRepository implements UserRepository {
     );
   }
 
+  async sendWelcomeEmail(email: string, name: string) {
+    const emailSend = process.env.EMAIL_USER;
+    const emailPass = process.env.EMAIL_PASSWORD;
+
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {user: emailSend, pass: emailPass}
+    })
+
+    const mailOption = {
+      from: emailSend,
+      to: email,
+      subject: 'Seja muito bem vindo ao notra corner!',
+      text: `Olá, ${name || 'Usuário'}!\n\nSeja bem-vindo ao nosso sistema. Estamos felizes em ter você conosco.\n\nAtenciosamente,\nLevi Utima`
+    }
+
+    try {
+      await transporter.sendMail(mailOption)
+    }catch(error) {
+      console.log('erro ao enviar email', error);
+      
+    }
+  }
+
   async createUser(user: User) {
-    if(!user.email) {
-      throw new Error("Email não fornecido")
+    if (!user.email) {
+      throw new Error('Email não fornecido');
     }
 
     const userExist = await this.prisma.user.findUnique({
       where: {
-        email: user.email
-      }
-    })
+        email: user.email,
+      },
+    });
 
-    if(userExist) {
-      throw new Error("Usuário já existe com esse email")
+    if (userExist) {
+      throw new Error('Usuário já existe com esse email');
     }
 
     const data = await this.prisma.user.create({
@@ -66,6 +96,9 @@ export class PrismaUserRepository implements UserRepository {
         password: user.password,
       },
     });
+
+    await this.sendWelcomeEmail(user.email, user.name)
+    
     return new User(
       data.id,
       data.name,
@@ -79,12 +112,12 @@ export class PrismaUserRepository implements UserRepository {
   async findByEmail(email: string): Promise<User> {
     const findUser = await this.prisma.user.findUnique({
       where: {
-        email: email
+        email: email,
       },
     });
 
     if (!findUser) {
-      throw new Error("Usuário não encontrado")
+      throw new Error('Usuário não encontrado');
     }
 
     return new User(

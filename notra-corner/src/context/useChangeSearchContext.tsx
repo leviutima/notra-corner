@@ -29,6 +29,9 @@ export function ChangeSearchProvider({ children }: { children: React.ReactNode }
     enabled: !!user?.id,
   });
 
+  console.log(columns);
+  
+
   const filteredColumns = useMemo(() => {
     if (searchTerm.trim() === "") {
       return columns;
