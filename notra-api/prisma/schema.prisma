@@ -26,11 +26,25 @@ model User {
   birthDate DateTime @db.Date
   createdAt DateTime @default(now())
 
-  column Column[]
+  column            Column[]
+  verificationCodes VerificationCode[]
+}
+
+model VerificationCode {
+  id   String @id @default(uuid())
+  code String @db.Char(6)
+
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @unique
+
+  @@index([userId])
 }
 
 model Column {
-  id    Int @id @default(autoincrement())
+  id    Int    @id @default(autoincrement())
   title String
   order Int
 
@@ -41,7 +55,7 @@ model Column {
 }
 
 model Activitie {
-  id          String @id @default(uuid())
+  id          String  @id @default(uuid())
   title       String
   description String?
   finished    Boolean
@@ -54,12 +68,12 @@ model Activitie {
 }
 
 model CheckList {
-  id Int @id @default(autoincrement()) 
-  title String
-  finished Boolean
-  order Int
+  id        Int      @id @default(autoincrement())
+  title     String
+  finished  Boolean
+  order     Int
   createdAt DateTime @default(now())
-  
-  activitie Activitie @relation(fields: [activitieId], references: [id], onDelete: Cascade)
+
+  activitie   Activitie @relation(fields: [activitieId], references: [id], onDelete: Cascade)
   activitieId String
 }

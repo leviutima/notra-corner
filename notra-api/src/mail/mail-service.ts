@@ -1,4 +1,3 @@
-// src/mail/mail.service.ts
 import { Injectable } from '@nestjs/common';
 import * as nodemailer from 'nodemailer';
 
@@ -7,30 +6,79 @@ export class MailService {
   private transporter;
 
   constructor() {
-    // Cria o transportador com as credenciais do seu serviço de email
     this.transporter = nodemailer.createTransport({
-      service: 'gmail', // Pode ser outro serviço, como SendGrid ou Mailgun
+      service: 'gmail',
       auth: {
-        user: process.env.EMAIL_USER, // Seu email
-        pass: process.env.EMAIL_PASSWORD, // Senha do email ou App password
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASSWORD,
       },
     });
   }
 
-  // Função para enviar o email
-async sendMail(to: string, subject: string, content: { text?: string; html?: string }) {
-  const mailOptions = {
-    from: process.env.EMAIL_USER,
-    to,
-    subject,
-    ...content,
-  };
+  async sendMail(
+    to: string,
+    subject: string,
+    content: { text?: string; html?: string },
+  ) {
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to,
+      subject,
+      ...content,
+    };
 
-  try {
-    await this.transporter.sendMail(mailOptions);
-  } catch (error) {
-    console.error('Erro ao enviar email:', error);
-    throw new Error('Erro ao enviar email');
+    try {
+      await this.transporter.sendMail(mailOptions);
+    } catch (error) {
+      console.error('Erro ao enviar email:', error);
+      throw new Error('Erro ao enviar email');
+    }
   }
-}
+
+  async sendWelcomeEmail(email: string, name: string) {
+    const emailSend = process.env.EMAIL_USER;
+    const emailPass = process.env.EMAIL_PASSWORD;
+
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: { user: emailSend, pass: emailPass },
+    });
+
+    const mailOption = {
+      from: emailSend,
+      to: email,
+      subject: 'Seja muito bem vindo ao notra corner!',
+      text: `Olá, ${name || 'Usuário'}!\n\nSeja bem-vindo ao nosso sistema. Estamos felizes em ter você conosco.\n\nAtenciosamente,\nLevi Utima`,
+    };
+
+    try {
+      await transporter.sendMail(mailOption);
+    } catch (error) {
+      console.log('erro ao enviar email', error);
+    }
+  }
+
+  async sendForgotPassword(email: string, code: string) {
+    const emailSend = process.env.EMAIL_USER;
+    const emailPass = process.env.EMAIL_PASSWORD;
+
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: { user: emailSend, pass: emailPass },
+    });
+
+    const mailOption = {
+      from: emailSend,
+      to: email,
+      subject: 'Código para recuperação de senha',
+      text: `${code}`,
+    };
+
+    try{
+        await transporter.sendMail(mailOption)
+    }catch(error) {
+      console.log('erro ao enviar');
+      
+    }
+  }
 }

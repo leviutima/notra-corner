@@ -7,6 +7,7 @@ import * as bcrypt from 'bcryptjs';
 import { GetUserResponseDto } from '../dto/get-use-response.dto';
 import { MailService } from 'src/mail/mail-service';
 import * as nodemailer from 'nodemailer';
+import crypto from 'crypto';
 
 interface UserResponse {
   id: string;
@@ -36,7 +37,6 @@ export class PrismaUserRepository implements UserRepository {
       throw new Error('Usuário não encontrado');
     }
 
-
     return new User(
       user.id,
       user.name,
@@ -45,30 +45,6 @@ export class PrismaUserRepository implements UserRepository {
       user.birthDate,
       user.password,
     );
-  }
-
-  async sendWelcomeEmail(email: string, name: string) {
-    const emailSend = process.env.EMAIL_USER;
-    const emailPass = process.env.EMAIL_PASSWORD;
-
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {user: emailSend, pass: emailPass}
-    })
-
-    const mailOption = {
-      from: emailSend,
-      to: email,
-      subject: 'Seja muito bem vindo ao notra corner!',
-      text: `Olá, ${name || 'Usuário'}!\n\nSeja bem-vindo ao nosso sistema. Estamos felizes em ter você conosco.\n\nAtenciosamente,\nLevi Utima`
-    }
-
-    try {
-      await transporter.sendMail(mailOption)
-    }catch(error) {
-      console.log('erro ao enviar email', error);
-      
-    }
   }
 
   async createUser(user: User) {
@@ -97,8 +73,8 @@ export class PrismaUserRepository implements UserRepository {
       },
     });
 
-    await this.sendWelcomeEmail(user.email, user.name)
-    
+    await this.mail.sendWelcomeEmail(user.email, user.name);
+
     return new User(
       data.id,
       data.name,
@@ -109,10 +85,13 @@ export class PrismaUserRepository implements UserRepository {
     );
   }
 
-  async findByEmail(email: string): Promise<User> {
+  async findByEmail(email: string) {
+    const normalizedEmail = email.trim().toLowerCase();
+    console.log(normalizedEmail);
+    
     const findUser = await this.prisma.user.findUnique({
       where: {
-        email: email,
+        email: normalizedEmail
       },
     });
 
@@ -120,14 +99,7 @@ export class PrismaUserRepository implements UserRepository {
       throw new Error('Usuário não encontrado');
     }
 
-    return new User(
-      findUser.id,
-      findUser.name,
-      findUser.surname,
-      findUser.email,
-      findUser.birthDate,
-      findUser.password,
-    );
+    return findUser
   }
 
   async updateById(id: string, data: User): Promise<UserResponse> {
@@ -158,5 +130,19 @@ export class PrismaUserRepository implements UserRepository {
       email: updated.email,
       birthDate: new Date(updated.birthDate),
     };
+  }
+  async saveVerificationCode(userId: string, code: string) {
+    const expiresAt = new Date();
+    expiresAt.setMinutes(expiresAt.getMinutes() + 10);
+
+    await this.prisma.verificationCode.upsert({
+      where: { userId },
+      update: { code, expiresAt },
+      create: {
+        code,
+        userId,
+        expiresAt,
+      },
+    });
   }
 }

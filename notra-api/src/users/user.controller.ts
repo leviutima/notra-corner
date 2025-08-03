@@ -17,6 +17,8 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { JwtAuthGuard } from 'src/auth/jwt.auth.guards';
 import { FindAllUseCase } from './use-case/find-all-usecase';
 import { FindUniqueUserUseCase } from './use-case/find-unique-user-usecase';
+import { ForgotPasswordUseCase } from './use-case/forgot-password-usecase';
+import { ForgotPasswordDto } from './dto/forgot-password.dto';
 
 @ApiTags('User')
 @Controller('user')
@@ -26,6 +28,7 @@ export class UserController {
     private readonly useCaseUpdate: UpdateUserUseCase,
     private readonly useCaseFindAll: FindAllUseCase,
     private readonly useCaseFindUniqe: FindUniqueUserUseCase,
+    private readonly useCaseForgotPassword: ForgotPasswordUseCase
   ) {}
 
   @Post()
@@ -54,5 +57,10 @@ export class UserController {
   @ApiBody({ type: UpdateUserDto })
   async updateUser(@Param('id') id: string, @Body() data: Partial<User>) {
     return await this.useCaseUpdate.execute(id, data);
+  }
+
+  @Post(`forgot-password`)
+  async forgotPassword(@Body() body: ForgotPasswordDto) {
+    return await this.useCaseForgotPassword.execute(body.email)
   }
 }
