@@ -20,11 +20,13 @@ datasource db {
 model User {
   id        String   @id @default(uuid())
   name      String
-  surname   String
+  surname   String 
   email     String   @unique
   password  String
   birthDate DateTime @db.Date
   createdAt DateTime @default(now())
+  role      Role    @default(USER)
+  
 
   column            Column[]
   verificationCodes VerificationCode[]
@@ -76,4 +78,10 @@ model CheckList {
 
   activitie   Activitie @relation(fields: [activitieId], references: [id], onDelete: Cascade)
   activitieId String
+}
+
+enum Role {
+  ADMIN
+  USER
+
 }

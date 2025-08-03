@@ -30,12 +30,15 @@ export default function SignIn() {
   }, [user?.id]);
 
   return (
-    <div className="flex flex-col gap-5 md:mt-0 mt-24">
+    <div className="flex flex-col gap-5 ">
       <div className="flex flex-col items-center">
-        <h1 className="font-semibold text-[30px]">Volte para realidade</h1>
+        <h1 className="font-semibold md:text-[30px] text-[25px]">Volte para realidade</h1>
         <span className="text-neutral-400">Entre na sua conta</span>
       </div>
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col  gap-5 w-[350px] md:w-[500px] lg:bg-transparent p-5 rounded-md">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col  gap-5  lg:bg-transparent p-5 rounded-md"
+      >
         <div className=" flex-col gap-1 flex">
           <Label>Email</Label>
           <input
@@ -81,20 +84,25 @@ export default function SignIn() {
             <span className="text-red-600">{errors.password.message}</span>
           )}
         </div>
-        <div className="flex flex-col gap-1">
-          <Button
-            disabled={loading}
-            className="w-full cursor-pointer"
-            type="submit"
-          >
-            {loading ? "Carregando..." : "Entrar"}
-          </Button>
-          <p className="text-[14px]">
-            Não tem uma conta? Clique{" "}
-            <Link href={"/auth/sign-up"} className="underline hover:text-neutral-500">
+        <div className="">
+          <div className="flex flex-col gap-4 items-center">
+            <Button
+              disabled={loading}
+              className="w-full cursor-pointer"
+              type="submit"
+            >
+              {loading ? "Carregando..." : "Entrar"}
+            </Button>
+            <span>OU</span>
+            <Button className="w-full">Criar conta</Button>
+          </div>
+          <p className="text-[14px] text-neutral-400">
+            Esqueceu a senha? Clique{" "}
+            <Link href={"/auth/forgot-password"} className="underline hover:text-neutral-400">
               AQUI
-            </Link>{" "}
-            para criar
+            </Link>
+            {" "}
+            para recuperar
           </p>
         </div>
         {error && (

@@ -25,4 +25,8 @@ export class CreateUserDto {
   @ApiProperty({ description: 'Data de nascimento de usuário', format: 'date' })
   @IsDateString()
   birthDate: Date;
+
+  @ApiProperty({description: 'regra de usuario'})
+  @IsString()
+  role: string
 }

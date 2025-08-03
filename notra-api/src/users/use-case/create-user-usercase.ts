@@ -5,7 +5,7 @@ import {
   USER_REPOSITORY,
   UserRepository,
 } from '../repositories/user-repository';
-import { User } from '../domain/user.entity';
+import { User, UserRole } from '../domain/user.entity';
 import { randomUUID } from 'crypto';
 import * as bcrypt from 'bcryptjs';
 
@@ -25,7 +25,8 @@ export class CreateUserUseCase {
         dto.surname,
         dto.email,
         new Date (dto.birthDate),
-        passwordHashed
+        passwordHashed,
+        UserRole.USER
     )
 
     return await this.userRepo.createUser(user)

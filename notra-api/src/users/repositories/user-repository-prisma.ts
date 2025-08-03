@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { User } from '../domain/user.entity';
+import { User, UserRole } from '../domain/user.entity';
 import { PrismaService } from 'src/prisma.service';
 import { UserRepository } from './user-repository';
 import { UpdateUserDto } from '../dto/update-user.dto';
@@ -44,6 +44,7 @@ export class PrismaUserRepository implements UserRepository {
       user.email,
       user.birthDate,
       user.password,
+      UserRole.USER
     );
   }
 
@@ -70,6 +71,7 @@ export class PrismaUserRepository implements UserRepository {
         email: user.email,
         birthDate: user.birthDate,
         password: user.password,
+        role: UserRole.USER
       },
     });
 
@@ -82,6 +84,7 @@ export class PrismaUserRepository implements UserRepository {
       data.email,
       new Date(data.birthDate),
       data.password,
+      UserRole.USER
     );
   }
 

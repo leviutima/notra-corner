@@ -12,7 +12,7 @@ export default function SignUp() {
   return (
     <div className="flex flex-col gap-5 items-center ">
       <div className="flex flex-col items-center">
-        <h1 className="font-semibold text-[30px]">Comece sua jornada!</h1>
+        <h1 className="font-semibold md:text-[30px] text-[25px]">Comece sua jornada!</h1>
         <span>Seja bem vindo</span>
         <span></span>
       </div>

@@ -1,3 +1,9 @@
+export enum UserRole {
+  USER = 'USER',
+  ADMIN = 'ADMIN',
+}
+
+
 export class User {
   constructor(
     public readonly id: string,
@@ -6,6 +12,7 @@ export class User {
     public email: string,
     public birthDate: Date,
     public password: string,
+    public role: UserRole
   ) {}
 
   // updateFullName(newName: string, newSurname: string) {
