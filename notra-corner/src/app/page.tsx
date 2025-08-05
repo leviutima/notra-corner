@@ -10,8 +10,7 @@ export default function Home() {
     <div className="relative overflow-hidden dark:bg-neutral-950">
       <motion.div
         className="absolute inset-0 z-0 bg-gradient-to-br from-indigo-400 via-purple-400 to-pink-400 opacity-10 blur-2xl pointer-events-none"
-        animate={{ scale: [1, 1.05, 1] }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
       />
       <Header />
       <main className="relative z-10 min-h-screen flex flex-col items-center px-6 pt-10">
@@ -49,7 +48,7 @@ export default function Home() {
           {[
             {
               title: "Organização fluida",
-              desc: "Transforme suas ideias em movimento com quadros Kanban pensados para clareza e foco.",
+              desc: "Transforme suas ideias em objetivos visuais. Ogranize sua vida de maneira clara e organizada",
             },
             {
               title: "Interface que entende você",
@@ -57,7 +56,7 @@ export default function Home() {
             },
             {
               title: "Juntos, moldamos o futuro",
-              desc: "Cada funcionalidade começa com uma história real — a sua. Participe da evolução.",
+              desc: "Cada funcionalidade começa com uma história real a sua. Participe da evolução.",
             },
           ].map((item, i) => (
             <motion.div
