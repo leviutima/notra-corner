@@ -44,7 +44,7 @@ export class PrismaUserRepository implements UserRepository {
       user.email,
       user.birthDate,
       user.password,
-      UserRole.USER
+      UserRole.USER,
     );
   }
 
@@ -71,7 +71,7 @@ export class PrismaUserRepository implements UserRepository {
         email: user.email,
         birthDate: user.birthDate,
         password: user.password,
-        role: UserRole.USER
+        role: UserRole.USER,
       },
     });
 
@@ -84,17 +84,17 @@ export class PrismaUserRepository implements UserRepository {
       data.email,
       new Date(data.birthDate),
       data.password,
-      UserRole.USER
+      UserRole.USER,
     );
   }
 
   async findByEmail(email: string) {
     const normalizedEmail = email.trim().toLowerCase();
     console.log(normalizedEmail);
-    
+
     const findUser = await this.prisma.user.findUnique({
       where: {
-        email: normalizedEmail
+        email: normalizedEmail,
       },
     });
 
@@ -102,7 +102,7 @@ export class PrismaUserRepository implements UserRepository {
       throw new Error('Usuário não encontrado');
     }
 
-    return findUser
+    return findUser;
   }
 
   async updateById(id: string, data: User): Promise<UserResponse> {
@@ -148,4 +148,19 @@ export class PrismaUserRepository implements UserRepository {
       },
     });
   }
+
+async enterCode(code: string, userId: string) {
+  const verificationCode = await this.prisma.verificationCode.findFirst({
+    where: {
+      code,
+      userId,
+    },
+  });
+
+  if (!verificationCode) {
+    throw new Error('Código de verificação inválido ou inexistente para este usuário');
+  }
+
+  return verificationCode;
+}
 }

@@ -25,5 +25,6 @@ export class ForgotPasswordUseCase {
     await this.userRepo.saveVerificationCode(user.id, code);
 
     await this.mail.sendForgotPassword(email, code);
+    return {user: user.id}
   }
 }

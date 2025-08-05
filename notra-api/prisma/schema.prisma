@@ -34,7 +34,7 @@ model User {
 
 model VerificationCode {
   id   String @id @default(uuid())
-  code String @db.Char(6)
+  code String @db.Char(6) @unique 
 
   createdAt DateTime @default(now())
   expiresAt DateTime
