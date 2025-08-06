@@ -10,6 +10,7 @@ import { FindUniqueUserUseCase } from './use-case/find-unique-user-usecase';
 import { FindByEmailUseCase } from './use-case/find-by-email-usecase';
 import { Mailermodule } from 'src/mail/mailer.module';
 import { ForgotPasswordUseCase } from './use-case/forgot-password-usecase';
+import { EnterCodeUseCase } from './use-case/enter-code-usecase';
 
 @Module({
   imports: [Mailermodule],
@@ -22,6 +23,7 @@ import { ForgotPasswordUseCase } from './use-case/forgot-password-usecase';
     FindUniqueUserUseCase,
     FindByEmailUseCase,
     ForgotPasswordUseCase,
+    EnterCodeUseCase,
     { provide: USER_REPOSITORY, useClass: PrismaUserRepository },
   ],
   exports: [CreateUserUseCase, USER_REPOSITORY, FindByEmailUseCase],

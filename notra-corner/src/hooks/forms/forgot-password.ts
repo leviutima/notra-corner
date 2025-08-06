@@ -7,8 +7,12 @@ import {
 import { useMutation } from "@tanstack/react-query";
 import { forgotPassword } from "@/service/auth/forgot-password";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { useVerificationCode } from "@/context/useVerificationCodeDatas";
 
 export function useForgotPassword() {
+  const router = useRouter();
+  const { setUserIdCode, setEmailCode, userIdCode } = useVerificationCode();
   const form = useForm<ForgotPasswordFormSchema>({
     resolver: zodResolver(forgotPasswordFormSchema),
   });
@@ -16,8 +20,15 @@ export function useForgotPassword() {
   const { mutate, isPending } = useMutation({
     mutationFn: (data: ForgotPasswordFormSchema) => forgotPassword(data),
     mutationKey: ["user"],
-    onSuccess: () => {
+    onSuccess: (response) => {
+      console.log(response);
       toast.success("Email enviado com sucesso");
+      if (response) {
+        router.push(`/auth/enter-code`);
+        setUserIdCode(response.user);
+        console.log("text",userIdCode);
+        
+      }
     },
     onError: () => {
       toast.error("Erro ao enviar email, tente novamente");
@@ -26,6 +37,7 @@ export function useForgotPassword() {
 
   const onSubmit = (data: ForgotPasswordFormSchema) => {
     mutate(data);
+    setEmailCode(data);
   };
 
   return { form, onSubmit, isPending };

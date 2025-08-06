@@ -19,6 +19,8 @@ import { FindAllUseCase } from './use-case/find-all-usecase';
 import { FindUniqueUserUseCase } from './use-case/find-unique-user-usecase';
 import { ForgotPasswordUseCase } from './use-case/forgot-password-usecase';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
+import { EnterCodeDto } from './dto/enter-code.dto';
+import { EnterCodeUseCase } from './use-case/enter-code-usecase';
 
 @ApiTags('User')
 @Controller('user')
@@ -28,7 +30,8 @@ export class UserController {
     private readonly useCaseUpdate: UpdateUserUseCase,
     private readonly useCaseFindAll: FindAllUseCase,
     private readonly useCaseFindUniqe: FindUniqueUserUseCase,
-    private readonly useCaseForgotPassword: ForgotPasswordUseCase
+    private readonly useCaseForgotPassword: ForgotPasswordUseCase,
+    private readonly useCaseEnterCode: EnterCodeUseCase,
   ) {}
 
   @Post()
@@ -61,6 +64,12 @@ export class UserController {
 
   @Post(`forgot-password`)
   async forgotPassword(@Body() body: ForgotPasswordDto) {
-    return await this.useCaseForgotPassword.execute(body.email)
+    return await this.useCaseForgotPassword.execute(body.email);
+  }
+
+  @Post(`/verification-code`)
+  async verificationCode(@Body() dto: EnterCodeDto) {
+    const { code, userId } = dto;
+    return await this.useCaseEnterCode.execute(code, userId);
   }
 }
