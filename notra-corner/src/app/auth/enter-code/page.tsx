@@ -28,6 +28,7 @@ export default function EnterCode() {
               <Input {...register("code")} />
               <Button className="cursor-pointer">{isPending ? "Carregando" : "Verificar"}</Button>
             </div>
+            {errors.code && <span className="text-red-600">{errors.code.message}</span>}
           </div>
         </form>
       </div>
