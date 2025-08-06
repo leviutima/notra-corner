@@ -11,4 +11,5 @@ export abstract class UserRepository {
   abstract findUnique(id: string): Promise<User | null>;
   abstract saveVerificationCode(userId: string, code: string)
   abstract enterCode(code: string, userId)
+  abstract patchPasswordUser(userId: string, password: string)
 }

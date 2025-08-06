@@ -149,18 +149,31 @@ export class PrismaUserRepository implements UserRepository {
     });
   }
 
-async enterCode(code: string, userId: string) {
-  const verificationCode = await this.prisma.verificationCode.findFirst({
-    where: {
-      code,
-      userId,
-    },
-  });
+  async enterCode(code: string, userId: string) {
+    const verificationCode = await this.prisma.verificationCode.findFirst({
+      where: {
+        code,
+        userId,
+      },
+    });
 
-  if (!verificationCode) {
-    throw new Error('Código de verificação inválido ou inexistente para este usuário');
+    if (!verificationCode) {
+      throw new Error(
+        'Código de verificação inválido ou inexistente para este usuário',
+      );
+    }
+
+    return verificationCode;
   }
 
-  return verificationCode;
-}
+  async patchPasswordUser(userId: string, password: string) {
+    const updatedUser= await this.prisma.user.update({
+      where: { id: userId },
+      data: {
+        password: password,
+      },
+      select: { id: true } 
+    });
+    return updatedUser;
+  }
 }

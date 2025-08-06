@@ -1,12 +1,15 @@
-import { Inject, Injectable } from "@nestjs/common";
-import { USER_REPOSITORY, UserRepository } from "../repositories/user-repository";
-import { randomBytes } from "crypto";
+import { Inject, Injectable } from '@nestjs/common';
+import {
+  USER_REPOSITORY,
+  UserRepository,
+} from '../repositories/user-repository';
+import { randomBytes } from 'crypto';
 
 @Injectable()
 export class EnterCodeUseCase {
   constructor(
     @Inject(USER_REPOSITORY)
-    private readonly useRepo: UserRepository
+    private readonly useRepo: UserRepository,
   ) {}
 
   async execute(code: string, userId: string) {
@@ -14,9 +17,9 @@ export class EnterCodeUseCase {
     const user = await this.useRepo.findUnique(userId);
 
     if (!user || verificationCode.userId !== user.id) {
-      throw new Error("Usuário não encontrado");
+      throw new Error('Usuário não encontrado');
     }
-    const token = randomBytes(32).toString("hex");
+    const token = randomBytes(32).toString('hex');
     return { token };
   }
 }

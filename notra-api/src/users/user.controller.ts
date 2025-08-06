@@ -21,6 +21,8 @@ import { ForgotPasswordUseCase } from './use-case/forgot-password-usecase';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import { EnterCodeDto } from './dto/enter-code.dto';
 import { EnterCodeUseCase } from './use-case/enter-code-usecase';
+import { PatchPasswordUserUseCase } from './use-case/patch-password-user-usecase';
+import { PatchPasswordUserDto } from './dto/patch-update-password.dto';
 
 @ApiTags('User')
 @Controller('user')
@@ -32,6 +34,7 @@ export class UserController {
     private readonly useCaseFindUniqe: FindUniqueUserUseCase,
     private readonly useCaseForgotPassword: ForgotPasswordUseCase,
     private readonly useCaseEnterCode: EnterCodeUseCase,
+    private readonly useCasePatchPasswordUser: PatchPasswordUserUseCase,
   ) {}
 
   @Post()
@@ -71,5 +74,15 @@ export class UserController {
   async verificationCode(@Body() dto: EnterCodeDto) {
     const { code, userId } = dto;
     return await this.useCaseEnterCode.execute(code, userId);
+  }
+
+  @Put('/update-password/:id')
+  @ApiParam({ name: 'id', description: 'ID do usuário' })
+  async patchPasswordUser(
+    @Param('id') userId: string,
+    @Body() dto: PatchPasswordUserDto,
+  ) {
+    dto.userId = userId;
+    return await this.useCasePatchPasswordUser.execute(dto);
   }
 }

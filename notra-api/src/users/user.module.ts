@@ -11,6 +11,7 @@ import { FindByEmailUseCase } from './use-case/find-by-email-usecase';
 import { Mailermodule } from 'src/mail/mailer.module';
 import { ForgotPasswordUseCase } from './use-case/forgot-password-usecase';
 import { EnterCodeUseCase } from './use-case/enter-code-usecase';
+import { PatchPasswordUserUseCase } from './use-case/patch-password-user-usecase';
 
 @Module({
   imports: [Mailermodule],
@@ -24,6 +25,7 @@ import { EnterCodeUseCase } from './use-case/enter-code-usecase';
     FindByEmailUseCase,
     ForgotPasswordUseCase,
     EnterCodeUseCase,
+    PatchPasswordUserUseCase,
     { provide: USER_REPOSITORY, useClass: PrismaUserRepository },
   ],
   exports: [CreateUserUseCase, USER_REPOSITORY, FindByEmailUseCase],
