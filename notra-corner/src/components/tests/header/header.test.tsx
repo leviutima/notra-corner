@@ -20,4 +20,16 @@ describe("Header", () => {
     expect(image).toBeInTheDocument();
     expect(image).toHaveAttribute("src", darkLogo.src);
   });
+
+  it("should render Login Button the header", () => {
+    render(<Header />);
+
+    expect(screen.getByText("Login")).toBeInTheDocument();
+  });
+
+  it("shoul render Sign-up button the header", () => {
+    render(<Header />)
+
+    expect(screen.getByText("Comece agora")).toBeInTheDocument()
+  });
 });

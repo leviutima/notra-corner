@@ -9,7 +9,7 @@ interface MenuItemProps {
   title?: string;
   active?: boolean;
   icon: LucideIcon;
-  titleHover: string
+  titleHover?: string
 }
 
 export function MenuItem({ title, active = false, icon: Icon, titleHover }: MenuItemProps) {
