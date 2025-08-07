@@ -170,7 +170,7 @@ export class PrismaUserRepository implements UserRepository {
     const updatedUser= await this.prisma.user.update({
       where: { id: userId },
       data: {
-        password: password,
+        password
       },
       select: { id: true } 
     });

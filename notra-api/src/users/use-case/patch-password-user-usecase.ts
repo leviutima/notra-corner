@@ -5,7 +5,7 @@ import {
 } from '../repositories/user-repository';
 import { PatchFinishedChecklistDto } from 'src/checklits/dto/patch-finished-checklits';
 import { PatchPasswordUserDto } from '../dto/patch-update-password.dto';
-import bcrypt from 'bcryptjs';
+import * as bcrypt from 'bcryptjs';
 
 @Injectable()
 export class PatchPasswordUserUseCase {
@@ -15,11 +15,17 @@ export class PatchPasswordUserUseCase {
   ) {}
 
   async execute(dto: PatchPasswordUserDto) {
-    const { userId, password } = dto;
-    if(!userId) {
-      throw Error("Id do usuário não encontrado")
+    const user = await this.useRepo.findUnique(dto.userId);
+    if (!user) {
+      throw Error('Usuário não encontrado');
     }
-    const hashPassword = await bcrypt.hash(password,10)
+    const { userId, password } = dto;
+
+    if (!dto.password) {
+      throw Error('Senha nao fornecida');
+    }
+
+    const hashPassword = await bcrypt.hash(password, 6);
     await this.useRepo.patchPasswordUser(userId, hashPassword);
   }
 }

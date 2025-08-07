@@ -13,8 +13,8 @@ import { toast } from "sonner";
 import { useVerificationCode } from "@/context/useVerificationCodeDatas";
 
 export function UseEnterVerificationCode() {
-  const router = useRouter()
-  const {userIdCode} = useVerificationCode()
+  const router = useRouter();
+  const { userIdCode } = useVerificationCode();
   const form = useForm<VerificationCodeFormSchema>({
     resolver: zodResolver(verificationCodeFormShcema),
     defaultValues: {
@@ -26,17 +26,20 @@ export function UseEnterVerificationCode() {
   const { mutate, isPending } = useMutation({
     mutationFn: (data: VerificationCodeFormSchema) => enterCode(data),
     mutationKey: ["user"],
-    onSuccess: () => {
-      router.push(`/auth/update-password`)
+    onSuccess: (response) => {
+      console.log(response);
+      if (response.token) {
+        router.push(`/auth/update-password`);
+      }
     },
     onError: () => {
-      toast.error("Código inválido, tente novamente")
-    }
+      toast.error("Código inválido, tente novamente");
+    },
   });
 
-  const onSubmit = async(data: VerificationCodeFormSchema) => {
-    mutate(data)
-  }
+  const onSubmit = async (data: VerificationCodeFormSchema) => {
+    mutate(data);
+  };
 
-  return{isPending, form, onSubmit}
+  return { isPending, form, onSubmit };
 }

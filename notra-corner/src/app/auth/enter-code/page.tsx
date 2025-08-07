@@ -26,9 +26,13 @@ export default function EnterCode() {
             <Label>Código</Label>
             <div className="flex items-center gap-1">
               <Input {...register("code")} />
-              <Button className="cursor-pointer">{isPending ? "Carregando" : "Verificar"}</Button>
+              <Button className="cursor-pointer">
+                {isPending ? "Carregando" : "Verificar"}
+              </Button>
             </div>
-            {errors.code && <span className="text-red-600">{errors.code.message}</span>}
+            {errors.code && (
+              <span className="text-red-600">{errors.code.message}</span>
+            )}
           </div>
         </form>
       </div>

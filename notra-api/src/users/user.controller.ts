@@ -82,6 +82,7 @@ export class UserController {
     @Param('id') userId: string,
     @Body() dto: PatchPasswordUserDto,
   ) {
+    console.log('DTO recebido:', dto);
     dto.userId = userId;
     return await this.useCasePatchPasswordUser.execute(dto);
   }

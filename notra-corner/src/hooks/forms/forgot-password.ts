@@ -12,7 +12,7 @@ import { useVerificationCode } from "@/context/useVerificationCodeDatas";
 
 export function useForgotPassword() {
   const router = useRouter();
-  const { setUserIdCode, setEmailCode, userIdCode } = useVerificationCode();
+  const { setUserIdCode, setEmailCode } = useVerificationCode();
   const form = useForm<ForgotPasswordFormSchema>({
     resolver: zodResolver(forgotPasswordFormSchema),
   });
@@ -26,8 +26,6 @@ export function useForgotPassword() {
       if (response) {
         router.push(`/auth/enter-code`);
         setUserIdCode(response.user);
-        console.log("text",userIdCode);
-        
       }
     },
     onError: () => {
