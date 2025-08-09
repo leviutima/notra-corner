@@ -11,5 +11,11 @@ describe('Menu buttons header',() => {
     render(<MenuButtons />)
     const linkElement = screen.getByRole("link", {name:/login/i})
     expect(linkElement).toHaveAttribute('href', "/auth/sign-in")
+  }),
+
+  it("Should click redirect sign-up page", () => {
+    render(<MenuButtons />)
+    const linkElement = screen.getByRole("link", {name:/Comece agora/i})
+    expect(linkElement).toHaveAttribute('href', "/auth/sign-up")
   })
 })

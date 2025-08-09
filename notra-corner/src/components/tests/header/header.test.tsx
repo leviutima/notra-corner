@@ -1,7 +1,7 @@
 import { Header } from "@/components/header/header-LP/header";
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
-import darkLogo from "@/assets/logo-dark.png";
+import logo from "@/assets/logo-white.png";
 
 jest.mock("next/image", () => ({
   __esModule: true,
@@ -18,7 +18,31 @@ describe("Header", () => {
 
     const image = screen.getByAltText("Logo notra-corner");
     expect(image).toBeInTheDocument();
-    expect(image).toHaveAttribute("src", darkLogo.src);
+    expect(image).toHaveAttribute("src", logo.src);
+  });
+
+  it("shold render menu-inicio the header", () => {
+    render(<Header />);
+
+    expect(screen.getByText("Início")).toBeInTheDocument();
+  });
+
+  it("shold render menu-planos the header", () => {
+    render(<Header />);
+
+    expect(screen.getByText("Planos")).toBeInTheDocument();
+  });
+
+  it("shold render menu-sobre-nós the header", () => {
+    render(<Header />);
+
+    expect(screen.getByText("Sobre nós")).toBeInTheDocument();
+  });
+
+    it("shold render menu-contato the header", () => {
+    render(<Header />);
+
+    expect(screen.getByText("Contato")).toBeInTheDocument();
   });
 
   it("should render Login Button the header", () => {
@@ -28,8 +52,8 @@ describe("Header", () => {
   });
 
   it("shoul render Sign-up button the header", () => {
-    render(<Header />)
+    render(<Header />);
 
-    expect(screen.getByText("Comece agora")).toBeInTheDocument()
+    expect(screen.getByText("Comece agora")).toBeInTheDocument();
   });
 });
