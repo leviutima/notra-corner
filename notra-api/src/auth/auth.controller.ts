@@ -37,12 +37,15 @@ export class AuthController {
       sameSite: 'none',
       maxAge: 1000 * 60 * 60 * 24,
     });
-    return { message: 'Login realizado com sucesso' };
+    return {
+      message: 'Login realizado com sucesso',
+      token: result.access_token,
+    };
   }
 
   @UseGuards(JwtAuthGuard)
   @ApiCookieAuth()
-  @Get("me")
+  @Get('me')
   @ApiOperation({
     summary: 'Retorna os dados do usuário do usuário autenticado',
   })
@@ -50,23 +53,21 @@ export class AuthController {
   async meUser(
     @Request() req: ExpressRequest & { user: { id: string; email: string } },
   ) {
+    const { id } = req.user;
+    const user = await this.authService.getUserById(id);
 
-    const { id } = req.user
-    const user = await this.authService.getUserById(id)
-
-    if(!user) {
-      throw new UnauthorizedException("Usuário não encontrado")
+    if (!user) {
+      throw new UnauthorizedException('Usuário não encontrado');
     }
 
-    const authenticatedUser = await this.authService.getUserById(id)
+    const authenticatedUser = await this.authService.getUserById(id);
 
     return {
       id: authenticatedUser?.id,
       name: authenticatedUser?.name,
       surname: authenticatedUser?.surname,
       email: authenticatedUser?.email,
-      birthDate: authenticatedUser?.birthDate
-    }
-
+      birthDate: authenticatedUser?.birthDate,
+    };
   }
 }
