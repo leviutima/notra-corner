@@ -12,10 +12,10 @@ export function Header() {
       <div className="">
         <Image src={lightLogo} alt="Logo notra-corner" width={30} />
       </div>
-      <div className="hidden md:flex">
+      <div className="hidden md:flex ml-36">
         <Menu />
       </div>
-      <div className="hidden md:flex">
+      <div className="hidden md:flex ">
         <MenuButtons />
       </div>
       <div className="md:hidden">

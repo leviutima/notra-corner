@@ -5,7 +5,7 @@ export function Menu() {
   const pathName = usePathname();
 
   return (
-    <nav>
+    <nav >
       <ul className="flex items-center gap-10">
         <li className="font-medium text-[16px] cursor-pointer">
           <Link
@@ -17,16 +17,17 @@ export function Menu() {
             Início
           </Link>
         </li>
-        <li className="font-medium text-[16px] cursor-pointer">          <Link
-            href={"/planos"}
+        <li className="font-medium text-[16px] cursor-pointer">
+          {" "}
+          <Link
+            href={"/about"}
             className={`hover:underline ${
-              pathName === "/planos" ? "underline font-semibold" : ""
+              pathName === "/about" ? "underline font-semibold" : ""
             }`}
           >
-            Planos
-          </Link></li>
-        <li className="font-medium text-[16px] cursor-pointer">Sobre nós</li>
-        <li className="font-medium text-[16px] cursor-pointer">Contato</li>
+            Sobre
+          </Link>
+        </li>
       </ul>
     </nav>
   );

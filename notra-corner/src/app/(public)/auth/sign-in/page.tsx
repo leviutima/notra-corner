@@ -25,7 +25,7 @@ export default function SignIn() {
 
   useEffect(() => {
     if (user && user.id) {
-      router.push(`/task-bar/${user.id}`);
+      router.push(`/task-board/${user.id}`);
     }
   }, [user?.id]);
 
