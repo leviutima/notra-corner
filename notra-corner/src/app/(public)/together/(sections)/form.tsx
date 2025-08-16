@@ -1,10 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { AboutForm } from "../(form)/about-form";
 
 export function FormSectionAbout() {
   return (
-    <section className="w-full py-20 border rounded-md bg-neutral-500 dark:bg-neutral-950 px-6 shadow-2xl">
+    <section className="w-full py-20 border rounded-md bg-neutral-800 px-6 shadow-2xl">
       <div className="max-w-4xl mx-auto text-center mb-16">
         <h2 className="text-4xl font-bold tracking-tight text-neutral-800 dark:text-neutral-100">
           Sua Ideia, Nosso SaaS
@@ -14,6 +15,7 @@ export function FormSectionAbout() {
           dia a dia mais produtivo.
         </p>
       </div>
+      <AboutForm />
     </section>
   );
 }
