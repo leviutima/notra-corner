@@ -11,12 +11,12 @@ export function middleware(request: NextRequest) {
   }
 
   if (token && isAuthPage) {
-    return NextResponse.redirect(new URL('/home', request.url))
+    return NextResponse.redirect(new URL('/task-bar', request.url))
   }
 
   return NextResponse.next()
 }
 
 export const config = {
-  matcher: ['/home/:path*'],
+  matcher: ['/task-bar/:path*'],
 }
