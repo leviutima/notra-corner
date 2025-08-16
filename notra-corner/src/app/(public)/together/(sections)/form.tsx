@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { AboutForm } from "../(form)/about-form";
 
 export function FormSectionAbout() {

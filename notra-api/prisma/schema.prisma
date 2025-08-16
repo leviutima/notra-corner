@@ -20,13 +20,12 @@ datasource db {
 model User {
   id        String   @id @default(uuid())
   name      String
-  surname   String 
+  surname   String
   email     String   @unique
   password  String
   birthDate DateTime @db.Date
   createdAt DateTime @default(now())
-  role      Role    @default(USER)
-  
+  role      Role     @default(USER)
 
   column            Column[]
   verificationCodes VerificationCode[]
@@ -34,7 +33,7 @@ model User {
 
 model VerificationCode {
   id   String @id @default(uuid())
-  code String @db.Char(6) @unique 
+  code String @unique @db.Char(6)
 
   createdAt DateTime @default(now())
   expiresAt DateTime
@@ -80,8 +79,15 @@ model CheckList {
   activitieId String
 }
 
+model FeatureSuggestion {
+  id         String @id @default(uuid())
+  name       String
+  surname    String
+  email      String
+  suggestion String
+}
+
 enum Role {
   ADMIN
   USER
-
 }

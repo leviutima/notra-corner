@@ -11,6 +11,7 @@ export default function Home() {
     <div className="relative overflow-hidden dark:bg-neutral-950">
       <motion.div
         className="absolute inset-0 z-0 bg-gradient-to-br from-indigo-400 via-purple-400 to-pink-400 opacity-10 blur-2xl pointer-events-none"
+        animate={{ opacity: [0.12, 0.20, 0.12] }}
         transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
       />
       <Header />
