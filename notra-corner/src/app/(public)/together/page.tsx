@@ -7,7 +7,7 @@ import { HeroSectionAbout } from "./(sections)/hero";
 import { FormSectionAbout } from "./(sections)/form";
 import { TestimonialsSection } from "./(sections)/testimonial";
 
-export default function About() {
+export default function Together() {
   return (
     <div className="relative overflow-hidden">
       <motion.div

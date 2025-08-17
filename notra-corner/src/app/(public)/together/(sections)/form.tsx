@@ -1,6 +1,7 @@
 "use client";
 
-import { AboutForm } from "../(form)/about-form";
+import { TogetherForm } from "../(form)/together-form";
+
 
 export function FormSectionAbout() {
   return (
@@ -14,7 +15,7 @@ export function FormSectionAbout() {
           dia a dia mais produtivo.
         </p>
       </div>
-      <AboutForm />
+      <TogetherForm />
     </section>
   );
 }

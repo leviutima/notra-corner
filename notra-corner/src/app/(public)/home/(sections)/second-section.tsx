@@ -31,7 +31,6 @@ export function SecondSectionHome() {
             initial={{ opacity: 0, x: i === 0 ? -30 : 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: i * 0.2 }}
-            viewport={{ once: true }}
           >
             <div className="bg-white dark:bg-neutral-900 border rounded-xl p-6 shadow-sm hover:shadow-md transition-all">
               <div className="text-3xl mb-4">{item.icon}</div>
