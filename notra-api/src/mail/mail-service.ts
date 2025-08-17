@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import * as nodemailer from 'nodemailer';
+import { text } from 'stream/consumers';
 
 @Injectable()
 export class MailService {
@@ -74,11 +75,38 @@ export class MailService {
       text: `${code}`,
     };
 
-    try{
-        await transporter.sendMail(mailOption)
-    }catch(error) {
+    try {
+      await transporter.sendMail(mailOption);
+    } catch (error) {
       console.log('erro ao enviar');
-      
+    }
+  }
+
+  async sendSuggestion(
+    name: string,
+    surname: string,
+    email: string,
+    suggestion: string
+  ) {
+    const emailSend = process.env.EMAIL_USER;
+    const emailPass = process.env.EMAIL_PASSWORD;
+
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: { user: emailSend, pass: emailPass },
+    });
+
+    const mailOption = {
+      from: emailSend,
+      to: "leviutima.profissional@gmail.com",
+      subject: `Sugestão de feature de ${name} ${surname} ${email}`,
+      text: `${suggestion}`
+    };
+
+    try {
+      await transporter.sendMail(mailOption);
+    } catch (error) {
+      console.log('erro ao enviar');
     }
   }
 }

@@ -7,6 +7,7 @@ import { ColumnModule } from './column/column.module';
 import { ActivitieModule } from './activitie/activitie.module';
 import { ChecklistModule } from './checklits/checklist.module';
 import { Mailermodule } from './mail/mailer.module';
+import { SuggestionModule } from './feature-suggestion/suggestion.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { Mailermodule } from './mail/mailer.module';
     ActivitieModule,
     ChecklistModule,
     Mailermodule,
+    SuggestionModule,
   ],
   controllers: [],
   providers: [PrismaService],

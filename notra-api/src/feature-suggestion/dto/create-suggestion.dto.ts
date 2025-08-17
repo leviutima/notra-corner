@@ -1,7 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString } from 'class-validator';
+import { IsString, IsUUID } from 'class-validator';
 
 export class CreateSuggestionDto {
+  @ApiProperty({ description: 'Id da sugestão' })
+  @IsUUID()
+  id: string;
+
   @ApiProperty({ description: 'Nome de quem envia a sugestão' })
   @IsString()
   name: string;
