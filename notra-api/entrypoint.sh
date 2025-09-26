@@ -1,12 +1,17 @@
 #!/usr/bin/env bash
-set -euo pipefail
+# robustez e logging de erros
+set -Eeuo pipefail
+trap 'code=$?; echo "!! ERRO na linha ${BASH_LINENO[0]}: comando \"${BASH_COMMAND}\" saiu com status $code"; exit $code' ERR
 
 # ========= Config =========
 # IP Tailscale do servidor Postgres (ex.: 100.94.203.110)
 TS_PG_HOST="${TS_PG_HOST:-100.94.203.110}"
-TS_PG_PORT="${TS_PG_PORT:-5432}"         # porta do Postgres remoto
-LOCAL_FWD_PORT="${LOCAL_FWD_PORT:-15432}"# porta local do túnel
-PORT="${PORT:-8000}"                     # porta HTTP da API (Render detecta essa)
+TS_PG_PORT="${TS_PG_PORT:-5432}"          # porta do Postgres remoto
+LOCAL_FWD_PORT="${LOCAL_FWD_PORT:-15432}" # porta local do túnel
+PORT="${PORT:-8000}"                      # porta HTTP da API (Render detecta essa)
+
+# sanity: evite caracteres ocultos/typos — NÃO edite estas linhas para 'porta', 'Porta', etc.
+: "TS_PG_HOST=$TS_PG_HOST" "TS_PG_PORT=$TS_PG_PORT" "LOCAL_FWD_PORT=$LOCAL_FWD_PORT" "PORT=$PORT"
 
 # ========= Tailscale =========
 echo ">> Iniciando tailscaled (userspace, SOCKS5 em 127.0.0.1:1055)..."
@@ -45,7 +50,7 @@ done
 
 # (Opcional) Teste de disponibilidade do Postgres via túnel (requer postgresql-client)
 if command -v pg_isready >/dev/null 2>&1; then
-  DB_NAME_CHECK="${DB_NAME_CHECK:-postgres}"  # ou notra_db se preferir
+  DB_NAME_CHECK="${DB_NAME_CHECK:-postgres}"  # troque para 'notra_db' se preferir
   echo ">> Testando DB via pg_isready (db=${DB_NAME_CHECK})..."
   for i in {1..20}; do
     if pg_isready -h 127.0.0.1 -p "${LOCAL_FWD_PORT}" -d "${DB_NAME_CHECK}" >/dev/null 2>&1; then
@@ -59,4 +64,4 @@ fi
 
 # ========= Start da API =========
 echo ">> Iniciando API na porta ${PORT}..."
-node dist/main.js
+exec node dist/main.js

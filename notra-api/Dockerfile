@@ -2,7 +2,7 @@
 FROM node:20-slim AS build
 WORKDIR /app
 
-# dependências para build de libs nativas (se houver)
+# deps de build
 RUN apt-get update && apt-get install -y python3 build-essential pkg-config \
   && rm -rf /var/lib/apt/lists/*
 
@@ -17,7 +17,7 @@ RUN npx prisma generate
 FROM node:20-slim
 WORKDIR /app
 
-# utilitários de runtime + tailscale + socat + connect-proxy + dumb-init + psql (opcional, útil p/ testes)
+# utilitários + tailscale + socat + connect-proxy + dumb-init + psql (para teste)
 RUN apt-get update && apt-get install -y \
     curl ca-certificates iproute2 procps netcat-openbsd socat tzdata \
     connect-proxy dumb-init postgresql-client \
