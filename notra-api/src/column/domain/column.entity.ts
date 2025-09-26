@@ -4,7 +4,7 @@ export class Column {
   constructor(
     private readonly id: number | null,
     private title: string,
-    private userId: string,
+    private taskBoardId: string,
     private order?: number,
     private activities: Activitie[] = [],
   ) {}
@@ -29,12 +29,12 @@ export class Column {
     this.title = title;
   }
 
-  public getUserId(): string {
-    return this.userId;
+  public getTaskBarId(): string {
+    return this.taskBoardId;
   }
 
-  public setUserId(userId: string): void {
-    this.userId = userId;
+  public setTaskBarId(taskBoardId: string): void {
+    this.taskBoardId = taskBoardId;
   }
 
   public getActivities(): Activitie[] {

@@ -12,7 +12,7 @@ export class PrismaColumnRepository implements ColumnRepository {
 
   async createColumn(column: Column) {
     const firstColumn = await this.prisma.column.findFirst({
-      where: { userId: column.getUserId() },
+      where: { taskBoardId: column.getTaskBarId() },
       orderBy: { order: 'desc' },
     });
 
@@ -20,17 +20,17 @@ export class PrismaColumnRepository implements ColumnRepository {
     const data = await this.prisma.column.create({
       data: {
         title: column.getTitle(),
-        userId: column.getUserId(),
+        taskBoardId: column.getTaskBarId(),
         order: nextOrder,
       },
     });
 
-    return new Column(data.id, data.title, data.userId, data.order);
+    return new Column(data.id, data.title, data.taskBoardId, data.order);
   }
 
-  async getColumnsByUserId(userId: string): Promise<Column[]> {
+  async getColumnsByUserId(taskBoardId: string): Promise<Column[]> {
     const columns = await this.prisma.column.findMany({
-      where: { userId },
+      where: { taskBoardId },
       include: {
         activities: true,
       },
@@ -46,7 +46,7 @@ export class PrismaColumnRepository implements ColumnRepository {
       return new Column(
         column.id,
         column.title,
-        column.userId,
+        column.taskBoardId,
         column.order,
         activities,
       );
@@ -65,7 +65,7 @@ export class PrismaColumnRepository implements ColumnRepository {
     return new Column(
       updatedColumn.id,
       updatedColumn.title,
-      updatedColumn.userId,
+      updatedColumn.taskBoardId,
       updatedColumn.order,
     );
   }
