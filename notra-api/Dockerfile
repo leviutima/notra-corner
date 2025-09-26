@@ -11,9 +11,7 @@ RUN npx prisma generate
 # ---- runtime ----
 FROM node:20-slim
 WORKDIR /app
-
-# deps úteis e tailscale
-RUN apt-get update && apt-get install -y curl ca-certificates iproute2 procps netcat-openbsd \
+RUN apt-get update && apt-get install -y curl ca-certificates iproute2 procps netcat-openbsd proxychains4 \
   && rm -rf /var/lib/apt/lists/*
 RUN curl -fsSL https://tailscale.com/install.sh | sh
 
@@ -22,8 +20,11 @@ COPY --from=build /app/dist ./dist
 COPY --from=build /app/package*.json ./
 COPY --from=build /app/prisma ./prisma
 
+# proxychains: usar o SOCKS5 local do tailscaled
+RUN printf 'strict_chain\nquiet_mode\n[ProxyList]\nsocks5  127.0.0.1 1055\n' > /etc/proxychains.conf
+
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-EXPOSE 8000
+EXPOSE 3000
 CMD ["/entrypoint.sh"]
