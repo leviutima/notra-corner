@@ -26,5 +26,5 @@ RUN printf 'strict_chain\nquiet_mode\n[ProxyList]\nsocks5  127.0.0.1 1055\n' > /
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-EXPOSE 3000
+EXPOSE 8000
 CMD ["/entrypoint.sh"]

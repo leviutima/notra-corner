@@ -1,24 +1,23 @@
 #!/usr/bin/env bash
-set -e
+set -euo pipefail
 
-# Inicia tailscaled com tun userspace + SOCKS5 local
+# 1) Inicia o tailscaled em userspace + SOCKS5
 /usr/sbin/tailscaled --tun=userspace-networking --socks5-server=localhost:1055 --state=/tmp/tailscale.state &
-sleep 2
-tailscale up --authkey="${TS_AUTHKEY}" --hostname="notra-api-render" --accept-dns=false
 
-# Espera DB via túnel
-for i in {1..30}; do
-  if proxychains4 -q bash -lc "nc -vz 100.94.203.110 5432"; then
-    echo "DB ok"
-    break
-  fi
-  echo "Aguardando DB via Tailscale... ($i/30)"
+# 2) Faz login na tailnet (sem interativo)
+tailscale up --authkey="${TS_AUTHKEY}" --hostname="${HOSTNAME:-notra-api-render}" --accept-routes --ssh
+echo "Tailscale IPv4: $(tailscale ip -4)"
+
+# 3) Espera o Postgres ficar acessível pelo túnel
+echo "Aguardando Postgres via Tailscale..."
+until proxychains4 -q bash -lc "nc -vz 100.94.203.110 5432"; do
+  echo "sem conexão ainda... tentando de novo em 2s"
   sleep 2
 done
+echo "DB ok"
 
-# (opcional) npx prisma migrate deploy via proxy
-proxychains4 -q npx prisma migrate deploy || true
+# 4) Aplica migrações via proxy
+proxychains4 -q npx prisma migrate deploy
 
-# ⚠️ O servidor Nest TAMBÉM precisa iniciar via proxy:
+# 5) Sobe a API **via proxy**
 exec proxychains4 -q node dist/main.js
-
