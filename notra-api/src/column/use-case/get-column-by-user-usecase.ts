@@ -8,12 +8,12 @@ export class GetColumnByUserUseCase {
     private readonly columnRepo: ColumnRepository
   ) {}
 
-  async execute(userId: string) {
-    const columns = await this.columnRepo.getColumnsByUserId(userId);
+  async execute(taskBoardId: string) {
+    const columns = await this.columnRepo.getColumnsByUserId(taskBoardId);
     return columns.map((column) => ({
       id: column.getId(),
       title: column.getTitle(),
-      userId: column.getUserId(),
+      taskBoardIs: column.getTaskBoardId(),
       activities: column.getActivities(),
       order: column.getOrder(),
     }));

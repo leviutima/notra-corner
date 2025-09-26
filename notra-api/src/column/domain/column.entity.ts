@@ -29,7 +29,7 @@ export class Column {
     this.title = title;
   }
 
-  public getTaskBarId(): string {
+  public getTaskBoardId(): string {
     return this.taskBoardId;
   }
 

@@ -14,7 +14,7 @@ export class CreateColumnUseCase {
   ) {}
 
   async execute(dto: CreateColumnDto) {
-    const column = new Column(null, dto.title, dto.userId);
+    const column = new Column(null, dto.title, dto.taskBoardId);
     const createdColumn = await this.columnRepo.createColumn(column)
     return createdColumn
   }

@@ -7,7 +7,7 @@ export class CreateColumnDto {
   @IsString()
   title: string
 
-  @ApiProperty({ description: "ID do usuário dono da coluna" })
+  @ApiProperty({ description: "ID do quadro" })
   @IsString()
-  userId: string
+  taskBoardId: string
 }

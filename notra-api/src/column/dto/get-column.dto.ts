@@ -11,7 +11,7 @@ export class GetColumnResponseDto {
   title: string;
 
   @ApiProperty()
-  userId: string;
+  taskBoardId: string
 
   @ApiProperty()
   @IsArray()
@@ -24,7 +24,7 @@ export class GetColumnResponseDto {
   constructor(column: Column) {
     this.id = column.getId();
     this.title = column.getTitle();
-    this.userId = column.getUserId()
+    this.taskBoardId = column.getTaskBoardId()
     this.activities = column.getActivities();
     this.order = column.getOrder();
   }

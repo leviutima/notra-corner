@@ -12,7 +12,7 @@ export class PrismaColumnRepository implements ColumnRepository {
 
   async createColumn(column: Column) {
     const firstColumn = await this.prisma.column.findFirst({
-      where: { taskBoardId: column.getTaskBarId() },
+      where: { taskBoardId: column.getTaskBoardId() },
       orderBy: { order: 'desc' },
     });
 
@@ -20,7 +20,7 @@ export class PrismaColumnRepository implements ColumnRepository {
     const data = await this.prisma.column.create({
       data: {
         title: column.getTitle(),
-        taskBoardId: column.getTaskBarId(),
+        taskBoardId: column.getTaskBoardId(),
         order: nextOrder,
       },
     });

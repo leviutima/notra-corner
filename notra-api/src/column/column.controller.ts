@@ -43,9 +43,9 @@ export class ColumnController {
   @ApiOperation({ summary: 'Listar colunas de um usuário' })
   @ApiParam({ name: 'id', type: String, description: 'ID do usuário' })
   @ApiResponse({ status: 200, description: 'Lista de colunas do usuário' })
-  @Get('/user/:id')
-  async getColumnByUser(@Param('id') userId: string) {
-    return await this.useCaseGetColumnByUser.execute(userId);
+  @Get('/taskBoard/:id')
+  async getColumnByUser(@Param('id') taskBoardId: string) {
+    return await this.useCaseGetColumnByUser.execute(taskBoardId);
   }
 
   @Put('/:id')
