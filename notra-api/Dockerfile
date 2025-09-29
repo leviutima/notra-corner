@@ -39,19 +39,21 @@ EXPOSE 8000
 #   ex.: DB_HOST=100.x.y.z  DB_PORT=5432  PGUSER=USER  PGPASSWORD=SENHA  PGDATABASE=DB
 
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
-CMD ["/bin/bash", "-lc", "\
+CMD ["/bin/bash","-lc","\
+  set -euo pipefail; \
   /usr/sbin/tailscaled --tun=userspace-networking --state=/tmp/ts.state & \
-  tailscale up --authkey='${TS_AUTHKEY}' --accept-dns=false --timeout=60s && \
+  echo '>> Fazendo tailscale up...'; \
+  tailscale up --authkey=\"${TS_AUTHKEY}\" --accept-dns=false --timeout=60s || { echo '!! tailscale up falhou'; exit 1; }; \
+  echo '>> Tailscale IPv4:' $(tailscale ip -4 || echo 'desconhecido'); \
+  echo '>> DATABASE_URL='\"${DATABASE_URL}\"; \
+  echo '>> DB_HOST='\"${DB_HOST}\"' DB_PORT='\"${DB_PORT:-5432}\"' PGUSER='\"${PGUSER}\"' PGDATABASE='\"${PGDATABASE}\"; \
   echo '>> Esperando DB responder...'; \
   for i in {1..30}; do \
-    if PGPASSWORD='${PGPASSWORD:-}' psql \
-      -h '${DB_HOST:-100.94.203.110}' \
-      -p '${DB_PORT:-5432}' \
-      -U '${PGUSER:-}' \
-      -d '${PGDATABASE:-postgres}' \
-      -c 'select 1' >/dev/null 2>&1; then \
-      echo '>> DB OK'; break; fi; \
-    echo 'Aguardando DB ('\"$i\"'/30)'; sleep 2; \
+    if PGPASSWORD=\"${PGPASSWORD:-}\" psql \
+       -h \"${DB_HOST:-100.94.203.110}\" -p \"${DB_PORT:-5432}\" \
+       -U \"${PGUSER:-postgres}\" -d \"${PGDATABASE:-postgres}\" \
+       -c 'select 1' >/dev/null 2>&1; then echo '>> DB OK'; break; fi; \
+    echo \"Aguardando DB ($i/30)\"; sleep 2; \
   done; \
   node dist/main.js \
 "]
