@@ -2,12 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { User, UserRole } from '../domain/user.entity';
 import { PrismaService } from 'src/prisma.service';
 import { UserRepository } from './user-repository';
-import { UpdateUserDto } from '../dto/update-user.dto';
 import * as bcrypt from 'bcryptjs';
-import { GetUserResponseDto } from '../dto/get-use-response.dto';
 import { MailService } from 'src/mail/mail-service';
-import * as nodemailer from 'nodemailer';
-import crypto from 'crypto';
 
 interface UserResponse {
   id: string;

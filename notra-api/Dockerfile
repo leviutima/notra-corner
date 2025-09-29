@@ -17,12 +17,12 @@ RUN npx prisma generate
 FROM node:20-slim
 WORKDIR /app
 
-# utilitários + tailscale + socat + connect-proxy + dumb-init + psql (para teste)
+# utilitários + tailscale + socat + dumb-init + psql (para teste)
 RUN apt-get update && apt-get install -y \
     curl ca-certificates iproute2 procps netcat-openbsd socat tzdata \
-    connect-proxy dumb-init postgresql-client \
-  && rm -rf /var/lib/apt/lists/* \
-  && curl -fsSL https://tailscale.com/install.sh | sh
+    postgresql-client dumb-init \
+ && rm -rf /var/lib/apt/lists/* \
+ && curl -fsSL https://tailscale.com/install.sh | sh
 
 # app
 COPY --from=build /app/node_modules ./node_modules
@@ -33,6 +33,11 @@ COPY --from=build /app/prisma ./prisma
 # entrypoint
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
+
+ENV PORT=8000 \
+    LOCAL_FWD_PORT=15432 \
+    TS_PG_HOST=100.94.203.110 \
+    TS_PG_PORT=5432
 
 EXPOSE 8000
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
