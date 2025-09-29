@@ -14,11 +14,10 @@ echo ">> Iniciando tailscaled (userspace; SOCKS5 em 127.0.0.1:1055)..."
   --state=/tmp/tailscale.state &
 
 # espere o daemon abrir socket
-sleep 1
+sleep 2
 
 echo ">> Autenticando no Tailscale..."
 : "${TS_AUTHKEY:?Defina TS_AUTHKEY no ambiente (chave preauthorized/ephemeral)}"
-# --accept-dns=false evita o warning de DNS base config
 until tailscale up \
   --authkey="${TS_AUTHKEY}" \
   --hostname="${RENDER_SERVICE_NAME:-render-app}-$(hostname)" \
@@ -30,16 +29,19 @@ done
 
 echo ">> Tailscale IPv4: $(tailscale ip -4 || true)"
 
-# Limpa variáveis de proxy para não confundir o driver
+# Limpa variáveis de proxy
 unset HTTP_PROXY HTTPS_PROXY http_proxy https_proxy ALL_PROXY all_proxy NO_PROXY no_proxy
 
 echo ">> Abrindo túnel local ${LOCAL_FWD_PORT} -> ${TS_PG_HOST}:${TS_PG_PORT} via SOCKS5 (127.0.0.1:1055)..."
-# Forma correta com SOCKS5 no socat (NÃO use PROXY:)
 socat TCP-LISTEN:${LOCAL_FWD_PORT},reuseaddr,fork \
       SOCKS5:127.0.0.1:${TS_PG_HOST}:${TS_PG_PORT},socksport=1055 &
 SOCAT_PID=$!
 
+# Aguarda mais tempo para o socat estabilizar
+sleep 2
+
 # Espera a porta local subir
+echo ">> Verificando listener do túnel..."
 for i in {1..30}; do
   if nc -z 127.0.0.1 "${LOCAL_FWD_PORT}"; then
     echo ">> Túnel OK em 127.0.0.1:${LOCAL_FWD_PORT}"
@@ -49,28 +51,36 @@ for i in {1..30}; do
   sleep 1
 done
 
-# (Opcional) Check do Postgres via túnel, sem derrubar o container se falhar
+# CRÍTICO: Testa conexão real ao Postgres antes de iniciar a app
+echo ">> Testando conexão real com o Postgres..."
 if command -v pg_isready >/dev/null 2>&1; then
-  for i in {1..20}; do
-    if pg_isready -h 127.0.0.1 -p "${LOCAL_FWD_PORT}" -d postgres >/dev/null 2>&1; then
-      echo ">> Postgres respondeu ao pg_isready."
+  for i in {1..30}; do
+    if pg_isready -h 127.0.0.1 -p "${LOCAL_FWD_PORT}" -d postgres -t 10 2>&1; then
+      echo ">> ✅ Postgres respondeu com sucesso!"
+      # Aguarda mais um pouco para garantir estabilidade
+      sleep 3
       break
     fi
-    echo "Aguardando Postgres responder pg_isready... ($i/20)"
+    echo "Aguardando Postgres responder... ($i/30)"
     sleep 2
   done
+  
+  # Testa uma query real
+  echo ">> Testando query real no Postgres..."
+  if PGPASSWORD="${DB_PASSWORD:-}" psql -h 127.0.0.1 -p "${LOCAL_FWD_PORT}" \
+       -U "${DB_USER:-postgres}" -d "${DB_NAME:-postgres}" \
+       -c "SELECT 1;" >/dev/null 2>&1; then
+    echo ">> ✅ Query de teste executada com sucesso!"
+  else
+    echo ">> ⚠️ Query de teste falhou, mas continuando..."
+  fi
+else
+  echo ">> ⚠️ pg_isready não disponível, pulando verificação"
+  # Se não tem pg_isready, aguarda mais tempo
+  sleep 5
 fi
 
 echo ">> Iniciando API (porta ${PORT})..."
-node dist/main.js &
-APP_PID=$!
+exec node dist/main.js
 
-term_handler() {
-  echo ">> Encerrando..."
-  kill -TERM "${APP_PID}" 2>/dev/null || true
-  kill -TERM "${SOCAT_PID}" 2>/dev/null || true
-  # tailscaled sai junto quando o shell termina
-}
-trap term_handler TERM INT
-
-wait "${APP_PID}"
+# Não precisa mais de term_handler se usar exec
