@@ -27,6 +27,6 @@ export class ForgotPasswordUseCase {
     await this.mail.sendForgotPassword(email, code);
     console.log(code);
     
-    return {user: user.id, }
+    return {user: user.id}
   }
 }
